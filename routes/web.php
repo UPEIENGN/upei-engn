@@ -8,8 +8,8 @@ Route::get('', [SocietyController::class, 'home'])->name('home');
 Route::get('about', [SocietyController::class, 'about'])->name('about');
 Route::get('events', [SocietyController::class, 'events'])->name('events');
 
-Route::middleware('auth')
-    ->middleware('verified')
+Route::middleware('verified')
+    ->middleware('auth')
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
