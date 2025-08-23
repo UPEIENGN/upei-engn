@@ -1,15 +1,18 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SocietyController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::get('/', [SocietyController::class, 'show'])->name('home');
+Route::get('/', [SocietyController::class, 'home'])->name('home');
+Route::get('/about', [SocietyController::class, 'about'])->name('about');
 
-Route::get('dashboard', function () {
-    return Inertia::render('Dashboard', []);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth')
+    ->middleware('verified')
+    ->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
-require __DIR__.'/society_member.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/society_member.php';

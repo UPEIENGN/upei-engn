@@ -3,6 +3,7 @@ import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Can, type NavItem, Society } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
+import { computed, ComputedRef } from 'vue';
 
 interface Props {
     society: Society;
@@ -11,7 +12,7 @@ interface Props {
 
 defineProps<Props>();
 
-const navItems: NavItem[] = [
+const navItems: ComputedRef<NavItem[]> = computed(() => [
     {
         title: 'Home',
         href: route('home'),
@@ -20,29 +21,29 @@ const navItems: NavItem[] = [
     },
     {
         title: 'About',
-        href: '',
-        isActive: false,
+        href: route('about'),
+        isActive: route().current('about'),
         can: true,
     },
-    {
-        title: 'Events',
-        href: '',
-        isActive: false,
-        can: true,
-    },
-    {
-        title: 'Store',
-        href: '',
-        isActive: false,
-        can: true,
-    },
-];
+    // {
+    //     title: 'Events',
+    //     href: route('events'),
+    //     isActive: route().current('events'),
+    //     can: true,
+    // },
+    // {
+    //     title: 'Store',
+    //     href: route('store'),
+    //     isActive: route().current('store'),
+    //     can: true,
+    // },
+]);
 </script>
 
 <template>
     <Head :title="society.name" />
     <div class="flex min-h-screen flex-col items-center p-6 lg:justify-center lg:p-8">
-        <div class="w-full border-sidebar-border/70 dark:border-sidebar-border relative h-[20vh] overflow-hidden rounded-xl border">
+        <div class="relative h-[20vh] w-full overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
             <img
                 src="https://placehold.co/1300x200"
                 :alt="society.name"
@@ -58,7 +59,7 @@ const navItems: NavItem[] = [
             </div>
         </div>
 
-        <div class="w-full flex justify-center py-6">
+        <div class="flex w-full justify-center py-6">
             <NavigationMenu>
                 <NavigationMenuList>
                     <template v-for="(item, index) in navItems">
@@ -75,13 +76,12 @@ const navItems: NavItem[] = [
             </NavigationMenu>
         </div>
 
-        <div class="w-full border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 rounded-xl border md:min-h-min">
-                <slot>
-                    <PlaceholderPattern />
-                </slot>
-            </div>
+        <div class="relative min-h-[100vh] w-full flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
+            <slot>
+                <PlaceholderPattern />
+            </slot>
+        </div>
     </div>
-
 </template>
 
 <style scoped></style>

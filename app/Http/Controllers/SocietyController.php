@@ -13,11 +13,23 @@ class SocietyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(): Response
+    public function home(): Response
     {
         $society = Society::first();
 
-        return Inertia::render('Welcome', [
+        return Inertia::render('society/Home', [
+            'society' => $society,
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function about(): Response
+    {
+        $society = Society::first();
+
+        return Inertia::render('society/About', [
             'society' => $society,
         ]);
     }
