@@ -15,6 +15,7 @@ export interface NavItem {
     href: string;
     icon?: LucideIcon;
     isActive?: boolean;
+    can: boolean;
 }
 
 export type AppPageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -31,8 +32,27 @@ export interface User {
     email: string;
     avatar?: string;
     email_verified_at: string | null;
+    is_admin: boolean;
     created_at: string;
     updated_at: string;
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface Can {
+    create: boolean;
+    update: boolean;
+    delete: boolean;
+}
+export interface Society {
+    id: string;
+    name: string;
+    description: string;
+    email: string;
+    facebook_url: string;
+    instagram_handle: string;
+    twitter_handle: string;
+    discord_url: string;
+    meeting_schedule: string;
+    meeting_location: string;
+}

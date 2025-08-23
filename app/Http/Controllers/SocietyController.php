@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\Society\UpdateSocietyRequest;
+use App\Models\Society;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
+
+class SocietyController extends Controller
+{
+    /**
+     * Display the specified resource.
+     */
+    public function show(): Response
+    {
+        $society = Society::first();
+
+        return Inertia::render('Welcome', [
+            'society' => $society,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateSocietyRequest $request): RedirectResponse
+    {
+        $society = Society::first();
+
+        $society->update($request->validated());
+
+        return redirect()->route('society.edit', $society)
+            ->with('success', 'Society updated successfully.');
+    }
+}
