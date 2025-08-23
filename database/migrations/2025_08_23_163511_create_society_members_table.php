@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
 
-            $table->date('renewed_at')->nullable();
+            $table->timestamp('renewed_at')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

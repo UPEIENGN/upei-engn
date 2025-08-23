@@ -27,4 +27,11 @@ class SocietyMemberFactory extends Factory
             'renewed_at' => $this->faker->optional()->date(),
         ];
     }
+
+    public function society(Society $society): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'society_id' => $society->id,
+        ]);
+    }
 }
