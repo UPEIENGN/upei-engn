@@ -10,9 +10,6 @@ use Inertia\Response;
 
 class SocietyController extends Controller
 {
-    /**
-     * Display the specified resource.
-     */
     public function home(): Response
     {
         $society = Society::first();
@@ -22,14 +19,20 @@ class SocietyController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function about(): Response
     {
         $society = Society::first();
 
         return Inertia::render('society/About', [
+            'society' => $society,
+        ]);
+    }
+
+    public function events(): Response
+    {
+        $society = Society::first();
+
+        return Inertia::render('society/Events', [
             'society' => $society,
         ]);
     }
