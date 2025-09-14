@@ -9,8 +9,6 @@ import type {
 import {
     FlexRender,
     getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
     getSortedRowModel,
     useVueTable,
 } from '@tanstack/vue-table'
@@ -27,36 +25,78 @@ import {
 import DataTablePagination from '@/components/ui/data-table/DataTablePagination.vue';
 import { ref } from 'vue';
 import DataTableToolbar from '@/components/ui/data-table/DataTableToolbar.vue';
+import { Pagination, Society } from '@/types';
 
 const props = defineProps<{
     columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    pagination: Pagination<TData>
+    society: Society,
 }>()
+
+const emit = defineEmits([
+    'page-changed',
+    'per-page-changed',
+    'filter-changed'
+])
+
 
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 const rowSelection = ref({})
+const pagination = ref({
+    pageIndex: props.pagination.current_page - 1, // TanStack uses 0-based index
+    pageSize: props.pagination.per_page,
+})
 
 const table = useVueTable({
-    get data() { return props.data },
+    get data() { return props.pagination.data },
     get columns() { return props.columns },
     state: {
         get sorting() { return sorting.value },
         get columnFilters() { return columnFilters.value },
         get columnVisibility() { return columnVisibility.value },
         get rowSelection() { return rowSelection.value },
+        get pagination() { return pagination.value },
     },
     enableRowSelection: true,
     onSortingChange: updaterOrValue => valueUpdater(updaterOrValue, sorting),
-    onColumnFiltersChange: updaterOrValue => valueUpdater(updaterOrValue, columnFilters),
     onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
-    onRowSelectionChange: updaterOrValue => valueUpdater(updaterOrValue, rowSelection),
+    onRowSelectionChange: updaterOrValue => {
+        valueUpdater(updaterOrValue, rowSelection)
+    },
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    manualFiltering: true,
+    onColumnFiltersChange: updaterOrValue => {
+        valueUpdater(updaterOrValue, columnFilters)
+
+        rowSelection.value = {}
+
+        // send search query to server
+        const filter = columnFilters.value[0]?.value ?? ''
+        emit('filter-changed', filter)
+    },
+    manualPagination: true,
+    onPaginationChange: (updaterOrValue) => {
+        // update pageIndex locally (optional)
+        valueUpdater(updaterOrValue, pagination)
+
+        rowSelection.value = {}
+
+        const newPage = pagination.value.pageIndex + 1
+
+        emit('page-changed', newPage)
+    },
+    pageCount: props.pagination.last_page,
+    rowCount: props.pagination.per_page,
 })
+
+function onPerPageChange(size: number) {
+    rowSelection.value = {}
+
+    emit('per-page-changed', size)
+}
 </script>
 
 <template>
@@ -96,6 +136,6 @@ const table = useVueTable({
             </Table>
         </div>
 
-        <DataTablePagination :table="table" />
+        <DataTablePagination :table="table" @per-page-changed="onPerPageChange"/>
     </div>
 </template>

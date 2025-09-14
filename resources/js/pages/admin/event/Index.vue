@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { BreadcrumbItem, Pagination, Society, Event } from '@/types';
 import {CalendarPlus2} from 'lucide-vue-next';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
@@ -20,6 +20,31 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('admin.societies.events.index', { society: props.society }),
     },
 ];
+
+function onPageChange(newPage: number) {
+    router.get(route('admin.societies.events.index', {
+        society: props.society.id,
+        page: newPage
+    }), {}, { preserveState: true, preserveScroll: true })
+}
+
+function onPerPageChange(newSize: number) {
+    router.get(route('admin.societies.events.index', {
+        society: props.society.id,
+        page: 1,
+        per_page: newSize
+    }), {}, { preserveState: true, preserveScroll: true })
+}
+
+function onFilterChange(filter: string) {
+    router.get(
+        route('admin.societies.events.index', {
+            society: props.society.id,
+            search: filter,
+            page: 1,
+        }), {}, { preserveState: true, preserveScroll: true }
+    )
+}
 </script>
 
 <template>
@@ -42,7 +67,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl md:min-h-min">
-                <DataTable :columns="columns" :data="events.data" />
+                <DataTable :society="society" :columns="columns" :pagination="events" @page-changed="onPageChange" @per-page-changed="onPerPageChange" @filter-changed="onFilterChange"/>
             </div>
         </div>
     </AppLayout>

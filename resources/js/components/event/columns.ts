@@ -46,7 +46,6 @@ export const columns: ColumnDef<Event>[] = [
         ),
         cell: ({ row }) => {
             const datetime = new Date(row.getValue('start'))
-            console.log(datetime.toLocaleString('en-CA'))
             return h('div', { class: 'flex items-center' }, datetime.toLocaleString('en-CA'))
         }
     },

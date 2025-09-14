@@ -6,6 +6,7 @@ use App\Http\Requests\Event\StoreEventRequest;
 use App\Http\Requests\Event\UpdateEventRequest;
 use App\Models\Event;
 use App\Models\Society;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class EventController extends Controller
@@ -13,13 +14,16 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Society $society)
+    public function index(Request $request, Society $society)
     {
         $this->authorize('viewAny', [Event::class, $society]);
 
+        $perPage = $request->input('per_page', 10);
+        $search = $request->input('search', "");
+
         return Inertia::render('admin/event/Index', [
             'society' => $society,
-            'events' => $society->events()->paginate()
+            'events' => $society->events()->where('title', 'like', "%$search%")->paginate($perPage)
         ]);
     }
 

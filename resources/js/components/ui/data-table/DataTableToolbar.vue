@@ -22,7 +22,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
             <Input
                 placeholder="Search..."
                 :model-value="(table.getColumn('title')?.getFilterValue() as string) ?? ''"
-                class="h-8 w-[150px] lg:w-[250px]"
+                class="h-8 w-[250px] lg:w-[350px]"
                 @input="table.getColumn('title')?.setFilterValue($event.target.value)"
             />
 
