@@ -20,10 +20,17 @@ class EventController extends Controller
 
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search', "");
+        $sort = $request->input('sort', "created_at");
+        $desc = $request->boolean('desc', false);
+
+        $events = $society->events()
+            ->where('title', 'like', "%$search%")
+            ->orderBy($sort, $desc ? "desc" : "asc")
+            ->paginate($perPage);
 
         return Inertia::render('admin/event/Index', [
             'society' => $society,
-            'events' => $society->events()->where('title', 'like', "%$search%")->paginate($perPage)
+            'events' => $events
         ]);
     }
 

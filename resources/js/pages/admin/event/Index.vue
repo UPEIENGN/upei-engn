@@ -21,26 +21,33 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-function onPageChange(newPage: number) {
+function onPaginationChange(pagination: {pageIndex: number; pageSize: number}) {
     router.get(route('admin.societies.events.index', {
+        ...route().params,
         society: props.society.id,
-        page: newPage
-    }), {}, { preserveState: true, preserveScroll: true })
-}
-
-function onPerPageChange(newSize: number) {
-    router.get(route('admin.societies.events.index', {
-        society: props.society.id,
-        page: 1,
-        per_page: newSize
+        page: pagination.pageIndex + 1,
+        per_page: pagination.pageSize,
     }), {}, { preserveState: true, preserveScroll: true })
 }
 
 function onFilterChange(filter: string) {
     router.get(
         route('admin.societies.events.index', {
+            ...route().params,
             society: props.society.id,
             search: filter,
+            page: 1,
+        }), {}, { preserveState: true, preserveScroll: true }
+    )
+}
+
+function onSortChange(sort: {id: string, desc: boolean}[]) {
+    router.get(
+        route('admin.societies.events.index', {
+            ...route().params,
+            society: props.society.id,
+            sort: sort[0]?.id,
+            desc: sort[0]?.desc,
             page: 1,
         }), {}, { preserveState: true, preserveScroll: true }
     )
@@ -67,7 +74,12 @@ function onFilterChange(filter: string) {
                 </div>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl md:min-h-min">
-                <DataTable :society="society" :columns="columns" :pagination="events" @page-changed="onPageChange" @per-page-changed="onPerPageChange" @filter-changed="onFilterChange"/>
+                <DataTable :society="society"
+                           :columns="columns"
+                           :pagination="events"
+                           @pagination-changed="onPaginationChange"
+                           @filter-changed="onFilterChange"
+                           @sort-changed="onSortChange"/>
             </div>
         </div>
     </AppLayout>

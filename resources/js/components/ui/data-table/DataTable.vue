@@ -23,7 +23,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import DataTablePagination from '@/components/ui/data-table/DataTablePagination.vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import DataTableToolbar from '@/components/ui/data-table/DataTableToolbar.vue';
 import { Pagination, Society } from '@/types';
 
@@ -34,9 +34,9 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits([
-    'page-changed',
-    'per-page-changed',
-    'filter-changed'
+    'pagination-changed',
+    'filter-changed',
+    'sort-changed'
 ])
 
 
@@ -60,43 +60,38 @@ const table = useVueTable({
         get pagination() { return pagination.value },
     },
     enableRowSelection: true,
-    onSortingChange: updaterOrValue => valueUpdater(updaterOrValue, sorting),
     onColumnVisibilityChange: updaterOrValue => valueUpdater(updaterOrValue, columnVisibility),
     onRowSelectionChange: updaterOrValue => {
         valueUpdater(updaterOrValue, rowSelection)
     },
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
+    manualSorting: true,
+    onSortingChange: updaterOrValue => {
+        valueUpdater(updaterOrValue, sorting)
+
+        rowSelection.value = {}
+
+        emit('sort-changed', sorting.value)
+    },
     manualFiltering: true,
     onColumnFiltersChange: updaterOrValue => {
         valueUpdater(updaterOrValue, columnFilters)
 
         rowSelection.value = {}
 
-        // send search query to server
         const filter = columnFilters.value[0]?.value ?? ''
         emit('filter-changed', filter)
     },
     manualPagination: true,
-    onPaginationChange: (updaterOrValue) => {
-        // update pageIndex locally (optional)
+    onPaginationChange: updaterOrValue => {
         valueUpdater(updaterOrValue, pagination)
 
         rowSelection.value = {}
 
-        const newPage = pagination.value.pageIndex + 1
-
-        emit('page-changed', newPage)
+        emit('pagination-changed', pagination.value)
     },
-    pageCount: props.pagination.last_page,
-    rowCount: props.pagination.per_page,
+    rowCount: props.pagination.total,
 })
-
-function onPerPageChange(size: number) {
-    rowSelection.value = {}
-
-    emit('per-page-changed', size)
-}
 </script>
 
 <template>
@@ -136,6 +131,6 @@ function onPerPageChange(size: number) {
             </Table>
         </div>
 
-        <DataTablePagination :table="table" @per-page-changed="onPerPageChange"/>
+        <DataTablePagination :table="table"/>
     </div>
 </template>

@@ -15,14 +15,6 @@ interface DataTablePaginationProps {
     table: Table<TData>
 }
 defineProps<DataTablePaginationProps>()
-
-const emit = defineEmits([
-    'per-page-changed'
-])
-
-function onPageSizeChange(newSize: number) {
-    emit('per-page-changed', newSize)
-}
 </script>
 
 <template>
@@ -38,7 +30,7 @@ function onPageSizeChange(newSize: number) {
                 </p>
                 <Select
                     :model-value="`${table.getState().pagination.pageSize}`"
-                    @update:model-value="onPageSizeChange"
+                    @update:model-value="table.setPageSize"
                 >
                     <SelectTrigger class="h-8 w-[70px]">
                         <SelectValue :placeholder="`${table.getState().pagination.pageSize}`" />

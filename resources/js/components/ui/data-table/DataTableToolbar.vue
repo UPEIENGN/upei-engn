@@ -14,6 +14,12 @@ interface DataTableToolbarProps {
 const props = defineProps<DataTableToolbarProps>()
 
 const isFiltered = computed(() => props.table.getState().columnFilters.length > 0)
+const isSorted = computed(() => props.table.getState().sorting.length > 0)
+
+function reset() {
+    props.table.resetColumnFilters()
+    props.table.resetSorting()
+}
 </script>
 
 <template>
@@ -27,10 +33,10 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
             />
 
             <Button
-                v-if="isFiltered"
+                v-if="isFiltered || isSorted"
                 variant="ghost"
                 class="h-8 px-2 lg:px-3"
-                @click="table.resetColumnFilters()"
+                @click="reset"
             >
                 Reset
                 <X class="ml-2 h-4 w-4" />
