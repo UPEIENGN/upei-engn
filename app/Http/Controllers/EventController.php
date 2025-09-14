@@ -29,6 +29,10 @@ class EventController extends Controller
     public function create(Society $society)
     {
         $this->authorize('create', [Event::class, $society]);
+
+        return Inertia::render('admin/event/Create', [
+            'society' => $society,
+        ]);
     }
 
     /**

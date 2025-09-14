@@ -22,14 +22,14 @@ const mainNavItems: NavItem[] = [
         title: 'Events',
         href: route('admin.societies.events.index', {society: page.props.society}),
         icon: CalendarDaysIcon,
-        isActive: route().current('admin.societies.events.index', {society: page.props.society}),
+        isActive: route().current('admin.societies.events.*'),
         can: true
     },
     {
         title: 'Society Members',
         href: route('admin.societies.society-members.index', {society: page.props.society}),
         icon: UsersIcon,
-        isActive: route().current('admin.societies.society-members.index', {society: page.props.society}),
+        isActive: route().current('admin.societies.society-members.*'),
         can: true
     },
 ];
