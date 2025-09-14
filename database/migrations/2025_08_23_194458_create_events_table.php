@@ -15,11 +15,11 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('society_id')->constrained('societies')->cascadeOnDelete();
 
-            $table->string('name');
+            $table->string('title');
             $table->text('description')->nullable();
             $table->string('location')->nullable();
-            $table->timestamp('start_time');
-            $table->timestamp('end_time')->nullable();
+            $table->dateTime('start');
+            $table->dateTime('end')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

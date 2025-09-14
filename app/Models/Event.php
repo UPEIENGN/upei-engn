@@ -15,11 +15,11 @@ class Event extends Model
 
     protected $fillable = [
         'society_id',
-        'name',
+        'title',
         'description',
         'location',
-        'start_time',
-        'end_time',
+        'start',
+        'end',
     ];
 
     /**
@@ -30,8 +30,8 @@ class Event extends Model
     protected function casts(): array
     {
         return [
-            'start_time' => 'datetime',
-            'end_time' => 'datetime',
+            'start' => 'datetime',
+            'end' => 'datetime',
         ];
     }
 

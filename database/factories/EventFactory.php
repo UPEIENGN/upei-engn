@@ -22,11 +22,11 @@ class EventFactory extends Factory
 
         return [
             'society_id' => Society::factory(),
-            'name' => $this->faker->sentence(3),
+            'title' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
             'location' => $this->faker->address(),
-            'start_time' => $start,
-            'end_time' => $end,
+            'start' => $start,
+            'end' => $end,
         ];
     }
 

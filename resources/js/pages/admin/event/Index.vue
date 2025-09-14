@@ -2,8 +2,10 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { BreadcrumbItem, Pagination, Society, Event } from '@/types';
-import {CalendarPlus2Icon} from 'lucide-vue-next';
+import {CalendarPlus2} from 'lucide-vue-next';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import DataTable from '@/components/ui/data-table/DataTable.vue';
+import { columns } from '@/components/event/columns';
 
 interface Props {
     society: Society;
@@ -32,18 +34,17 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <Link as="div"
                       :href="route('admin.societies.events.create', {society: society})"
                       class="flex items-center justify-center cursor-pointer hover:bg-gray-100 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <CalendarPlus2Icon class="size-5 mr-2"/>
+                    <CalendarPlus2 class="size-5 mr-2"/>
                     Create New Event
                 </Link>
                 <div class="p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern/>
                 </div>
             </div>
-            <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                Events Table
+            <div class="relative min-h-[100vh] flex-1 rounded-xl md:min-h-min">
+                <DataTable :columns="columns" :data="events.data" />
             </div>
         </div>
     </AppLayout>
 </template>
 
-<style scoped></style>

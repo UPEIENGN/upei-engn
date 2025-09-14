@@ -60,7 +60,7 @@ export interface Society {
 export interface Event{
     id: string;
     society_id: string;
-    name: string;
+    title: string;
     description: string;
     location: string;
     start_time: string;
