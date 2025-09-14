@@ -56,3 +56,35 @@ export interface Society {
     meeting_schedule: string;
     meeting_location: string;
 }
+
+export interface Event{
+    id: string;
+    society_id: string;
+    name: string;
+    description: string;
+    location: string;
+    start_time: string;
+    end_time: string;
+}
+
+export interface Pagination<T> {
+    current_page: number;
+    data: Array<T>;
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: Array<PaginationLink>;
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url: string;
+    to: number;
+    total: number;
+}
+
+export interface PaginationLink {
+    url: string;
+    label: string;
+    active: boolean;
+}

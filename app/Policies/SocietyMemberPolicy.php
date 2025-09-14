@@ -2,8 +2,10 @@
 
 namespace App\Policies;
 
+use App\Models\Society;
 use App\Models\SocietyMember;
 use App\Models\User;
+use App\SocietyMemberRole;
 use Illuminate\Auth\Access\Response;
 
 class SocietyMemberPolicy
@@ -11,56 +13,54 @@ class SocietyMemberPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, Society $society): bool
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, SocietyMember $societyMember): bool
-    {
-        return false;
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Society $society): bool
     {
-        return false;
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, SocietyMember $societyMember): bool
+    public function update(User $user, Society $society, SocietyMember $societyMember): bool
     {
-        return false;
+        if ($societyMember->role == SocietyMemberRole::Owner) {
+            return $society->userHasRole($user, [
+                SocietyMemberRole::Owner,
+            ]);
+        }
+
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, SocietyMember $societyMember): bool
+    public function delete(User $user, Society $society, SocietyMember $societyMember): bool
     {
-        return false;
-    }
+        if ($user->email == $societyMember->email) {
+            return false;
+        }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, SocietyMember $societyMember): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, SocietyMember $societyMember): bool
-    {
-        return false;
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
     }
 }

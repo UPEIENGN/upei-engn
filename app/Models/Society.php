@@ -33,12 +33,17 @@ class Society extends Model
         return $this->hasMany(SocietyMember::class);
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
     public function userHasRole(User $user, $roles): bool
     {
         $roles = is_array($roles) ? $roles : [$roles];
 
         return $this->members()
-            ->where('user_id', $user->id)
+            ->where('email', $user->email)
             ->whereIn('role', $roles)
             ->exists();
     }

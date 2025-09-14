@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('society_members', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('society_id')->references('id')->on('society');
+            $table->foreignUuid('society_id')->references('id')->on('societies');
 
             $table->string('email')->unique();
 

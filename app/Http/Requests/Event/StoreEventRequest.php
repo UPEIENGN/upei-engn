@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Event;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,7 +22,6 @@ class StoreEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'society_id' => ['required', 'exists:societies,id'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'location' => ['nullable', 'string', 'max:255'],

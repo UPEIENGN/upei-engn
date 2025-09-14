@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\SocietyController;
+use App\Http\Controllers\SocietyMemberController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [SocietyController::class, 'home'])->name('home');
@@ -14,8 +16,9 @@ Route::middleware('verified')
     ->name('admin.')
     ->group(function () {
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::resource('societies.society-members', SocietyMemberController::class);
+        Route::resource('societies.events', EventController::class);
     });
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
-require __DIR__ . '/society_member.php';
