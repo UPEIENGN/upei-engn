@@ -63,8 +63,8 @@ export interface Event{
     title: string;
     description: string;
     location: string;
-    start_time: string;
-    end_time: string;
+    start: string;
+    end: string;
 }
 
 export interface Pagination<T> {

@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TData">
+<script setup lang="ts" generic="TData, TValue">
 import type { Column } from '@tanstack/vue-table'
 import {ChevronDown, ChevronUp, ChevronsUpDown, EyeOff} from 'lucide-vue-next'
 
@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 interface DataTableColumnHeaderProps {
-    column: Column<TData>
+    column: Column<TData, TValue>
     title: string
 }
 

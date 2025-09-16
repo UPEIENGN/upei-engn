@@ -1,7 +1,7 @@
 import { h } from 'vue'
 import { Event } from "@/types";
 import type { ColumnDef } from '@tanstack/vue-table'
-import DataTableDropdown from '@/components/event/DataTableDropdown.vue'
+import DataTableDropdown from '@/pages/admin/event/components/DataTableDropdown.vue'
 import DataTableColumnHeader from '@/components/ui/data-table/DataTableColumnHeader.vue';
 import {Checkbox} from '@/components/ui/checkbox'
 

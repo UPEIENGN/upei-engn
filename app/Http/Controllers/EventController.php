@@ -30,7 +30,8 @@ class EventController extends Controller
 
         return Inertia::render('admin/event/Index', [
             'society' => $society,
-            'events' => $events
+            'events' => $events,
+            'upcoming' => $society->events()->orderBy('start', 'asc')->limit(3)->get(),
         ]);
     }
 
