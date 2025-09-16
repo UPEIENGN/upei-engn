@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { BreadcrumbItem, Pagination, Society, Event } from '@/types';
+import { BreadcrumbItem, Pagination, Society, Event, CalendarEntry } from '@/types';
 import {CalendarPlus2, CalendarDays} from 'lucide-vue-next';
 import {
     Dialog,
@@ -16,8 +16,9 @@ import EventCalendar from '@/components/EventCalendar.vue';
 
 interface Props {
     society: Society;
-    events: Pagination<Event>
-    upcoming: Event[]
+    events: Pagination<Event>;
+    upcoming: Event[];
+    calendar: CalendarEntry[]
 }
 
 const props = defineProps<Props>();
@@ -110,7 +111,7 @@ function viewCalendar() {
                             <DialogTitle>Event Calendar</DialogTitle>
                         </DialogHeader>
                         <div>
-                            <EventCalendar/>
+                            <EventCalendar :calendar="calendar"/>
                         </div>
                     </DialogContent>
                 </Dialog>

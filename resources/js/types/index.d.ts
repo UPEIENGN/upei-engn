@@ -88,3 +88,10 @@ export interface PaginationLink {
     label: string;
     active: boolean;
 }
+
+export interface CalendarEntry {
+    date: string;
+    isCurrentMonth: boolean;
+    isToday: boolean
+    events: Event[];
+}
