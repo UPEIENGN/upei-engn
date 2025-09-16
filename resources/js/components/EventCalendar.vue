@@ -71,17 +71,15 @@ function selectDate(day: CalendarEntry) {
                 </div>
             </div>
             <div class="flex bg-gray-200 text-xs/6 text-gray-700 lg:flex-auto">
-                <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
+                <div class="hidden w-full lg:grid lg:grid-cols-7  lg:gap-px">
                     <div
                         v-for="day in calendar"
                         :key="day.date"
-                        @click="selectDate(day)"
                         :data-is-current-month="day.isCurrentMonth ? '' : undefined"
-                        :data-is-selected="day.date == selected?.date ? '' : undefined"
                         :data-is-today="day.isToday ? '' : undefined"
-                        class="group relative bg-gray-50 px-3 py-2 text-gray-500 data-is-current-month:bg-white not-data-is-selected:not-data-is-current-month:not-data-is-today:text-gray-500 not-data-is-selected:data-is-current-month:not-data-is-today:text-gray-900 data-is-selected:font-semibold data-is-selected:text-white not-data-is-selected:data-is-today:text-gray-600"
+                        class="group relative bg-gray-50 px-3 py-2 text-gray-500 data-is-current-month:bg-white"
                     >
-                        <div class="relative group-not-data-is-current-month:opacity-75 in-data-is-today:flex in-data-is-today:size-6 in-data-is-today:items-center in-data-is-today:justify-center in-data-is-today:rounded-full in-data-is-today:bg-gray-600 in-data-is-today:font-semibold in-data-is-today:text-white in-data-is-selected:flex in-data-is-selected:size-6 in-data-is-selected:items-center in-data-is-selected:justify-center in-data-is-selected:rounded-full in-data-is-selected:not-in-data-is-today:bg-gray-900 in-data-is-selected:in-data-is-today:bg-gray-600">
+                        <div class="relative group-not-data-is-current-month:opacity-75 in-data-is-today:flex in-data-is-today:size-6 in-data-is-today:items-center in-data-is-today:justify-center in-data-is-today:rounded-full in-data-is-today:bg-gray-600 in-data-is-today:font-semibold in-data-is-today:text-white">
                             {{ day.date.split('-').pop()!.replace(/^0/, '') }}
                         </div>
                         <ol v-if="day.events.length > 0" class="mt-2">
