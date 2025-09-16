@@ -95,7 +95,7 @@ function selectDate(day: CalendarEntry) {
                         </ol>
                     </div>
                 </div>
-                <div class="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
+                <div class="isolate grid w-full grid-cols-7 gap-px lg:hidden">
                     <button
                         v-for="day in calendar"
                         :key="day.date"
