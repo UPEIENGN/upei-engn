@@ -71,7 +71,7 @@ function selectDate(day: CalendarEntry) {
                 </div>
             </div>
             <div class="flex bg-gray-200 text-xs/6 text-gray-700 lg:flex-auto">
-                <div class="hidden w-full lg:grid lg:grid-cols-7  lg:gap-px">
+                <div class="hidden w-full lg:grid lg:grid-cols-7 lg:gap-px">
                     <div
                         v-for="day in calendar"
                         :key="day.date"
