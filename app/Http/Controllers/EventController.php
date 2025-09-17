@@ -23,7 +23,7 @@ class EventController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('search', "");
         $sort = $request->input('sort', "created_at");
-        $desc = $request->boolean('desc', false);
+        $desc = $request->boolean('desc', true);
 
         $events = $society->events()
             ->where('title', 'like', "%$search%")
@@ -55,7 +55,10 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request, Society $society)
     {
-        $this->authorize('create', [Event::class, $society]);
+        $event = $society->events()->create($request->validated());
+
+        return redirect()->route('admin.societies.events.index', $society)
+            ->with('success', 'Event created successfully.');
     }
 
     /**
@@ -64,6 +67,10 @@ class EventController extends Controller
     public function edit(Society $society, Event $event)
     {
         $this->authorize('update', [Event::class, $society, $event]);
+
+        return Inertia::render('admin/event/Edit', [
+            'society' => $society,
+        ]);
     }
 
     /**
@@ -71,7 +78,10 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Society $society, Event $event)
     {
-        $this->authorize('update', [Event::class, $society, $event]);
+        $event->update($request->validated());
+
+        return redirect()->route('admin.societies.events.index', $society)
+            ->with('success', 'Event updated successfully.');
     }
 
     /**
@@ -80,6 +90,11 @@ class EventController extends Controller
     public function destroy(Society $society, Event $event)
     {
         $this->authorize('delete', [Event::class, $society, $event]);
+
+        $event->delete();
+
+        return redirect()->route('admin.societies.events.index', $society)
+            ->with('success', 'Event deleted successfully.');
     }
 
     private function calendar(Request $request, Society $society)
