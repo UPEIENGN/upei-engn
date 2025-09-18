@@ -61,10 +61,6 @@ function onSortChange(sort: {id: string, desc: boolean}[]) {
         }), {}, { preserveState: true, preserveScroll: true }
     )
 }
-
-function viewCalendar() {
-
-}
 </script>
 
 <template>
