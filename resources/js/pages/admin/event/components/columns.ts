@@ -68,7 +68,7 @@ export const columns: ColumnDef<Event>[] = [
         cell: ({ row }) => {
             const event = row.original
 
-            return h(DataTableDropdown, { event, })
+            return h(DataTableDropdown, { event })
         },
     },
 ]

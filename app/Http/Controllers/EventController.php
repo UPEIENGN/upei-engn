@@ -70,6 +70,7 @@ class EventController extends Controller
 
         return Inertia::render('admin/event/Edit', [
             'society' => $society,
+            'event' => $event
         ]);
     }
 
