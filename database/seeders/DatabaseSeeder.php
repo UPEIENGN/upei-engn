@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'name' => $user->name,
             'email' => $user->email,
             'role' => SocietyMemberRole::Owner,
+            'renewed_at' => now(),
         ]);
 
         SocietyMember::factory(20)->society($society)->create();

@@ -63,9 +63,11 @@ export interface SocietyMember {
     name: string;
     email: string;
     role: number;
+    role_label: string;
     title: string;
     description: string;
     renewed_at: string;
+    is_expired: boolean;
 }
 
 export interface Event {

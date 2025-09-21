@@ -21,6 +21,7 @@ class SocietyMember extends Model
 
     protected $fillable = [
         'society_id',
+        'name',
         'email',
         'role',
         'title',
@@ -33,7 +34,8 @@ class SocietyMember extends Model
     ];
 
     protected $appends = [
-        'is_expired'
+        'is_expired',
+        'role_label'
     ];
 
     protected function isExpired(): Attribute
@@ -52,6 +54,18 @@ class SocietyMember extends Model
                     : Carbon::create($now->year, 9, 6);
 
                 return $renewedDate->lessThan($currentYearStart);
+            },
+        );
+    }
+
+    protected function roleLabel(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                /** @var SocietyMemberRole $role */
+                $role = $this->role;
+
+                return $role->label();
             },
         );
     }

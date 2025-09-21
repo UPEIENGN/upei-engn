@@ -28,6 +28,53 @@ export const columns: ColumnDef<SocietyMember>[] = [
         ),
     },
     {
+        accessorKey: "email",
+        header: ({ column }) => (
+            h(DataTableColumnHeader, {
+                column: column,
+                title: 'Email'
+            })
+        ),
+    },
+    {
+        accessorKey: "role_label",
+        header: ({ column }) => (
+            h(DataTableColumnHeader, {
+                column: column,
+                title: 'Role'
+            })
+        ),
+    },
+    {
+        accessorKey: "title",
+        header: ({ column }) => (
+            h(DataTableColumnHeader, {
+                column: column,
+                title: 'Title'
+            })
+        ),
+    },
+    {
+        accessorKey: "renewed_at",
+        header: ({ column }) => (
+            h(DataTableColumnHeader, {
+                column: column,
+                title: 'Renewed At'
+            })
+        ),
+        cell: ({ row }) => {
+            const renewedAt: string = row.getValue('renewed_at')
+            const isExpired = row.original.is_expired
+
+            if (!renewedAt) {
+                return h('div', { class: [isExpired ? 'text-red-500' : '','flex items-center'] }, "-")
+            }
+
+            const datetime = new Date(renewedAt)
+            return h('div', { class: [isExpired ? 'text-red-500' : '','flex items-center'] }, datetime.toLocaleDateString('en-CA'))
+        }
+    },
+    {
         id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
