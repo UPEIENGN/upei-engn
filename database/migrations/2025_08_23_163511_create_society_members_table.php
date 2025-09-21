@@ -16,7 +16,10 @@ return new class extends Migration
 
             $table->foreignUuid('society_id')->references('id')->on('societies');
 
-            $table->string('email')->unique();
+            $table->string('name');
+
+            $table->string('email');
+            $table->unique(['email', 'society_id']);
 
             $table->integer('role');
             $table->string('title')->nullable();

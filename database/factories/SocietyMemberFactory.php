@@ -20,7 +20,8 @@ class SocietyMemberFactory extends Factory
     {
         return [
             'society_id' => Society::factory(),
-            'email' => $this->faker->unique(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->email(),
             'role' => $this->faker->randomElement(SocietyMemberRole::cases()),
             'title' => $this->faker->optional()->jobTitle(),
             'description' => $this->faker->optional()->paragraph(),

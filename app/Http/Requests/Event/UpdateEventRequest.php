@@ -27,7 +27,7 @@ class UpdateEventRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'location' => ['nullable', 'string', 'max:255'],
             'start' => ['sometimes', 'date'],
-            'end' => ['nullable', 'date', 'after_or_equal:start_time'],
+            'end' => ['nullable', 'date', 'after_or_equal:start'],
         ];
     }
 }

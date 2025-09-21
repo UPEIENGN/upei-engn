@@ -9,7 +9,6 @@ import type {
 import {
     FlexRender,
     getCoreRowModel,
-    getSortedRowModel,
     useVueTable,
 } from '@tanstack/vue-table'
 import { valueUpdater } from '@/lib/utils'
@@ -23,14 +22,15 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import DataTablePagination from '@/components/ui/data-table/DataTablePagination.vue';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import DataTableToolbar from '@/components/ui/data-table/DataTableToolbar.vue';
 import { Pagination, Society } from '@/types';
 
 const props = defineProps<{
-    columns: ColumnDef<TData, TValue>[]
-    pagination: Pagination<TData>
-    society: Society,
+    columns: ColumnDef<TData, TValue>[];
+    pagination: Pagination<TData>;
+    society: Society;
+    searchKey: string;
 }>()
 
 const emit = defineEmits([
@@ -96,7 +96,7 @@ const table = useVueTable({
 
 <template>
     <div class="space-y-4">
-        <DataTableToolbar :table="table" />
+        <DataTableToolbar :table="table" :search-key="searchKey"/>
         <div class="border rounded-md">
             <Table>
                 <TableHeader>

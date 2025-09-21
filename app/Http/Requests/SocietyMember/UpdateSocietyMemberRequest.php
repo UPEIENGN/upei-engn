@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\SocietyMember;
 
+use App\Models\SocietyMember;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSocietyMemberRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateSocietyMemberRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('update', $this->society_member);
+        return $this->user()->can('update', [SocietyMember::class, $this->society, $this->society_member]);
     }
 
     /**
@@ -22,7 +24,16 @@ class UpdateSocietyMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['sometimes', 'email', "unique:society_members,email"],
+            'name' => ['sometimes', 'string'],
+            'email' => [
+                'sometimes',
+                'email',
+                Rule::unique('society_members')
+                    ->ignore($this->society_member->id)
+                    ->where(function ($query) {
+                        return $query->where('society_id', $this->society->id);
+                    }),
+            ],
             'role' => ['sometimes', 'integer'],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],

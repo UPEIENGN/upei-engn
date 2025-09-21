@@ -4,6 +4,7 @@ namespace App\Http\Requests\SocietyMember;
 
 use App\Models\SocietyMember;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreSocietyMemberRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class StoreSocietyMemberRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('create', SocietyMember::class);
+        return $this->user()->can('create', [SocietyMember::class, $this->society]);
     }
 
     /**
@@ -23,7 +24,12 @@ class StoreSocietyMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:society_members,email'],
+            'name' => ['required', 'string'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('society_members')->where(fn ($query) => $query->where('society_id', $this->society->id))
+            ],
             'role' => ['required', 'integer'],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],

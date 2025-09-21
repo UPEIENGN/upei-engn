@@ -117,6 +117,7 @@ function onSortChange(sort: {id: string, desc: boolean}[]) {
                            :columns="columns"
                            :pagination="events"
                            @pagination-changed="onPaginationChange"
+                           search-key="title"
                            @filter-changed="onFilterChange"
                            @sort-changed="onSortChange"/>
             </div>

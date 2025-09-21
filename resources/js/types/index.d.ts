@@ -57,7 +57,18 @@ export interface Society {
     meeting_location: string;
 }
 
-export interface Event{
+export interface SocietyMember {
+    id: string;
+    society_id: string;
+    name: string;
+    email: string;
+    role: number;
+    title: string;
+    description: string;
+    renewed_at: string;
+}
+
+export interface Event {
     id: string;
     society_id: string;
     title: string;

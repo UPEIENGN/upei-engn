@@ -8,7 +8,8 @@ import { computed } from 'vue';
 import {X} from 'lucide-vue-next';
 
 interface DataTableToolbarProps {
-    table: Table<TData>
+    table: Table<TData>;
+    searchKey: string;
 }
 
 const props = defineProps<DataTableToolbarProps>()
@@ -27,9 +28,9 @@ function reset() {
         <div class="flex flex-1 items-center space-x-2">
             <Input
                 placeholder="Search..."
-                :model-value="(table.getColumn('title')?.getFilterValue() as string) ?? ''"
+                :model-value="(table.getColumn(searchKey)?.getFilterValue() as string) ?? ''"
                 class="h-8 w-[250px] lg:w-[350px]"
-                @input="table.getColumn('title')?.setFilterValue($event.target.value)"
+                @input="table.getColumn(searchKey)?.setFilterValue($event.target.value)"
             />
 
             <Button
