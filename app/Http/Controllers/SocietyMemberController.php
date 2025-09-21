@@ -90,7 +90,6 @@ class SocietyMemberController extends Controller
 
         $societyMember->delete();
 
-        return redirect()->route('admin.societies.society-members.index', $society)
-            ->with('success', 'Society member deleted successfully.');
+        return back()->with('success', 'Society member deleted successfully.');
     }
 }

@@ -94,8 +94,7 @@ class EventController extends Controller
 
         $event->delete();
 
-        return redirect()->route('admin.societies.events.index', $society)
-            ->with('success', 'Event deleted successfully.');
+        return back()->with('success', 'Event deleted successfully.');
     }
 
     private function calendar(Request $request, Society $society)
