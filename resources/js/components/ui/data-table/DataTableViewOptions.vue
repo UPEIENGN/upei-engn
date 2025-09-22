@@ -12,6 +12,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { capitalizeWords } from '@/lib/utils';
 
 interface DataTableViewOptionsProps {
     table: Table<TData>
@@ -49,7 +50,7 @@ const columns = computed(() => props.table.getAllColumns()
                 :modelValue="column.getIsVisible()"
                 @update:modelValue="(value) => column.toggleVisibility(!!value)"
             >
-                {{ column.id }}
+                {{ capitalizeWords(column.id, "_") }}
             </DropdownMenuCheckboxItem>
         </DropdownMenuContent>
     </DropdownMenu>

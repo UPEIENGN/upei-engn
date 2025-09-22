@@ -67,7 +67,7 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
 </script>
 
 <template>
-    <Head title="Members" />
+    <Head title="Society Members" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">

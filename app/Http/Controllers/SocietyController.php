@@ -44,7 +44,7 @@ class SocietyController extends Controller
     {
         $this->authorize('update', $society);
 
-        return Inertia::render('societies/Edit', [
+        return Inertia::render('admin/societies/Edit', [
             'society' => $society,
         ]);
     }
