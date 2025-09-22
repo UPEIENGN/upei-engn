@@ -40,10 +40,8 @@ class SocietyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(): Response
+    public function edit(Society $society): Response
     {
-        $society = Society::first();
-
         $this->authorize('update', $society);
 
         return Inertia::render('societies/Edit', [
@@ -54,15 +52,10 @@ class SocietyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSocietyRequest $request): RedirectResponse
+    public function update(UpdateSocietyRequest $request, Society $society): RedirectResponse
     {
-        $society = Society::first();
-
-        $this->authorize('update', $society);
-
         $society->update($request->validated());
 
-        return redirect()->route('society.edit', $society)
-            ->with('success', 'Society updated successfully.');
+        return back()->with('success', 'Society updated successfully.');
     }
 }

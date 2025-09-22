@@ -74,7 +74,7 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
             <div class="grid auto-rows-min gap-4 md:grid-cols-3 text-xl">
                 <Link as="div"
                       :href="route('admin.societies.society-members.create', {society: society})"
-                      class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                      class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border dark:hover:bg-neutral-900">
                     <UserPlus class="size-5 mr-2"/>
                     Add Society Member
                 </Link>

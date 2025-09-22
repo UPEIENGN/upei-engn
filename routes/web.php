@@ -16,6 +16,7 @@ Route::middleware('verified')
     ->name('admin.')
     ->group(function () {
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::resource('societies', SocietyController::class)->only(['edit', 'update']);
         Route::resource('societies.society-members', SocietyMemberController::class);
         Route::resource('societies.events', EventController::class);
     });

@@ -90,14 +90,14 @@ function onSortChange(sort: {id: string, desc: boolean}[]) {
                 </div>
                 <Link as="div"
                       :href="route('admin.societies.events.create', {society: society})"
-                      class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                      class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border dark:hover:bg-neutral-900">
                     <CalendarPlus2 class="size-5 mr-2"/>
                     Create New Event
                 </Link>
 
                 <Dialog>
                     <DialogTrigger as-child>
-                        <div class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                        <div class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border dark:hover:bg-neutral-900">
                             <CalendarDays class="size-5 mr-2"/>
                             View Calendar
                         </div>

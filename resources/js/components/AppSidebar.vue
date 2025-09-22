@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { CalendarDaysIcon, LayoutGrid, UsersIcon } from 'lucide-vue-next';
+import { CalendarDaysIcon, LayoutGrid, SettingsIcon, UsersIcon } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const page = usePage();
@@ -30,6 +30,13 @@ const mainNavItems: NavItem[] = [
         href: route('admin.societies.society-members.index', {society: page.props.society}),
         icon: UsersIcon,
         isActive: route().current('admin.societies.society-members.*'),
+        can: true
+    },
+    {
+        title: 'Settings',
+        href: route('admin.societies.edit', {society: page.props.society}),
+        icon: SettingsIcon,
+        isActive: route().current('admin.societies.edit'),
         can: true
     },
 ];
