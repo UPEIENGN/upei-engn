@@ -6,6 +6,7 @@ use App\Http\Requests\SocietyMember\StoreSocietyMemberRequest;
 use App\Http\Requests\SocietyMember\UpdateSocietyMemberRequest;
 use App\Models\Society;
 use App\Models\SocietyMember;
+use App\SocietyMemberRole;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -43,6 +44,7 @@ class SocietyMemberController extends Controller
 
         return Inertia::render('admin/society-member/Create', [
             'society' => $society,
+            'roles' => SocietyMemberRole::asSelectArray()
         ]);
     }
 
@@ -52,6 +54,11 @@ class SocietyMemberController extends Controller
     public function store(StoreSocietyMemberRequest $request, Society $society)
     {
         $societyMember = $society->members()->create($request->validated());
+
+        if ($request->get('paid_membership')) {
+            $societyMember->renewed_at = now();
+            $societyMember->save();
+        }
 
         return redirect()->route('admin.societies.society-members.index', $society)
             ->with('success', 'Society member created successfully.');
@@ -66,7 +73,8 @@ class SocietyMemberController extends Controller
 
         return Inertia::render('admin/society-member/Edit', [
             'society' => $society,
-            'member' => $societyMember
+            'member' => $societyMember,
+            'roles' => SocietyMemberRole::asSelectArray()
         ]);
     }
 

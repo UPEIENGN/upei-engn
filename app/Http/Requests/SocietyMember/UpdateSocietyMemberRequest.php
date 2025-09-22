@@ -3,6 +3,7 @@
 namespace App\Http\Requests\SocietyMember;
 
 use App\Models\SocietyMember;
+use App\SocietyMemberRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -34,10 +35,9 @@ class UpdateSocietyMemberRequest extends FormRequest
                         return $query->where('society_id', $this->society->id);
                     }),
             ],
-            'role' => ['sometimes', 'integer'],
+            'role' => ['sometimes', Rule::enum(SocietyMemberRole::class)],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'renewed_at' => ['nullable', 'date'],
         ];
     }
 }

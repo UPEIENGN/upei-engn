@@ -3,6 +3,7 @@
 namespace App\Http\Requests\SocietyMember;
 
 use App\Models\SocietyMember;
+use App\SocietyMemberRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,10 +31,10 @@ class StoreSocietyMemberRequest extends FormRequest
                 'email',
                 Rule::unique('society_members')->where(fn ($query) => $query->where('society_id', $this->society->id))
             ],
-            'role' => ['required', 'integer'],
+            'role' => ['required', Rule::enum(SocietyMemberRole::class)],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'renewed_at' => ['nullable', 'date'],
+            'paid_membership' => ['required', 'boolean'],
         ];
     }
 }
