@@ -31,12 +31,12 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
         isActive: route().current('events'),
         can: true,
     },
-    // {
-    //     title: 'Store',
-    //     href: route('store'),
-    //     isActive: route().current('store'),
-    //     can: true,
-    // },
+    {
+        title: 'Store',
+        href: route('store'),
+        isActive: route().current('store'),
+        can: true,
+    },
 ]);
 </script>
 

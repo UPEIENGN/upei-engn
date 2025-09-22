@@ -37,6 +37,15 @@ class SocietyController extends Controller
         ]);
     }
 
+    public function store(): Response
+    {
+        $society = Society::first();
+
+        return Inertia::render('society/Store', [
+            'society' => $society,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
