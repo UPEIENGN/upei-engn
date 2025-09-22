@@ -3,7 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SocietyController;
-use App\Http\Controllers\SocietyMemberController;
+use App\Http\Controllers\SocietyMember\SocietyMemberController;
+use App\Http\Controllers\SocietyMember\SocietyMemberRenewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [SocietyController::class, 'home'])->name('home');
@@ -15,9 +16,17 @@ Route::middleware('verified')
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
-        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::resource('societies', SocietyController::class)->only(['edit', 'update']);
+        Route::get('dashboard', [AdminController::class, 'dashboard'])
+            ->name('dashboard');
+
+        Route::resource('societies', SocietyController::class)
+            ->only(['edit', 'update']);
+
         Route::resource('societies.society-members', SocietyMemberController::class);
+
+        Route::patch('societies/{society}/society-members/{society_member}/renew', SocietyMemberRenewController::class)
+            ->name('societies.society-members.renew');
+
         Route::resource('societies.events', EventController::class);
     });
 

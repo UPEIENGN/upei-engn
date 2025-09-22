@@ -28,6 +28,11 @@ const society = computed(() => page.props.society);
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>
+                <Link method="patch" :href="route('admin.societies.society-members.renew', { society: society, society_member: member })">
+                    Renew Membership
+                </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
                 <Link :href="route('admin.societies.society-members.edit', { society: society, society_member: member })">
                     Edit Society Member
                 </Link>

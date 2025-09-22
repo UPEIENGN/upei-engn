@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SocietyMember;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SocietyMember\StoreSocietyMemberRequest;
 use App\Http\Requests\SocietyMember\UpdateSocietyMemberRequest;
 use App\Models\Society;
