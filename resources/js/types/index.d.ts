@@ -80,6 +80,10 @@ export interface Event {
     end: string;
 }
 
+export interface Product {
+    id: string;
+}
+
 export interface Pagination<T> {
     current_page: number;
     data: Array<T>;
