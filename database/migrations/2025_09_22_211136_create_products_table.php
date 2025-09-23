@@ -11,24 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('society_members', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
             $table->foreignUuid('society_id')->constrained('societies')->cascadeOnDelete();
 
             $table->string('name');
-
-            $table->string('email');
-            $table->unique(['email', 'society_id']);
-
-            $table->integer('role');
-            $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->decimal('price', 10, 2)->default(0);
+            $table->integer('stock')->default(0);
 
-            $table->timestamp('renewed_at')->nullable();
-
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -37,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('society_members');
+        Schema::dropIfExists('products');
     }
 };

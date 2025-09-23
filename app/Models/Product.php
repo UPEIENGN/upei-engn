@@ -7,32 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Event extends Model
+class Product extends Model
 {
     use HasUuids;
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
-        'location',
-        'start',
-        'end',
+        'price',
+        'stock',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'start' => 'datetime',
-            'end' => 'datetime',
-        ];
-    }
 
     public function society()
     {

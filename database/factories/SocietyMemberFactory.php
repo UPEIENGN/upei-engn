@@ -25,7 +25,7 @@ class SocietyMemberFactory extends Factory
             'role' => $this->faker->randomElement(SocietyMemberRole::cases()),
             'title' => $this->faker->optional()->jobTitle(),
             'description' => $this->faker->optional()->paragraph(),
-            'renewed_at' => $this->faker->optional()->date(),
+            'renewed_at' => $this->faker->optional()->dateTimeBetween('-2 years', 'now'),
         ];
     }
 

@@ -20,7 +20,6 @@ class SocietyMember extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'society_id',
         'name',
         'email',
         'role',
