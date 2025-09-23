@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SocietyController;
 use App\Http\Controllers\SocietyMember\SocietyMemberController;
 use App\Http\Controllers\SocietyMember\SocietyMemberRenewController;
@@ -22,12 +23,18 @@ Route::middleware('verified')
         Route::resource('societies', SocietyController::class)
             ->only(['edit', 'update']);
 
-        Route::resource('societies.society-members', SocietyMemberController::class);
+        Route::resource('societies.events', EventController::class)
+            ->except(['show']);
+
+        Route::resource('societies.products', ProductController::class)
+            ->except(['show']);
+
+        Route::resource('societies.society-members', SocietyMemberController::class)
+            ->except(['show']);
 
         Route::patch('societies/{society}/society-members/{society_member}/renew', SocietyMemberRenewController::class)
             ->name('societies.society-members.renew');
 
-        Route::resource('societies.events', EventController::class);
     });
 
 require __DIR__ . '/settings.php';

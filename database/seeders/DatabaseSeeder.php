@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Event;
+use App\Models\Product;
 use App\Models\Society;
 use App\Models\SocietyMember;
 use App\Models\User;
@@ -35,5 +36,6 @@ class DatabaseSeeder extends Seeder
 
         SocietyMember::factory(20)->society($society)->create();
         Event::factory(20)->society($society)->create();
+        Product::factory(20)->society($society)->create();
     }
 }
