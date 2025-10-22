@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('', [SocietyController::class, 'home'])->name('home');
 Route::get('about', [SocietyController::class, 'about'])->name('about');
 Route::get('events', [SocietyController::class, 'events'])->name('events');
+Route::get('store', [SocietyController::class, 'store'])->name('store');
+
+Route::permanentRedirect('/admin', '/admin/dashboard');
 
 Route::middleware('verified')
     ->middleware('auth')
