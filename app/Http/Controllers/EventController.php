@@ -21,13 +21,13 @@ class EventController extends Controller
         $this->authorize('viewAny', [Event::class, $society]);
 
         $perPage = $request->input('per_page', 10);
-        $search = $request->input('search', "");
-        $sort = $request->input('sort', "created_at");
+        $search = $request->input('search', '');
+        $sort = $request->input('sort', 'created_at');
         $desc = $request->boolean('desc', true);
 
         $events = $society->events()
             ->where('title', 'like', "%$search%")
-            ->orderBy($sort, $desc ? "desc" : "asc")
+            ->orderBy($sort, $desc ? 'desc' : 'asc')
             ->paginate($perPage);
 
         return Inertia::render('admin/event/Index', [
@@ -70,7 +70,7 @@ class EventController extends Controller
 
         return Inertia::render('admin/event/Edit', [
             'society' => $society,
-            'event' => $event
+            'event' => $event,
         ]);
     }
 
@@ -101,7 +101,7 @@ class EventController extends Controller
     {
         // Get requested month or default to now
         $month = $request->input('month', Carbon::now()->format('Y-m'));
-        $monthCarbon = Carbon::parse($month . '-01');
+        $monthCarbon = Carbon::parse($month.'-01');
 
         // Pull all events for this society within this calendar grid
         $monthStart = $monthCarbon->copy()->startOfMonth();
@@ -127,12 +127,11 @@ class EventController extends Controller
                 'date' => $dateStr,
                 'isCurrentMonth' => $cursor->isSameMonth($monthCarbon),
                 'isToday' => $cursor->isToday(),
-                'events' => $events->filter(fn ($event) => Carbon::parse($event->start)->toDateString() === $dateStr)->values()
+                'events' => $events->filter(fn ($event) => Carbon::parse($event->start)->toDateString() === $dateStr)->values(),
             ];
 
             $cursor->addDay();
         }
-
 
         return $days;
     }

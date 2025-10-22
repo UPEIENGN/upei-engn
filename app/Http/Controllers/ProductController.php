@@ -19,13 +19,13 @@ class ProductController extends Controller
         $this->authorize('viewAny', [Product::class, $society]);
 
         $perPage = $request->input('per_page', 10);
-        $search = $request->input('search', "");
-        $sort = $request->input('sort', "created_at");
+        $search = $request->input('search', '');
+        $sort = $request->input('sort', 'created_at');
         $desc = $request->boolean('desc', true);
 
         $members = $society->products()
             ->where('name', 'like', "%$search%")
-            ->orderBy($sort, $desc ? "desc" : "asc")
+            ->orderBy($sort, $desc ? 'desc' : 'asc')
             ->paginate($perPage);
 
         return Inertia::render('admin/product/Index', [

@@ -6,7 +6,6 @@ use App\Models\Society;
 use App\Models\SocietyMember;
 use App\Models\User;
 use App\SocietyMemberRole;
-use Illuminate\Auth\Access\Response;
 
 class SocietyMemberPolicy
 {

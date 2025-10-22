@@ -19,7 +19,7 @@ class PasswordController extends Controller
     public function edit(): Response
     {
         return Inertia::render('settings/Password', [
-            'society' => Society::first()
+            'society' => Society::first(),
         ]);
     }
 

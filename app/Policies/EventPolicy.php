@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\Society;
 use App\Models\User;
 use App\SocietyMemberRole;
-use Illuminate\Auth\Access\Response;
 
 class EventPolicy
 {

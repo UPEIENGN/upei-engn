@@ -21,13 +21,13 @@ class SocietyMemberController extends Controller
         $this->authorize('viewAny', [SocietyMember::class, $society]);
 
         $perPage = $request->input('per_page', 10);
-        $search = $request->input('search', "");
-        $sort = $request->input('sort', "created_at");
+        $search = $request->input('search', '');
+        $sort = $request->input('sort', 'created_at');
         $desc = $request->boolean('desc', true);
 
         $members = $society->members()
             ->where('name', 'like', "%$search%")
-            ->orderBy($sort, $desc ? "desc" : "asc")
+            ->orderBy($sort, $desc ? 'desc' : 'asc')
             ->paginate($perPage);
 
         return Inertia::render('admin/society-member/Index', [
@@ -45,7 +45,7 @@ class SocietyMemberController extends Controller
 
         return Inertia::render('admin/society-member/Create', [
             'society' => $society,
-            'roles' => SocietyMemberRole::asSelectArray()
+            'roles' => SocietyMemberRole::asSelectArray(),
         ]);
     }
 
@@ -75,7 +75,7 @@ class SocietyMemberController extends Controller
         return Inertia::render('admin/society-member/Edit', [
             'society' => $society,
             'member' => $societyMember,
-            'roles' => SocietyMemberRole::asSelectArray()
+            'roles' => SocietyMemberRole::asSelectArray(),
         ]);
     }
 

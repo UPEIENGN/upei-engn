@@ -7,7 +7,8 @@ use Inertia\Inertia;
 
 class AdminController extends Controller
 {
-    public function dashboard() {
+    public function dashboard()
+    {
         return Inertia::render('admin/Dashboard', [
             'society' => Society::first(),
         ]);

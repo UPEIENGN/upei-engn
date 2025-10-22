@@ -34,14 +34,14 @@ class SocietyMember extends Model
 
     protected $appends = [
         'is_expired',
-        'role_label'
+        'role_label',
     ];
 
     protected function isExpired(): Attribute
     {
         return new Attribute(
             get: function () {
-                if (!$this->renewed_at) {
+                if (! $this->renewed_at) {
                     return true;
                 }
 
@@ -75,5 +75,4 @@ class SocietyMember extends Model
             'role' => SocietyMemberRole::class,
         ];
     }
-
 }

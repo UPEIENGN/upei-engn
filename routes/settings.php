@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/Appearance', [
-            'society' => Society::first()
+            'society' => Society::first(),
         ]);
     })->name('appearance');
 });

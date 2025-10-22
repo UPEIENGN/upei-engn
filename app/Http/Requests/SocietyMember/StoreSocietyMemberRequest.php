@@ -29,7 +29,7 @@ class StoreSocietyMemberRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('society_members')->where(fn ($query) => $query->where('society_id', $this->society->id))
+                Rule::unique('society_members')->where(fn ($query) => $query->where('society_id', $this->society->id)),
             ],
             'role' => ['required', Rule::enum(SocietyMemberRole::class)],
             'title' => ['nullable', 'string', 'max:255'],
