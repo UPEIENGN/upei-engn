@@ -4,8 +4,9 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import { BreadcrumbItem, Pagination, Society, SocietyMember } from '@/types';
 import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { columns } from '@/pages/admin/society-member/components/columns';
-import { UserPlus } from 'lucide-vue-next';
+import { UserStar, UserPlus } from 'lucide-vue-next';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 interface Props {
     society: Society;
@@ -71,19 +72,36 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3 text-xl">
-                <Link as="div"
-                      :href="route('admin.societies.society-members.create', {society: society})"
-                      class="font-bold flex items-center justify-center cursor-pointer hover:bg-gray-100 p-4 relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border dark:hover:bg-neutral-900">
-                    <UserPlus class="size-5 mr-2"/>
+            <div class="grid auto-rows-min gap-4 text-xl md:grid-cols-3">
+                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <PlaceholderPattern />
+                </div>
+                <Link
+                    as="div"
+                    :href="route('admin.societies.society-members.create', { society: society })"
+                    class="relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-sidebar-border/70 p-4 font-bold hover:bg-gray-100 dark:border-sidebar-border dark:hover:bg-neutral-900"
+                >
+                    <UserPlus class="mr-2 size-5" />
                     Add Society Member
                 </Link>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
+                <Dialog>
+                    <DialogTrigger as-child>
+                        <div
+                            class="relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-sidebar-border/70 p-4 font-bold hover:bg-gray-100 dark:border-sidebar-border dark:hover:bg-neutral-900"
+                        >
+                            <UserStar class="mr-2 size-5" />
+                            View Executives
+                        </div>
+                    </DialogTrigger>
+                    <DialogContent class="sm:max-w-[1225px]">
+                        <DialogHeader>
+                            <DialogTitle>Society Executives</DialogTitle>
+                        </DialogHeader>
+                        <div>
+                            featured
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl md:min-h-min">
                 <DataTable
