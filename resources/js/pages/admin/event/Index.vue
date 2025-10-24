@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { columns } from '@/pages/admin/event/components/columns';
-import EventCalendar from '@/components/EventCalendar.vue';
+import EventCalendar from '@/pages/admin/event/components/EventCalendar.vue';
 
 interface Props {
     society: Society;
