@@ -4,13 +4,15 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import { BreadcrumbItem, Pagination, Society, SocietyMember } from '@/types';
 import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { columns } from '@/pages/admin/society-member/components/columns';
-import { UserStar, UserPlus } from 'lucide-vue-next';
+import { UserPlus, UserStar } from 'lucide-vue-next';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import ExecutiveMembers from '@/pages/admin/society-member/components/ExecutiveMembers.vue';
 
 interface Props {
     society: Society;
     members: Pagination<SocietyMember>;
+    executives: SocietyMember[];
 }
 
 const props = defineProps<Props>();
@@ -98,7 +100,7 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
                             <DialogTitle>Society Executives</DialogTitle>
                         </DialogHeader>
                         <div>
-                            featured
+                            <ExecutiveMembers :executives="executives" />
                         </div>
                     </DialogContent>
                 </Dialog>
