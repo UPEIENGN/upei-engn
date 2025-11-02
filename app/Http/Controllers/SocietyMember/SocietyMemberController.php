@@ -33,6 +33,7 @@ class SocietyMemberController extends Controller
         return Inertia::render('admin/society-member/Index', [
             'society' => $society,
             'members' => $members,
+            'executives' => [],
         ]);
     }
 
