@@ -39,7 +39,11 @@ class ProductController extends Controller
      */
     public function create(Society $society)
     {
-        //
+        $this->authorize('create', [Product::class, $society]);
+
+        return Inertia::render('admin/product/Create', [
+            'society' => $society,
+        ]);
     }
 
     /**
@@ -47,7 +51,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request, Society $society)
     {
-        //
+        $product = $society->products()->create($request->validated());
+
+        return redirect()->route('admin.societies.products.index', $society)
+            ->with('success', 'Product created successfully.');
     }
 
     /**
@@ -55,7 +62,12 @@ class ProductController extends Controller
      */
     public function edit(Society $society, Product $product)
     {
-        //
+        $this->authorize('update', [Product::class, $society, $product]);
+
+        return Inertia::render('admin/product/Edit', [
+            'society' => $society,
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -63,7 +75,10 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Society $society, Product $product)
     {
-        //
+        $product->update($request->validated());
+
+        return redirect()->route('admin.societies.products.index', $society)
+            ->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -71,6 +86,10 @@ class ProductController extends Controller
      */
     public function destroy(Society $society, Product $product)
     {
-        //
+        $this->authorize('delete', [Product::class, $society, $product]);
+
+        $product->delete();
+
+        return back()->with('success', 'Event deleted successfully.');
     }
 }

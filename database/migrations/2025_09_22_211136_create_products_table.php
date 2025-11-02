@@ -17,8 +17,10 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 10, 2)->default(0);
+            $table->integer('price')->default(0);
             $table->integer('stock')->default(0);
+            $table->json('colors')->nullable();
+            $table->json('sizes')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -19,12 +19,16 @@ class Product extends Model
         'description',
         'price',
         'stock',
+        'colors',
+        'sizes',
     ];
 
     protected function casts(): array
     {
         return [
             'price' => Money::class,
+            'colors' => 'array',
+            'sizes' => 'array',
         ];
     }
 
