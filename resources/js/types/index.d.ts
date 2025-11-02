@@ -82,6 +82,13 @@ export interface Event {
 
 export interface Product {
     id: string;
+    society_id: string;
+    name: string;
+    description: string;
+    price: number;
+    stock: number;
+    colors: string[];
+    sizes: string[];
 }
 
 export interface Pagination<T> {

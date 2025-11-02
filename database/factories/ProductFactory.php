@@ -23,6 +23,8 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 1, 500),
             'stock' => $this->faker->numberBetween(0, 100),
+            'colors' => $this->faker->randomElements(['red', 'green', 'blue', 'yellow'], 2),
+            'sizes' => $this->faker->randomElements(['XS', 'S', 'M', 'L', 'XL', 'XXL'], 2),
         ];
     }
 
