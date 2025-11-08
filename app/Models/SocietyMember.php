@@ -25,6 +25,7 @@ class SocietyMember extends Model
         'role',
         'title',
         'description',
+        'executive_display_order',
         'renewed_at',
     ];
 

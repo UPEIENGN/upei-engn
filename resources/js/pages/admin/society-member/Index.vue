@@ -13,6 +13,7 @@ interface Props {
     society: Society;
     members: Pagination<SocietyMember>;
     executives: SocietyMember[];
+    allMembers: SocietyMember[];
 }
 
 const props = defineProps<Props>();
@@ -100,7 +101,7 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
                             <DialogTitle>Society Executives</DialogTitle>
                         </DialogHeader>
                         <div>
-                            <ExecutiveMembers :executives="executives" />
+                            <ExecutiveMembers :society="society" :members="allMembers" :executives="executives" />
                         </div>
                     </DialogContent>
                 </Dialog>

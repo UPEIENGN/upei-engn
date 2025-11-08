@@ -49,6 +49,17 @@ class SocietyMemberPolicy
     }
 
     /**
+     * Determine whether the user can update the model.
+     */
+    public function reorderExecutives(User $user, Society $society): bool
+    {
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
+    }
+
+    /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, Society $society, SocietyMember $societyMember): bool

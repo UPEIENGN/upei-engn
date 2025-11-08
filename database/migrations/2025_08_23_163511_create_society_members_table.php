@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
 
+            $table->unsignedInteger('executive_display_order')->nullable();
+
             $table->timestamp('renewed_at')->nullable();
 
             $table->softDeletes();

@@ -33,7 +33,8 @@ class SocietyMemberController extends Controller
         return Inertia::render('admin/society-member/Index', [
             'society' => $society,
             'members' => $members,
-            'executives' => [],
+            'executives' => $society->members()->whereNotNull('executive_display_order')->orderBy('executive_display_order')->get(),
+            'allMembers' => $society->members,
         ]);
     }
 

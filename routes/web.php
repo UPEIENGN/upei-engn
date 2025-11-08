@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SocietyController;
+use App\Http\Controllers\SocietyMember\ExecutiveMemberController;
 use App\Http\Controllers\SocietyMember\SocietyMemberController;
 use App\Http\Controllers\SocietyMember\SocietyMemberRenewController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,9 @@ Route::middleware('verified')
 
         Route::patch('societies/{society}/society-members/{society_member}/renew', SocietyMemberRenewController::class)
             ->name('societies.society-members.renew');
+
+        Route::patch('societies/{society}/executive-members/reorder', ExecutiveMemberController::class)
+            ->name('societies.executive-members.reorder');
 
     });
 
