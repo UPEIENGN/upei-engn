@@ -166,7 +166,6 @@
     }
 }
 
-
 * {
     --sb-thumb-color: #474747;
     --sb-size: 5px;
@@ -185,11 +184,10 @@
 *::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
     border-radius: 5px;
-
 }
 
 @supports not selector(::-webkit-scrollbar) {
     * {
-        scrollbar-color: var(--sb-thumb-color)
+        scrollbar-color: var(--sb-thumb-color);
     }
 }

@@ -16,35 +16,35 @@ const mainNavItems: NavItem[] = [
         href: route('admin.dashboard'),
         icon: LayoutGrid,
         isActive: route().current('admin.dashboard'),
-        can: true
+        can: true,
     },
     {
         title: 'Events',
-        href: route('admin.societies.events.index', {society: page.props.society}),
+        href: route('admin.societies.events.index', { society: page.props.society }),
         icon: CalendarDaysIcon,
         isActive: route().current('admin.societies.events.*'),
-        can: true
+        can: true,
     },
     {
         title: 'Products',
-        href: route('admin.societies.products.index', {society: page.props.society}),
+        href: route('admin.societies.products.index', { society: page.props.society }),
         icon: StoreIcon,
         isActive: route().current('admin.societies.products.*'),
-        can: true
+        can: true,
     },
     {
         title: 'Society Members',
-        href: route('admin.societies.society-members.index', {society: page.props.society}),
+        href: route('admin.societies.society-members.index', { society: page.props.society }),
         icon: UsersIcon,
         isActive: route().current('admin.societies.society-members.*'),
-        can: true
+        can: true,
     },
     {
         title: 'Settings',
-        href: route('admin.societies.edit', {society: page.props.society}),
+        href: route('admin.societies.edit', { society: page.props.society }),
         icon: SettingsIcon,
         isActive: route().current('admin.societies.edit'),
-        can: true
+        can: true,
     },
 ];
 

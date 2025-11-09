@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { router } from '@inertiajs/vue3';
-import { Dialog, DialogContent, DialogClose, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, X, ChevronsUpDown } from 'lucide-vue-next';
-import type { Society, SocietyMember } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxList, ComboboxTrigger } from "@/components/ui/combobox"
+import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxList, ComboboxTrigger } from '@/components/ui/combobox';
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import type { Society, SocietyMember } from '@/types';
+import { router } from '@inertiajs/vue3';
+import { ChevronsUpDown, Plus, X } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
 
 interface Props {
     society: Society;
@@ -83,8 +83,6 @@ function saveOrder() {
         },
     );
 }
-
-
 </script>
 
 <template>
@@ -148,9 +146,7 @@ function saveOrder() {
                             </ComboboxAnchor>
 
                             <ComboboxList class="max-h-60">
-                                <ComboboxEmpty>
-                                    No society member found.
-                                </ComboboxEmpty>
+                                <ComboboxEmpty> No society member found. </ComboboxEmpty>
 
                                 <ComboboxGroup>
                                     <ComboboxItem
@@ -167,9 +163,7 @@ function saveOrder() {
 
                         <DialogFooter class="sm:justify-end">
                             <DialogClose as-child>
-                                <Button @click="addExecutive" :disabled="!selectedMember" type="button">
-                                    Add Executive
-                                </Button>
+                                <Button @click="addExecutive" :disabled="!selectedMember" type="button"> Add Executive </Button>
                             </DialogClose>
                         </DialogFooter>
                     </DialogContent>

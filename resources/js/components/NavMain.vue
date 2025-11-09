@@ -6,7 +6,6 @@ import { Link } from '@inertiajs/vue3';
 defineProps<{
     items: NavItem[];
 }>();
-
 </script>
 
 <template>

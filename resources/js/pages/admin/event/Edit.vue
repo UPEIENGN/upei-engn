@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, Society, Event } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import InputError from '@/components/InputError.vue';
-import { cn, toLocalISOString } from '@/lib/utils';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { LoaderCircle, CalendarIcon } from 'lucide-vue-next';
-import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { cn, toLocalISOString } from '@/lib/utils';
+import { type BreadcrumbItem, Event, Society } from '@/types';
+import { Head, useForm } from '@inertiajs/vue3';
 import { DateFormatter, type DateValue, getLocalTimeZone, parseDate } from '@internationalized/date';
+import { CalendarIcon, LoaderCircle } from 'lucide-vue-next';
 import { ref, UnwrapRef } from 'vue';
 
 interface Props {
@@ -46,28 +46,28 @@ const df = new DateFormatter('en-US', {
 });
 
 const toDateValue = (dateTimeStr: string): DateValue => {
-    const jsDate = new Date(dateTimeStr)
-    const dateStr = jsDate.toISOString().split('T')[0]
-    return parseDate(dateStr)
-}
+    const jsDate = new Date(dateTimeStr);
+    const dateStr = jsDate.toISOString().split('T')[0];
+    return parseDate(dateStr);
+};
 
 const toTimeObject = (dateTimeStr: string): { hour: number; minutes: number; meridiem: string } => {
-    const jsDate = new Date(dateTimeStr)
-    let hours = jsDate.getHours()
-    const minutes = jsDate.getMinutes()
-    const meridiem = hours >= 12 ? 'PM' : 'AM'
+    const jsDate = new Date(dateTimeStr);
+    let hours = jsDate.getHours();
+    const minutes = jsDate.getMinutes();
+    const meridiem = hours >= 12 ? 'PM' : 'AM';
 
-    hours = hours % 12
-    if (hours === 0) hours = 12
+    hours = hours % 12;
+    if (hours === 0) hours = 12;
 
-    return { hour: hours, minutes, meridiem }
-}
+    return { hour: hours, minutes, meridiem };
+};
 
-const startDate = ref<DateValue>(toDateValue(props.event.start))
-const endDate = ref<DateValue>(toDateValue(props.event.end))
+const startDate = ref<DateValue>(toDateValue(props.event.start));
+const endDate = ref<DateValue>(toDateValue(props.event.end));
 
-const startTime = ref<{ hour: number; minutes: number; meridiem: string }>(toTimeObject(props.event.start))
-const endTime = ref<{ hour: number; minutes: number; meridiem: string }>(toTimeObject(props.event.end))
+const startTime = ref<{ hour: number; minutes: number; meridiem: string }>(toTimeObject(props.event.start));
+const endTime = ref<{ hour: number; minutes: number; meridiem: string }>(toTimeObject(props.event.end));
 
 const toDateTimeString = (date: UnwrapRef<DateValue>, time: { hour: number; minutes: number; meridiem: string }) => {
     let hours = time.hour % 12;

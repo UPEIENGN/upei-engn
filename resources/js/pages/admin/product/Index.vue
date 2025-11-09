@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import DataTable from '@/components/ui/data-table/DataTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { columns } from '@/pages/admin/product/components/columns';
 import { type BreadcrumbItem, Pagination, Product, Society } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
-import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
-import { columns } from '@/pages/admin/product/components/columns';
-import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { PackagePlus } from 'lucide-vue-next';
 
 interface Props {
@@ -67,7 +67,7 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3 text-xl">
+            <div class="grid auto-rows-min gap-4 text-xl md:grid-cols-3">
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />
                 </div>

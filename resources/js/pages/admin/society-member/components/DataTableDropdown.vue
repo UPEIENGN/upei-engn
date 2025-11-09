@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { MoreHorizontal } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { SocietyMember } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
+import { MoreHorizontal } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -33,9 +33,7 @@ const society = computed(() => page.props.society);
                 </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-                <Link :href="route('admin.societies.society-members.edit', { society: society, society_member: member })">
-                    Edit Society Member
-                </Link>
+                <Link :href="route('admin.societies.society-members.edit', { society: society, society_member: member })"> Edit Society Member </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
                 <Link method="delete" :href="route('admin.societies.society-members.destroy', { society: society, society_member: member })">

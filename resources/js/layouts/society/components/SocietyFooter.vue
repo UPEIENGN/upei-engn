@@ -101,4 +101,3 @@ const navigation = {
         </div>
     </footer>
 </template>
-

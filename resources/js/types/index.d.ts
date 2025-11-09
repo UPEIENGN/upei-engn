@@ -116,6 +116,6 @@ export interface PaginationLink {
 export interface CalendarEntry {
     date: string;
     isCurrentMonth: boolean;
-    isToday: boolean
+    isToday: boolean;
     events: Event[];
 }

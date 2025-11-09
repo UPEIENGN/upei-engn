@@ -24,6 +24,6 @@ enum SocietyMemberRole: int
                 'name' => $case->label(),
                 'value' => $case->value,
             ];
-        }, array_filter(self::cases(), fn($case) => $case !== self::Owner));
+        }, array_filter(self::cases(), fn ($case) => $case !== self::Owner));
     }
 }

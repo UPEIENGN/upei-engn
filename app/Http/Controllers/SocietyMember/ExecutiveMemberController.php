@@ -36,7 +36,6 @@ class ExecutiveMemberController extends Controller
                 'executive_display_order' => null,
             ]);
 
-
         return back();
     }
 }

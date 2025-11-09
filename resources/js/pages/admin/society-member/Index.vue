@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
-import { BreadcrumbItem, Pagination, Society, SocietyMember } from '@/types';
-import DataTable from '@/components/ui/data-table/DataTable.vue';
-import { columns } from '@/pages/admin/society-member/components/columns';
-import { UserPlus, UserStar } from 'lucide-vue-next';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { columns } from '@/pages/admin/society-member/components/columns';
 import ExecutiveMembers from '@/pages/admin/society-member/components/ExecutiveMembers.vue';
+import { BreadcrumbItem, Pagination, Society, SocietyMember } from '@/types';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { UserPlus, UserStar } from 'lucide-vue-next';
 
 interface Props {
     society: Society;

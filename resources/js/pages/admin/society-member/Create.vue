@@ -1,27 +1,19 @@
 <script setup lang="ts">
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import InputError from '@/components/InputError.vue';
-import { Textarea } from '@/components/ui/textarea';
 import { LoaderCircle } from 'lucide-vue-next';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
 
 interface Props {
     society: Society;
-    roles: {name: string; value: number}[]
+    roles: { name: string; value: number }[];
 }
 
 const props = defineProps<Props>();
@@ -106,13 +98,11 @@ const submit = () => {
                             <div class="grid gap-1.5 leading-none">
                                 <label
                                     for="paid-membership"
-                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    class="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                 >
                                     Paid Membership
                                 </label>
-                                <p class="text-sm text-muted-foreground">
-                                    This member has paid there membership fee.
-                                </p>
+                                <p class="text-sm text-muted-foreground">This member has paid there membership fee.</p>
                                 <InputError :message="form.errors.paid_membership" />
                             </div>
                         </div>
