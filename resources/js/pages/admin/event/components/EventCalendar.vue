@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { CalendarEntry } from '@/types';
-import { Link } from '@inertiajs/vue3';
-import { Clock } from 'lucide-vue-next';
+import { Clock, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 
 interface Props {
@@ -34,14 +33,27 @@ function selectDate(day: CalendarEntry) {
 
 <template>
     <div class="lg:flex lg:h-full lg:flex-col">
-        <header class="flex items-center justify-between border-b border-gray-200 bg-background px-6 py-4 lg:flex-none dark:border-neutral-900">
-            <h1 class="text-base font-semibold text-gray-900 dark:text-white">
+        <header class="flex items-center justify-between border-b border-neutral-200 bg-background px-6 py-4 lg:flex-none dark:border-neutral-900">
+            <h1 class="text-base font-semibold text-neutral-900 dark:text-white">
                 {{ monthYear }}
             </h1>
+            <div class="flex items-center">
+                <div class="relative flex items-center rounded-md bg-white shadow-xs outline -outline-offset-1 outline-neutral-300 md:items-stretch dark:bg-white/10 dark:shadow-none dark:outline-white/5">
+                    <button type="button" class="cursor-pointer flex h-9 w-12 items-center justify-center rounded-l-md pr-1 text-neutral-400 hover:text-neutral-500  md:w-9 md:pr-0 md:hover:bg-neutral-50 dark:hover:text-white dark:md:hover:bg-white/10">
+                        <span class="sr-only">Previous month</span>
+                        <ChevronLeft class="size-5" aria-hidden="true" />
+                    </button>
+
+                    <button type="button" class="cursor-pointer flex h-9 w-12 items-center justify-center rounded-r-md pl-1 text-neutral-400 hover:text-neutral-500  md:w-9 md:pl-0 md:hover:bg-neutral-50 dark:hover:text-white dark:md:hover:bg-white/10">
+                        <span class="sr-only">Next month</span>
+                        <ChevronRight class="size-5" aria-hidden="true" />
+                    </button>
+                </div>
+            </div>
         </header>
         <div class="shadow-sm ring-1 ring-black/5 lg:flex lg:flex-auto lg:flex-col dark:shadow-none dark:ring-white/5">
             <div
-                class="grid grid-cols-7 gap-px border-b border-gray-300 bg-background text-center text-xs/6 font-semibold text-gray-700 lg:flex-none dark:border-white/5 dark:text-gray-300"
+                class="grid grid-cols-7 gap-px border-b border-neutral-300 bg-background text-center text-xs/6 font-semibold text-neutral-700 lg:flex-none dark:border-white/5 dark:text-neutral-300"
             >
                 <div class="flex justify-center bg-background py-2">
                     <span>S</span>
@@ -72,14 +84,14 @@ function selectDate(day: CalendarEntry) {
                     <span class="sr-only sm:not-sr-only">at</span>
                 </div>
             </div>
-            <div class="flex bg-gray-200 text-xs/6 text-gray-700 lg:flex-auto dark:bg-neutral-900 dark:text-gray-300">
-                <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-5 lg:gap-px">
+            <div class="flex bg-neutral-200 text-xs/6 text-neutral-700 lg:flex-auto dark:bg-neutral-900 dark:text-neutral-300">
+                <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
                     <div
                         v-for="day in calendar"
                         :key="day.date"
                         :data-is-current-month="day.isCurrentMonth ? '' : undefined"
                         :data-is-today="day.isToday ? '' : undefined"
-                        class="group relative bg-neutral-50 px-3 py-2 text-gray-500 data-is-current-month:bg-white dark:bg-background dark:text-gray-400 dark:not-data-is-current-month:before:pointer-events-none dark:not-data-is-current-month:before:absolute dark:not-data-is-current-month:before:inset-0 dark:not-data-is-current-month:before:bg-neutral-900 dark:data-is-current-month:bg-background"
+                        class="cursor-pointer group relative bg-neutral-50 px-3 py-2 text-neutral-500 data-is-current-month:bg-white dark:bg-background dark:text-neutral-400 dark:not-data-is-current-month:before:pointer-events-none dark:not-data-is-current-month:before:absolute dark:not-data-is-current-month:before:inset-0 dark:not-data-is-current-month:before:bg-neutral-900 dark:data-is-current-month:bg-background"
                     >
                         <div
                             class="relative group-not-data-is-current-month:opacity-75 in-data-is-today:flex in-data-is-today:size-6 in-data-is-today:items-center in-data-is-today:justify-center in-data-is-today:rounded-full in-data-is-today:bg-neutral-600 in-data-is-today:font-semibold in-data-is-today:text-white dark:in-data-is-today:bg-neutral-500"
@@ -90,19 +102,19 @@ function selectDate(day: CalendarEntry) {
                             <li v-for="event in day.events.slice(0, 2)" :key="event.id">
                                 <div class="group flex">
                                     <p
-                                        class="flex-auto truncate font-medium text-gray-900 group-hover:text-neutral-600 dark:text-white dark:group-hover:text-neutral-400"
+                                        class="flex-auto truncate font-medium text-neutral-900 group-hover:text-neutral-600 dark:text-white dark:group-hover:text-neutral-400"
                                     >
                                         {{ event.title }}
                                     </p>
                                     <time
                                         :datetime="event.start"
-                                        class="ml-3 hidden flex-none text-gray-500 group-hover:text-neutral-600 xl:block dark:text-gray-400 dark:group-hover:text-neutral-400"
+                                        class="ml-3 hidden flex-none text-neutral-500 group-hover:text-neutral-600 xl:block dark:text-neutral-400 dark:group-hover:text-neutral-400"
                                     >
                                         {{ formatTime(event.start) }}
                                     </time>
                                 </div>
                             </li>
-                            <li v-if="day.events.length > 2" class="text-gray-500 dark:text-gray-400">+ {{ day.events.length - 2 }} more</li>
+                            <li v-if="day.events.length > 2" class="text-neutral-500 dark:text-neutral-400">+ {{ day.events.length - 2 }} more</li>
                         </ol>
                     </div>
                 </div>
@@ -115,10 +127,10 @@ function selectDate(day: CalendarEntry) {
                         :data-is-current-month="day.isCurrentMonth ? '' : undefined"
                         :data-is-selected="day.date == selected?.date ? '' : undefined"
                         :data-is-today="day.isToday ? '' : undefined"
-                        class="group relative flex h-14 flex-col bg-neutral-50 px-3 py-2 not-data-is-current-month:bg-gray-50 not-data-is-selected:not-data-is-current-month:not-data-is-today:text-gray-500 hover:bg-gray-100 focus:z-10 data-is-current-month:bg-white not-data-is-selected:data-is-current-month:not-data-is-today:text-gray-900 data-is-current-month:hover:bg-gray-100 data-is-selected:font-semibold data-is-selected:text-white data-is-today:font-semibold not-data-is-selected:data-is-today:text-neutral-600 dark:bg-background dark:not-data-is-current-month:bg-neutral-900 dark:not-data-is-selected:not-data-is-current-month:not-data-is-today:text-gray-400 dark:not-data-is-current-month:before:pointer-events-none dark:not-data-is-current-month:before:absolute dark:not-data-is-current-month:before:inset-0 dark:not-data-is-current-month:before:bg-gray-800/50 dark:hover:bg-neutral-900/50 dark:data-is-current-month:bg-neutral-900 dark:not-data-is-selected:data-is-current-month:not-data-is-today:text-white dark:data-is-current-month:hover:bg-neutral-900/50 dark:not-data-is-selected:data-is-today:text-neutral-400"
+                        class="group relative flex h-14 flex-col bg-neutral-50 px-3 py-2 not-data-is-current-month:bg-neutral-50 not-data-is-selected:not-data-is-current-month:not-data-is-today:text-neutral-500 hover:bg-neutral-100 focus:z-10 data-is-current-month:bg-white not-data-is-selected:data-is-current-month:not-data-is-today:text-neutral-900 data-is-current-month:hover:bg-neutral-100 data-is-selected:font-semibold data-is-selected:text-white data-is-today:font-semibold not-data-is-selected:data-is-today:text-neutral-600 dark:bg-background dark:not-data-is-current-month:bg-neutral-900 dark:not-data-is-selected:not-data-is-current-month:not-data-is-today:text-neutral-400 dark:not-data-is-current-month:before:pointer-events-none dark:not-data-is-current-month:before:absolute dark:not-data-is-current-month:before:inset-0 dark:not-data-is-current-month:before:bg-neutral-800/50 dark:hover:bg-neutral-900/50 dark:data-is-current-month:bg-neutral-900 dark:not-data-is-selected:data-is-current-month:not-data-is-today:text-white dark:data-is-current-month:hover:bg-neutral-900/50 dark:not-data-is-selected:data-is-today:text-neutral-400"
                     >
                         <span
-                            class="ml-auto group-not-data-is-current-month:opacity-75 in-data-is-selected:flex in-data-is-selected:size-6 in-data-is-selected:items-center in-data-is-selected:justify-center in-data-is-selected:rounded-full in-data-is-selected:not-in-data-is-today:bg-gray-900 in-data-is-selected:in-data-is-today:bg-neutral-600 dark:in-data-is-selected:not-in-data-is-today:bg-white dark:in-data-is-selected:not-in-data-is-today:text-gray-900 dark:in-data-is-selected:in-data-is-today:bg-neutral-500"
+                            class="ml-auto group-not-data-is-current-month:opacity-75 in-data-is-selected:flex in-data-is-selected:size-6 in-data-is-selected:items-center in-data-is-selected:justify-center in-data-is-selected:rounded-full in-data-is-selected:not-in-data-is-today:bg-neutral-900 in-data-is-selected:in-data-is-today:bg-neutral-600 dark:in-data-is-selected:not-in-data-is-today:bg-white dark:in-data-is-selected:not-in-data-is-today:text-neutral-900 dark:in-data-is-selected:in-data-is-today:bg-neutral-500"
                         >
                             {{ day.date.split('-').pop()!.replace(/^0/, '') }}
                         </span>
@@ -127,7 +139,7 @@ function selectDate(day: CalendarEntry) {
                             <span
                                 v-for="event in day.events"
                                 :key="event.id"
-                                class="mx-0.5 mb-1 size-1.5 rounded-full bg-gray-400 dark:bg-gray-500"
+                                class="mx-0.5 mb-1 size-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500"
                             />
                         </span>
                     </button>
@@ -138,26 +150,20 @@ function selectDate(day: CalendarEntry) {
             class="relative px-4 py-10 sm:px-6 lg:hidden dark:after:pointer-events-none dark:after:absolute dark:after:inset-x-0 dark:after:top-0 dark:after:h-px dark:after:bg-white/10"
         >
             <ol
-                class="divide-y divide-gray-100 overflow-hidden rounded-lg text-sm shadow-sm outline-1 outline-black/5 dark:divide-white/10 dark:bg-gray-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
+                class="divide-y divide-neutral-100 overflow-hidden rounded-lg text-sm shadow-sm outline-1 outline-black/5 dark:divide-white/10 dark:bg-neutral-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10"
             >
                 <li
                     v-for="event in selected?.events"
                     :key="event.id"
-                    class="group flex p-4 pr-6 focus-within:bg-gray-50 hover:bg-gray-50 dark:focus-within:bg-white/5 dark:hover:bg-white/5"
+                    class="group flex p-4 pr-6 focus-within:bg-neutral-50 hover:bg-neutral-50 dark:focus-within:bg-white/5 dark:hover:bg-white/5"
                 >
                     <div class="flex-auto">
-                        <p class="font-semibold text-gray-900 dark:text-white">{{ event.title }}</p>
-                        <time :datetime="event.start" class="mt-2 flex items-center text-gray-700 dark:text-gray-300">
-                            <Clock class="mr-2 size-5 text-gray-400 dark:text-gray-500" aria-hidden="true" />
+                        <p class="font-semibold text-neutral-900 dark:text-white">{{ event.title }}</p>
+                        <time :datetime="event.start" class="mt-2 flex items-center text-neutral-700 dark:text-neutral-300">
+                            <Clock class="mr-2 size-5 text-neutral-400 dark:text-neutral-500" aria-hidden="true" />
                             {{ formatTime(event.start) }}
                         </time>
                     </div>
-                    <Link
-                        href="#"
-                        class="ml-6 flex-none self-center rounded-md px-3 py-2 font-semibold text-gray-900 opacity-0 shadow-xs ring-1 ring-gray-300 ring-inset group-hover:opacity-100 hover:ring-gray-400 focus:opacity-100 dark:bg-white/10 dark:text-white dark:shadow-none dark:ring-white/5 dark:hover:bg-white/20 dark:hover:ring-white/5"
-                    >
-                        Edit<span class="sr-only">, {{ event.title }}</span>
-                    </Link>
                 </li>
             </ol>
         </div>
