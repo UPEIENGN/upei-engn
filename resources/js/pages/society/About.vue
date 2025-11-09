@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SocietyLayout from '@/layouts/SocietyLayout.vue';
+import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Society } from '@/types';
 import { Head } from '@inertiajs/vue3';
 

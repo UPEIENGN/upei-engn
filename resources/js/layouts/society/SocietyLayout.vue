@@ -4,6 +4,7 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import { Can, type NavItem, Society } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { computed, ComputedRef } from 'vue';
+import SocietyFooter from '@/layouts/society/components/SocietyFooter.vue';
 
 interface Props {
     society: Society;
@@ -76,11 +77,13 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
             </NavigationMenu>
         </div>
 
-        <div class="relative min-h-[100vh] w-full flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
+        <div class="overflow-hidden relative w-full flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
             <slot>
                 <PlaceholderPattern />
             </slot>
+
         </div>
+        <SocietyFooter :society="society" />
     </div>
 </template>
 
