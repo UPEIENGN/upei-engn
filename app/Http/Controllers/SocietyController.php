@@ -25,6 +25,7 @@ class SocietyController extends Controller
 
         return Inertia::render('society/About', [
             'society' => $society,
+            'executives' => $society->executives,
         ]);
     }
 

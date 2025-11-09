@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @mixin IdeHelperEvent
+ */
 class Event extends Model
 {
     use HasFactory;
@@ -34,7 +38,7 @@ class Event extends Model
         ];
     }
 
-    public function society()
+    public function society(): BelongsTo
     {
         return $this->belongsTo(Society::class);
     }

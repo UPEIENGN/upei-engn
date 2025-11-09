@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -28,17 +29,24 @@ class Society extends Model
         'meeting_location',
     ];
 
-    public function members()
+    public function members(): HasMany
     {
         return $this->hasMany(SocietyMember::class);
     }
 
-    public function events()
+    public function executives(): HasMany
+    {
+        return $this->hasMany(SocietyMember::class)
+            ->whereNotNull('executive_display_order')
+            ->orderBy('executive_display_order');
+    }
+
+    public function events(): HasMany
     {
         return $this->hasMany(Event::class);
     }
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogClose, DialogFooter, DialogHeader, DialogT
 import { Plus, X, ChevronsUpDown } from 'lucide-vue-next';
 import type { Society, SocietyMember } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxList } from "@/components/ui/combobox"
+import { Combobox, ComboboxAnchor, ComboboxEmpty, ComboboxGroup, ComboboxItem, ComboboxList, ComboboxTrigger } from "@/components/ui/combobox"
 
 interface Props {
     society: Society;
