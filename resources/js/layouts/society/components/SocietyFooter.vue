@@ -67,13 +67,13 @@ const socials = [
 <template>
     <footer class="bg-background dark:bg-background">
         <div class="mx-auto max-w-7xl overflow-hidden px-6 lg:px-8">
-            <div class="mt-10 flex justify-center gap-x-10">
+            <div class="flex justify-center gap-x-10">
                 <template v-for="item in socials">
                     <a
                         v-if="item.href"
                         :key="item.name"
                         :href="item.href"
-                        class="cursor-pointer text-gray-600 hover:text-neutral-800 dark:text-gray-400 dark:hover:text-white"
+                        class="cursor-pointer mt-10 text-gray-600 hover:text-neutral-800 dark:text-gray-400 dark:hover:text-white"
                     >
                         <span class="sr-only">{{ item.name }}</span>
                         <component :is="item.icon" class="size-6" aria-hidden="true" />
