@@ -19,7 +19,7 @@ defineProps<Props>();
             <img src="https://placehold.co/1300x600" alt="" class="absolute inset-0 -z-10 size-full object-cover not-dark:hidden" />
             <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
                 <div
-                    class="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15 dark:opacity-20"
+                    class="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#789d4a] to-[#2a3a19] opacity-15 dark:opacity-20"
                     style="
                         clip-path: polygon(
                             74.1% 44.1%,
@@ -47,7 +47,7 @@ defineProps<Props>();
                 aria-hidden="true"
             >
                 <div
-                    class="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-15 dark:opacity-20"
+                    class="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#789d4a] to-[#2a3a19] opacity-15 dark:opacity-20"
                     style="
                         clip-path: polygon(
                             74.1% 44.1%,
