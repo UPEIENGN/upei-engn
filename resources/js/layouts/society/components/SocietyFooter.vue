@@ -11,7 +11,7 @@ const props = defineProps<Props>();
 const socials = [
     {
         name: 'Facebook',
-        href: props.society.facebook_url ?? 'dd',
+        href: props.society.facebook_url,
         icon: defineComponent({
             render: () =>
                 h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -25,7 +25,7 @@ const socials = [
     },
     {
         name: 'Instagram',
-        href: props.society.instagram_handle ?? 'dd',
+        href: props.society.instagram_handle,
         icon: defineComponent({
             render: () =>
                 h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -39,7 +39,7 @@ const socials = [
     },
     {
         name: 'X',
-        href: props.society.twitter_handle ?? 'dd',
+        href: props.society.twitter_handle,
         icon: defineComponent({
             render: () =>
                 h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -51,7 +51,7 @@ const socials = [
     },
     {
         name: 'Discord',
-        href: props.society.discord_url ?? 'dd',
+        href: props.society.discord_url,
         icon: defineComponent({
             render: () =>
                 h('svg', { fill: 'currentColor', viewBox: '0 0 16 16' }, [
@@ -67,13 +67,13 @@ const socials = [
 <template>
     <footer class="bg-background dark:bg-background">
         <div class="mx-auto max-w-7xl overflow-hidden px-6 lg:px-8">
-            <div class="mt-10 flex justify-center gap-x-10">
+            <div class="flex justify-center gap-x-10">
                 <template v-for="item in socials">
                     <a
                         v-if="item.href"
                         :key="item.name"
                         :href="item.href"
-                        class="cursor-pointer text-gray-600 hover:text-neutral-800 dark:text-gray-400 dark:hover:text-white"
+                        class="cursor-pointer mt-10 text-gray-600 hover:text-neutral-800 dark:text-gray-400 dark:hover:text-white"
                     >
                         <span class="sr-only">{{ item.name }}</span>
                         <component :is="item.icon" class="size-6" aria-hidden="true" />
