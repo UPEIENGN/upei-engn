@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { CalendarEntry, Society } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import EventCalendar from '@/pages/admin/event/components/EventCalendar.vue';
 
 interface Props {
@@ -10,12 +10,18 @@ interface Props {
 }
 
 defineProps<Props>();
+
+function changeMonth(month: string) {
+    router.get(route('events'), { month }, {
+        preserveScroll: true,
+    });
+}
 </script>
 
 <template>
     <Head :title="society.name" />
 
     <SocietyLayout :society="society">
-        <EventCalendar :calendar="calendar" />
+        <EventCalendar :calendar="calendar" @change-month="changeMonth"  can-change-months/>
     </SocietyLayout>
 </template>

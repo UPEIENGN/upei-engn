@@ -5,9 +5,19 @@ import { computed, ref } from 'vue';
 
 interface Props {
     calendar: CalendarEntry[];
+    canChangeMonths?: boolean;
 }
 
 const props = defineProps<Props>();
+
+const emit = defineEmits([
+    'change-month'
+]);
+
+const currentMonth = ref(
+    props.calendar.find(d => d.isCurrentMonth)?.date.slice(0, 7)
+    || new Date().toISOString().slice(0, 7)
+);
 
 const selected = ref<CalendarEntry>(<CalendarEntry>props.calendar.find((day) => day.isToday));
 
@@ -15,7 +25,7 @@ const monthYear = computed(() =>
     new Intl.DateTimeFormat('en-US', {
         month: 'long',
         year: 'numeric',
-    }).format(new Date()),
+    }).format(new Date(`${currentMonth.value}-01T12:00:00`))
 );
 
 const formatTime = (datetime: string) => {
@@ -29,6 +39,20 @@ const formatTime = (datetime: string) => {
 function selectDate(day: CalendarEntry) {
     selected.value = day;
 }
+
+function prevMonth() {
+    const date = new Date(`${currentMonth.value}-01T12:00:00`);
+    date.setMonth(date.getMonth() - 1);
+    currentMonth.value = date.toISOString().slice(0, 7);
+    emit('change-month', currentMonth.value);
+}
+
+function nextMonth() {
+    const date = new Date(`${currentMonth.value}-01T12:00:00`);
+    date.setMonth(date.getMonth() + 1);
+    currentMonth.value = date.toISOString().slice(0, 7);
+    emit('change-month', currentMonth.value);
+}
 </script>
 
 <template>
@@ -37,14 +61,14 @@ function selectDate(day: CalendarEntry) {
             <h1 class="text-base font-semibold text-neutral-900 dark:text-white">
                 {{ monthYear }}
             </h1>
-            <div class="flex items-center">
+            <div v-if="canChangeMonths" class="flex items-center">
                 <div class="relative flex items-center rounded-md bg-white shadow-xs outline -outline-offset-1 outline-neutral-300 md:items-stretch dark:bg-white/10 dark:shadow-none dark:outline-white/5">
-                    <button type="button" class="cursor-pointer flex h-9 w-12 items-center justify-center rounded-l-md pr-1 text-neutral-400 hover:text-neutral-500  md:w-9 md:pr-0 md:hover:bg-neutral-50 dark:hover:text-white dark:md:hover:bg-white/10">
+                    <button @click="prevMonth" type="button" class="cursor-pointer flex h-9 w-12 items-center justify-center rounded-l-md pr-1 text-neutral-400 hover:text-neutral-500  md:w-9 md:pr-0 md:hover:bg-neutral-50 dark:hover:text-white dark:md:hover:bg-white/10">
                         <span class="sr-only">Previous month</span>
                         <ChevronLeft class="size-5" aria-hidden="true" />
                     </button>
 
-                    <button type="button" class="cursor-pointer flex h-9 w-12 items-center justify-center rounded-r-md pl-1 text-neutral-400 hover:text-neutral-500  md:w-9 md:pl-0 md:hover:bg-neutral-50 dark:hover:text-white dark:md:hover:bg-white/10">
+                    <button @click="nextMonth" type="button" class="cursor-pointer flex h-9 w-12 items-center justify-center rounded-r-md pl-1 text-neutral-400 hover:text-neutral-500  md:w-9 md:pl-0 md:hover:bg-neutral-50 dark:hover:text-white dark:md:hover:bg-white/10">
                         <span class="sr-only">Next month</span>
                         <ChevronRight class="size-5" aria-hidden="true" />
                     </button>
