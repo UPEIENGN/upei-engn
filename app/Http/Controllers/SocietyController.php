@@ -48,6 +48,7 @@ class SocietyController extends Controller
 
         return Inertia::render('society/Store', [
             'society' => $society,
+            'products' => $society->products
         ]);
     }
 

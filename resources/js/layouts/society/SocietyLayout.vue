@@ -5,6 +5,7 @@ import SocietyFooter from '@/layouts/society/components/SocietyFooter.vue';
 import { Can, type NavItem, Society } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { computed, ComputedRef } from 'vue';
+import { ShoppingCart } from'lucide-vue-next';
 
 interface Props {
     society: Society;
@@ -44,6 +45,21 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
 <template>
     <Head :title="society.name" />
     <div class="flex min-h-screen flex-col items-center p-6 lg:justify-center lg:p-8">
+        <header class="bg-white w-full justify-end pb-6">
+            <nav>
+                <div class="flex items-center justify-end">
+                    <div class="flex flex-1 items-center justify-end">
+                        <div class="flow-root">
+                            <Link href="#" class="group flex items-center p-2">
+                                <ShoppingCart class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                <span class="sr-only">items in cart, view bag</span>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
         <div class="relative h-[20vh] w-full overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
             <img
                 src="https://placehold.co/1300x200"
