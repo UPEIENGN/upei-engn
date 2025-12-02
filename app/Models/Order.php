@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use HasUuids;
+    use SoftDeletes;
 
     protected $fillable = [
         'cart_id',

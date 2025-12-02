@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CartItemPolicy
 {

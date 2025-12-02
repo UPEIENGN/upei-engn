@@ -4,8 +4,8 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import SocietyFooter from '@/layouts/society/components/SocietyFooter.vue';
 import { Can, type NavItem, Society } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
+import { ShoppingCart } from 'lucide-vue-next';
 import { computed, ComputedRef } from 'vue';
-import { ShoppingCart } from'lucide-vue-next';
 
 interface Props {
     society: Society;
@@ -45,7 +45,7 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
 <template>
     <Head :title="society.name" />
     <div class="flex min-h-screen flex-col items-center p-6 lg:justify-center lg:p-8">
-        <header class="bg-white w-full justify-end pb-6">
+        <header class="w-full justify-end bg-white pb-6">
             <nav>
                 <div class="flex items-center justify-end">
                     <div class="flex flex-1 items-center justify-end">

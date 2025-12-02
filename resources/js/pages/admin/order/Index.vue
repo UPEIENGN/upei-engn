@@ -3,7 +3,7 @@ import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import DataTable from '@/components/ui/data-table/DataTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { columns } from '@/pages/admin/order/components/columns';
-import { type BreadcrumbItem, Pagination, Order, Society } from '@/types';
+import { type BreadcrumbItem, Order, Pagination, Society } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 
 interface Props {

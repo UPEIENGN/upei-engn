@@ -31,9 +31,7 @@ const society = computed(() => page.props.society);
                 <Link :href="route('admin.societies.order.show', { society: society, order: order })"> View Order </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-                <Link method="delete" :href="route('admin.societies.order.destroy', { society: society, order: order })">
-                    Delete Order
-                </Link>
+                <Link method="delete" :href="route('admin.societies.order.destroy', { society: society, order: order })"> Delete Order </Link>
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>
