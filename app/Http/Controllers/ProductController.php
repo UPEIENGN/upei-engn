@@ -23,14 +23,14 @@ class ProductController extends Controller
         $sort = $request->input('sort', 'created_at');
         $desc = $request->boolean('desc', true);
 
-        $members = $society->products()
+        $products = $society->products()
             ->where('name', 'like', "%$search%")
             ->orderBy($sort, $desc ? 'desc' : 'asc')
             ->paginate($perPage);
 
         return Inertia::render('admin/product/Index', [
             'society' => $society,
-            'products' => $members,
+            'products' => $products,
         ]);
     }
 

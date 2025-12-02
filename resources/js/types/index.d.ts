@@ -55,6 +55,9 @@ export interface Society {
     discord_url: string;
     meeting_schedule: string;
     meeting_location: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
 }
 
 export interface SocietyMember {
@@ -68,6 +71,9 @@ export interface SocietyMember {
     description: string;
     renewed_at: string;
     is_expired: boolean;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
 }
 
 export interface Event {
@@ -78,6 +84,9 @@ export interface Event {
     location: string;
     start: string;
     end: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
 }
 
 export interface Product {
@@ -89,6 +98,21 @@ export interface Product {
     stock: number;
     colors: string[];
     sizes: string[];
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
+}
+
+export interface Order {
+    id: string;
+    society_id: string;
+    cart_id: string;
+    name: string;
+    email: string;
+    address: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
 }
 
 export interface Pagination<T> {

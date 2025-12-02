@@ -51,6 +51,11 @@ class Society extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function userHasRole(User $user, $roles): bool
     {
         $roles = is_array($roles) ? $roles : [$roles];
