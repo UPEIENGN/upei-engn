@@ -6,10 +6,10 @@ import { Label } from '@/components/ui/label';
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 import { type BreadcrumbItem, Product, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
-import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -37,11 +37,11 @@ const form = useForm({
     stock: props.product.stock,
     colors: props.product.colors,
     sizes: props.product.sizes,
-    image: undefined
+    image: undefined,
 });
 
 const submit = () => {
-    form.post(route('admin.societies.products.update', { society: props.society, product: props.product }), {forceFormData: true});
+    form.post(route('admin.societies.products.update', { society: props.society, product: props.product }), { forceFormData: true });
 };
 </script>
 
@@ -104,10 +104,13 @@ const submit = () => {
                         </div>
 
                         <div class="grid gap-2">
-                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)">
                                 <template #current-image>
-                                    <img :src="product.image.url" alt="Preview Image"
-                                         class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8" />
+                                    <img
+                                        :src="product.image.url"
+                                        alt="Preview Image"
+                                        class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8"
+                                    />
                                 </template>
                             </ImageInput>
                         </div>

@@ -7,10 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
-import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -110,7 +110,7 @@ const submit = () => {
                         </div>
 
                         <div class="grid gap-2">
-                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image" />
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)" />
                         </div>
 
                         <Button type="submit" class="mt-4" :disabled="form.processing">

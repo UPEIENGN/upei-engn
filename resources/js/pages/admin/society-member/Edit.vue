@@ -6,10 +6,10 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 import { type BreadcrumbItem, Society, SocietyMember } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
-import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -37,11 +37,11 @@ const form = useForm({
     role: props.member.role,
     title: props.member.title,
     description: props.member.description,
-    image: undefined
+    image: undefined,
 });
 
 const submit = () => {
-    form.post(route('admin.societies.society-members.update', { society: props.society, society_member: props.member }), {forceFormData: true});
+    form.post(route('admin.societies.society-members.update', { society: props.society, society_member: props.member }), { forceFormData: true });
 };
 </script>
 
@@ -96,10 +96,13 @@ const submit = () => {
                         </div>
 
                         <div class="grid gap-2">
-                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)">
                                 <template #current-image>
-                                    <img :src="member.image?.url" alt="Preview Image"
-                                         class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8" />
+                                    <img
+                                        :src="member.image?.url"
+                                        alt="Preview Image"
+                                        class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8"
+                                    />
                                 </template>
                             </ImageInput>
                         </div>
