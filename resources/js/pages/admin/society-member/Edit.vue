@@ -9,6 +9,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Society, SocietyMember } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -30,15 +31,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const form = useForm({
+    _method: 'PATCH',
     name: props.member.name,
     email: props.member.email,
     role: props.member.role,
     title: props.member.title,
     description: props.member.description,
+    image: undefined
 });
 
 const submit = () => {
-    form.patch(route('admin.societies.society-members.update', { society: props.society, society_member: props.member }));
+    form.post(route('admin.societies.society-members.update', { society: props.society, society_member: props.member }), {forceFormData: true});
 };
 </script>
 
@@ -90,6 +93,15 @@ const submit = () => {
                             <Label>Description</Label>
                             <Textarea v-model="form.description" placeholder="Description" />
                             <InputError :message="form.errors.description" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image">
+                                <template #current-image>
+                                    <img :src="member.image?.url" alt="Preview Image"
+                                         class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8" />
+                                </template>
+                            </ImageInput>
                         </div>
 
                         <Button type="submit" class="mt-4" :disabled="form.processing">

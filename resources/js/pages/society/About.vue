@@ -30,7 +30,7 @@ defineProps<Props>();
                     <li v-for="executive in executives" :key="executive.id">
                         <img
                             class="aspect-14/13 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-black/5 dark:outline-white/10"
-                            src="https://placehold.co/200"
+                            :src="executive.image?.url ?? 'https://placehold.co/200'"
                             alt=""
                         />
                         <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-neutral-900 dark:text-white">

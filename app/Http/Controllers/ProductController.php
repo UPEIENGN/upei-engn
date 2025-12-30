@@ -7,6 +7,7 @@ use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Society;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -51,7 +52,23 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request, Society $society)
     {
-        $product = $society->products()->create($request->validated());
+        $product = $society->products()->create(
+            $request->safe()->except('image')
+        );
+
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+
+            $path = $uploadedFile->store('products', 'public');
+
+            $product->image()->create([
+                'name' => $uploadedFile->hashName(),
+                'original_name' => $uploadedFile->getClientOriginalName(),
+                'path' => $path,
+                'disk' => 'public',
+                'size' => $uploadedFile->getSize(),
+            ]);
+        }
 
         return redirect()->route('admin.societies.products.index', $society)
             ->with('success', 'Product created successfully.');
@@ -66,7 +83,7 @@ class ProductController extends Controller
 
         return Inertia::render('admin/product/Edit', [
             'society' => $society,
-            'product' => $product,
+            'product' => $product->load(['image']),
         ]);
     }
 
@@ -75,7 +92,28 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Society $society, Product $product)
     {
-        $product->update($request->validated());
+        $product->update(
+            $request->safe()->except('image')
+        );
+
+        if ($request->hasFile('image')) {
+            // Remove old image
+            if ($product->image) {
+                Storage::disk($product->image->disk)->delete($product->image->path);
+                $product->image->delete();
+            }
+
+            $uploadedFile = $request->file('image');
+            $path = $uploadedFile->store('products', 'public');
+
+            $product->image()->create([
+                'name' => $uploadedFile->hashName(),
+                'original_name' => $uploadedFile->getClientOriginalName(),
+                'path' => $path,
+                'disk' => 'public',
+                'size' => $uploadedFile->getSize(),
+            ]);
+        }
 
         return redirect()->route('admin.societies.products.index', $society)
             ->with('success', 'Product updated successfully.');

@@ -9,6 +9,7 @@ use App\Models\Society;
 use App\Models\SocietyMember;
 use App\SocietyMemberRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SocietyMemberController extends Controller
@@ -33,7 +34,7 @@ class SocietyMemberController extends Controller
         return Inertia::render('admin/society-member/Index', [
             'society' => $society,
             'members' => $members,
-            'executives' => $society->executives,
+            'executives' => $society->executives->load(['image']),
             'allMembers' => $society->members,
         ]);
     }
@@ -56,11 +57,27 @@ class SocietyMemberController extends Controller
      */
     public function store(StoreSocietyMemberRequest $request, Society $society)
     {
-        $societyMember = $society->members()->create($request->validated());
+        $societyMember = $society->members()->create(
+            $request->safe()->except('image')
+        );
 
         if ($request->get('paid_membership')) {
             $societyMember->renewed_at = now();
             $societyMember->save();
+        }
+
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+
+            $path = $uploadedFile->store('society-members', 'public');
+
+            $societyMember->image()->create([
+                'name' => $uploadedFile->hashName(),
+                'original_name' => $uploadedFile->getClientOriginalName(),
+                'path' => $path,
+                'disk' => 'public',
+                'size' => $uploadedFile->getSize(),
+            ]);
         }
 
         return redirect()->route('admin.societies.society-members.index', $society)
@@ -76,7 +93,7 @@ class SocietyMemberController extends Controller
 
         return Inertia::render('admin/society-member/Edit', [
             'society' => $society,
-            'member' => $societyMember,
+            'member' => $societyMember->load(['image']),
             'roles' => SocietyMemberRole::asSelectArray(),
         ]);
     }
@@ -86,7 +103,29 @@ class SocietyMemberController extends Controller
      */
     public function update(UpdateSocietyMemberRequest $request, Society $society, SocietyMember $societyMember)
     {
-        $societyMember->update($request->validated());
+        $societyMember->update(
+            $request->safe()->except('image')
+        );
+
+        if ($request->hasFile('image')) {
+            // Remove old image if it exists
+            if ($societyMember->image) {
+                Storage::disk($societyMember->image->disk)->delete($societyMember->image->path);
+
+                $societyMember->image->delete();
+            }
+
+            $uploadedFile = $request->file('image');
+            $path = $uploadedFile->store('society-members', 'public');
+
+            $societyMember->image()->create([
+                'name' => $uploadedFile->hashName(),
+                'original_name' => $uploadedFile->getClientOriginalName(),
+                'path' => $path,
+                'disk' => 'public',
+                'size' => $uploadedFile->getSize(),
+            ]);
+        }
 
         return redirect()->route('admin.societies.society-members.index', $society)
             ->with('success', 'Society member updated successfully.');

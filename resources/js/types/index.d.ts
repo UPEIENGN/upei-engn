@@ -71,6 +71,7 @@ export interface SocietyMember {
     description: string;
     renewed_at: string;
     is_expired: boolean;
+    image: File;
     created_at: string;
     updated_at: string;
     deleted_at: string;
@@ -98,6 +99,7 @@ export interface Product {
     stock: number;
     colors: string[];
     sizes: string[];
+    image: File;
     created_at: string;
     updated_at: string;
     deleted_at: string;
@@ -110,6 +112,21 @@ export interface Order {
     name: string;
     email: string;
     address: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
+}
+
+export interface File {
+    id: string;
+    name: string;
+    original_name: string;
+    path: string;
+    disk: string;
+    size: number;
+    fileable_id: number;
+    fileable_type: string;
+    url: string;
     created_at: string;
     updated_at: string;
     deleted_at: string;

@@ -38,6 +38,8 @@ class UpdateSocietyMemberRequest extends FormRequest
             'role' => ['sometimes', Rule::enum(SocietyMemberRole::class)],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+
+            'image' => ['nullable', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
         ];
     }
 }

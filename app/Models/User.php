@@ -49,9 +49,4 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
-
-    public function isSiteAdmin()
-    {
-        return $this->is_admin;
-    }
 }

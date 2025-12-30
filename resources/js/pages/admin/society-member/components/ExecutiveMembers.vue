@@ -104,7 +104,7 @@ function saveOrder() {
                 >
                     <img
                         class="mx-auto size-24 rounded-full outline-1 -outline-offset-1 outline-black/5 dark:outline-white/10"
-                        src="https://placehold.co/200"
+                        :src="member.image?.url ?? 'https://placehold.co/200'"
                         alt=""
                     />
                     <button class="absolute top-1 right-2 text-red-500 hover:text-red-700" @click.stop="removeExecutive(member.id)">

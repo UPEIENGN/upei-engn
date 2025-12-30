@@ -9,6 +9,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Product, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -29,16 +30,18 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const form = useForm({
+    _method: 'PUT',
     name: props.product.name,
     description: props.product.description,
     price: props.product.price,
     stock: props.product.stock,
     colors: props.product.colors,
     sizes: props.product.sizes,
+    image: undefined
 });
 
 const submit = () => {
-    form.put(route('admin.societies.products.update', { society: props.society, product: props.product }));
+    form.post(route('admin.societies.products.update', { society: props.society, product: props.product }), {forceFormData: true});
 };
 </script>
 
@@ -98,6 +101,15 @@ const submit = () => {
                                 <TagsInputInput placeholder="Sizes..." />
                             </TagsInput>
                             <InputError :message="form.errors.sizes" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image">
+                                <template #current-image>
+                                    <img :src="product.image.url" alt="Preview Image"
+                                         class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8" />
+                                </template>
+                            </ImageInput>
                         </div>
 
                         <Button type="submit" class="mt-4" :disabled="form.processing">

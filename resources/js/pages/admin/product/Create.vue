@@ -9,6 +9,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -34,6 +35,7 @@ const form = useForm({
     stock: undefined,
     colors: [],
     sizes: [],
+    image: undefined,
 });
 
 const submit = () => {
@@ -97,6 +99,10 @@ const submit = () => {
                                 <TagsInputInput placeholder="Sizes..." />
                             </TagsInput>
                             <InputError :message="form.errors.sizes" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image" />
                         </div>
 
                         <Button type="submit" class="mt-4" :disabled="form.processing">

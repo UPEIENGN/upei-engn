@@ -10,6 +10,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import ImageInput from '@/pages/admin/product/ImageInput.vue';
 
 interface Props {
     society: Society;
@@ -36,6 +37,7 @@ const form = useForm({
     title: undefined,
     description: undefined,
     paid_membership: false,
+    image: undefined,
 });
 
 const submit = () => {
@@ -105,6 +107,10 @@ const submit = () => {
                                 <p class="text-sm text-muted-foreground">This member has paid there membership fee.</p>
                                 <InputError :message="form.errors.paid_membership" />
                             </div>
+                        </div>
+
+                        <div class="grid gap-2">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => form.image = image" />
                         </div>
 
                         <Button type="submit" class="mt-4" :disabled="form.processing">

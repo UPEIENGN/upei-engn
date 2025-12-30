@@ -35,6 +35,8 @@ class StoreSocietyMemberRequest extends FormRequest
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'paid_membership' => ['required', 'boolean'],
+
+            'image' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
         ];
     }
 }
