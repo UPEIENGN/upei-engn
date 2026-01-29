@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Society\UpdateSocietyRequest;
+use App\Models\Product;
 use App\Models\Society;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
@@ -49,6 +50,16 @@ class SocietyController extends Controller
         return Inertia::render('society/Store', [
             'society' => $society,
             'products' => $society->products->load(['image']),
+        ]);
+    }
+
+    public function showProduct(Product $product)
+    {
+        $society = Society::first();
+
+        return Inertia::render('society/product/Show', [
+            'society' => $society,
+            'product' => $product->load(['image']),
         ]);
     }
 

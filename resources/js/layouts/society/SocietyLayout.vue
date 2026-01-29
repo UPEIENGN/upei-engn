@@ -36,7 +36,7 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
     {
         title: 'Store',
         href: route('store'),
-        isActive: route().current('store'),
+        isActive: route().current('store') || route().current('products.show'),
         can: true,
     },
 ]);
