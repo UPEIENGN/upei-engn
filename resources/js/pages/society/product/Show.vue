@@ -60,13 +60,13 @@ defineProps<Props>();
                                             v-for="color in product.colors"
                                             :key="color"
                                             :aria-label="color"
-                                            class="cursor-pointer group relative flex items-center justify-center rounded-md border border-gray-300 bg-white p-3 has-checked:border-gray-600 has-checked:bg-gray-600 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-gray-600 has-disabled:border-gray-400 has-disabled:bg-gray-200 has-disabled:opacity-25"
+                                            class="group relative flex items-center justify-center rounded-md border border-gray-300 bg-white p-3 has-checked:border-gray-600 has-checked:bg-gray-600 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-gray-600 has-disabled:border-gray-400 has-disabled:bg-gray-200 has-disabled:opacity-25"
                                         >
                                             <input
                                                 type="radio"
                                                 name="color"
                                                 :value="color"
-                                                class="absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
+                                                class="cursor-pointer absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
                                             <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ color }}</span>
                                         </label>
@@ -84,13 +84,13 @@ defineProps<Props>();
                                             v-for="size in product.sizes"
                                             :key="size"
                                             :aria-label="size"
-                                            class="cursor-pointer group relative flex items-center justify-center rounded-md border border-gray-300 bg-white p-3 has-checked:border-gray-600 has-checked:bg-gray-600 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-gray-600 has-disabled:border-gray-400 has-disabled:bg-gray-200 has-disabled:opacity-25"
+                                            class="group relative flex items-center justify-center rounded-md border border-gray-300 bg-white p-3 has-checked:border-gray-600 has-checked:bg-gray-600 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-gray-600 has-disabled:border-gray-400 has-disabled:bg-gray-200 has-disabled:opacity-25"
                                         >
                                             <input
                                                 type="radio"
                                                 name="size"
                                                 :value="size"
-                                                class="absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
+                                                class="cursor-pointer absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
                                             <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ size }}</span>
                                         </label>
