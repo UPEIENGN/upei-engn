@@ -14,7 +14,7 @@ class ExecutiveMemberController extends Controller
         $this->authorize('reorderExecutives', [SocietyMember::class, $society]);
 
         $validated = $request->validate([
-            'executives' => 'required|array',
+            'executives' => 'present|array',
             'executives.*.id' => 'required|exists:society_members,id',
             'executives.*.order' => 'required|integer|min:1',
         ]);
