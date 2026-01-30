@@ -9,7 +9,7 @@ abstract class Controller
 {
     use AuthorizesRequests;
 
-    protected function getCart()
+    protected function getCart(): Cart
     {
         $sessionId = session()->id();
 

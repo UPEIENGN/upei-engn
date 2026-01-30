@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Society;
 use Inertia\Inertia;
 
 class CartController extends Controller
@@ -13,12 +14,15 @@ class CartController extends Controller
      */
     public function show()
     {
+        $society = Society::first();
+
         $cart = $this->getCart();
 
         $this->authorize('view', [Cart::class, $cart]);
 
         return Inertia::render('society/cart/Show', [
-            'cart' => $cart?->load('items'),
+            'cart' => $cart->load('items'),
+            'society' => $society,
         ]);
     }
 }
