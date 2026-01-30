@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
 
-            $table->uuid('session_id')->index();
+            $table->string('session_id')->index();
 
             $table->timestamps();
         });
