@@ -134,7 +134,7 @@ export interface File {
 
 export interface Cart {
     id: number;
-    items: CartItem[]
+    items: CartItem[];
     session_id: string;
     created_at: string;
     updated_at: string;
