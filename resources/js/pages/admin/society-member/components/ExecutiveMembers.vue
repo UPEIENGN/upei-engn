@@ -15,9 +15,9 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const executives = ref([...props.executives]);
+const displayedExecutives = ref([...props.executives]);
 
-const availableMembers = computed(() => props.members.filter((m) => !executives.value.some((e) => e.id === m.id)));
+const availableMembers = computed(() => props.members.filter((m) => !displayedExecutives.value.some((e) => e.id === m.id)));
 
 const draggingIndex = ref<number | null>(null);
 
@@ -34,12 +34,12 @@ function onDragOver(event: DragEvent, index: number) {
         return;
     }
 
-    const arr = [...executives.value];
+    const arr = [...displayedExecutives.value];
     const moved = arr.splice(from, 1)[0];
     arr.splice(to, 0, moved);
 
     draggingIndex.value = to;
-    executives.value = arr;
+    displayedExecutives.value = arr;
 }
 
 function onDrop() {
@@ -47,8 +47,8 @@ function onDrop() {
     saveOrder();
 }
 
-function removeExecutive(id: string) {
-    executives.value = executives.value.filter((member) => member.id !== id);
+function removeExecutive(id: number) {
+    displayedExecutives.value = displayedExecutives.value.filter((member) => member.id !== id);
     saveOrder();
 }
 
@@ -64,13 +64,13 @@ function addExecutive() {
         return;
     }
 
-    executives.value.push(member);
+    displayedExecutives.value.push(member);
     selectedMember.value = null;
     saveOrder();
 }
 
 function saveOrder() {
-    const payload = executives.value.map((member, index) => ({
+    const payload = displayedExecutives.value.map((member, index) => ({
         id: member.id,
         order: index + 1,
     }));
@@ -93,7 +93,7 @@ function saveOrder() {
                 class="mx-auto mt-6 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6"
             >
                 <li
-                    v-for="(member, index) in executives"
+                    v-for="(member, index) in displayedExecutives"
                     :key="member.id"
                     draggable="true"
                     @dragstart="onDragStart(index)"

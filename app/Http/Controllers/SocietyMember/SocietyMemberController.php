@@ -35,7 +35,7 @@ class SocietyMemberController extends Controller
             'society' => $society,
             'members' => $members,
             'executives' => $society->executives->load(['image']),
-            'allMembers' => $society->members,
+            'allMembers' => $society->members->load(['image']),
         ]);
     }
 
