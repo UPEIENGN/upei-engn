@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
 
-            $table->foreignUuid('society_id')->constrained('societies')->cascadeOnDelete();
-            $table->foreignUuid('cart_id')->constrained('carts')->cascadeOnDelete();
+            $table->foreignId('society_id')->constrained('societies')->cascadeOnDelete();
+            $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
 
             $table->string('name');
             $table->string('email');

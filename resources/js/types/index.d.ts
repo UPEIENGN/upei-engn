@@ -45,7 +45,7 @@ export interface Can {
     delete: boolean;
 }
 export interface Society {
-    id: string;
+    id: number;
     name: string;
     description: string;
     email: string;
@@ -61,8 +61,8 @@ export interface Society {
 }
 
 export interface SocietyMember {
-    id: string;
-    society_id: string;
+    id: number;
+    society_id: number;
     name: string;
     email: string;
     role: number;
@@ -78,8 +78,8 @@ export interface SocietyMember {
 }
 
 export interface Event {
-    id: string;
-    society_id: string;
+    id: number;
+    society_id: number;
     title: string;
     description: string;
     location: string;
@@ -91,8 +91,8 @@ export interface Event {
 }
 
 export interface Product {
-    id: string;
-    society_id: string;
+    id: number;
+    society_id: number;
     name: string;
     description: string;
     price: number;
@@ -106,9 +106,9 @@ export interface Product {
 }
 
 export interface Order {
-    id: string;
-    society_id: string;
-    cart_id: string;
+    id: number;
+    society_id: number;
+    cart_id: number;
     name: string;
     email: string;
     address: string;
@@ -118,7 +118,7 @@ export interface Order {
 }
 
 export interface File {
-    id: string;
+    id: number;
     name: string;
     original_name: string;
     path: string;
@@ -130,6 +130,24 @@ export interface File {
     created_at: string;
     updated_at: string;
     deleted_at: string;
+}
+
+export interface Cart {
+    id: number;
+    session_id: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface CartItem {
+    id: number;
+    cart_id: number;
+    product_id: number;
+    quantity: number;
+    color: string;
+    size: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface Pagination<T> {

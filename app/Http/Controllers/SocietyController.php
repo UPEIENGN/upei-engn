@@ -53,7 +53,7 @@ class SocietyController extends Controller
         ]);
     }
 
-    public function showProduct(Product $product)
+    public function showProduct(Product $product): Response
     {
         $society = Society::first();
 

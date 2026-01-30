@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
 
             $table->uuid('session_id')->index();
 
