@@ -13,11 +13,11 @@ class CartController extends Controller
      */
     public function show()
     {
-        $cart = Cart::where('session_id', session()->id())->first();
+        $cart = $this->getCart();
 
         $this->authorize('view', [Cart::class, $cart]);
 
-        return Inertia::render('Cart/Show', [
+        return Inertia::render('society/cart/Show', [
             'cart' => $cart?->load('items'),
         ]);
     }

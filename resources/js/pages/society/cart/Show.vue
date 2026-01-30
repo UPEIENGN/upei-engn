@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+import { Cart } from '@/types';
+
 interface Props {
     cart?: Cart
 }
@@ -7,6 +9,8 @@ interface Props {
 defineProps<Props>();
 </script>
 
-<template></template>
+<template>
+    {{cart}}
+</template>
 
 <style scoped></style>

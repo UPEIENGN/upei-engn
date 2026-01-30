@@ -50,7 +50,7 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
                 <div class="flex items-center justify-end">
                     <div class="flex flex-1 items-center justify-end">
                         <div class="flow-root">
-                            <Link href="#" class="group flex items-center p-2">
+                            <Link :href="route('cart.show')" class="group flex items-center p-2">
                                 <ShoppingCart class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
                                 <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
                                 <span class="sr-only">items in cart, view bag</span>

@@ -51,20 +51,4 @@ class CartItemController extends Controller
 
         return back()->with('success', 'Item removed from cart.');
     }
-
-    protected function getCart()
-    {
-        $sessionId = session()->id();
-
-        $cart = Cart::where('session_id', $sessionId)->first();
-
-        if ($cart) {
-            return $cart;
-        }
-
-        // Create a new anonymous cart
-        return Cart::create([
-            'session_id' => $sessionId,
-        ]);
-    }
 }
