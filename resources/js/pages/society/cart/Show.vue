@@ -24,28 +24,6 @@ const products = [
         imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-01-product-01.jpg',
         imageAlt: "Front of men's Basic Tee in sienna.",
     },
-    {
-        id: 2,
-        name: 'Basic Tee',
-        href: '#',
-        price: '$32.00',
-        color: 'Black',
-        inStock: false,
-        leadTime: '3–4 weeks',
-        size: 'Large',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-01-product-02.jpg',
-        imageAlt: "Front of men's Basic Tee in black.",
-    },
-    {
-        id: 3,
-        name: 'Nomad Tumbler',
-        href: '#',
-        price: '$35.00',
-        color: 'White',
-        inStock: true,
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-01-product-03.jpg',
-        imageAlt: 'Insulated bottle with white base and black snap lid.',
-    },
 ]
 </script>
 
@@ -123,7 +101,7 @@ const products = [
                         <dl class="mt-6 space-y-4">
                             <div class="flex items-center justify-between">
                                 <dt class="text-sm text-gray-600">Subtotal</dt>
-                                <dd class="text-sm font-medium text-gray-900">$99.00</dd>
+                                <dd class="text-sm font-medium text-gray-900">$32.00</dd>
                             </div>
                             <!--                        <div class="flex items-center justify-between border-t border-gray-200 pt-4">-->
                             <!--                            <dt class="flex items-center text-sm text-gray-600">-->
@@ -135,11 +113,11 @@ const products = [
                                 <dt class="flex text-sm text-gray-600">
                                     <span>Tax estimate</span>
                                 </dt>
-                                <dd class="text-sm font-medium text-gray-900">$8.32</dd>
+                                <dd class="text-sm font-medium text-gray-900">$8.00</dd>
                             </div>
                             <div class="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
-                                <dd class="text-base font-medium text-gray-900">$107.32</dd>
+                                <dd class="text-base font-medium text-gray-900">$40.00</dd>
                             </div>
                         </dl>
 
