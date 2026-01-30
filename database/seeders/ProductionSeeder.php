@@ -14,13 +14,16 @@ class ProductionSeeder extends Seeder
      */
     public function run(): void
     {
-        $society = Society::factory()->create();
+        $user = new User;
+        $user->name = 'admin';
+        $user->email = 'engnsociety@upei.ca';
+        $user->password = '$2y$12$3PNTSzNDgwZZobvdgd8wOO1c36ZkkecD6WL1MUSXZ5qnRvlWWflK6';
+        $user->save();
 
-        $user = User::factory()->create([
-            'name' => 'admin',
-            'email' => 'engnsociety@upei.ca',
-            'password' => '$2y$12$3PNTSzNDgwZZobvdgd8wOO1c36ZkkecD6WL1MUSXZ5qnRvlWWflK6',
-        ]);
+        $society = new Society;
+        $society->name = 'UPEI Engineering';
+        $society->email = $user->email;
+        $society->save();
 
         $society->members()->create([
             'name' => $user->name,
