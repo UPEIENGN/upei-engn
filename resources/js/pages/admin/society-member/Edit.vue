@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
-import ImageInput from '@/pages/admin/product/ImageInput.vue';
+import ImageInput from '@/components/ImageInput.vue';
 import { type BreadcrumbItem, Society, SocietyMember } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
@@ -96,7 +96,7 @@ const submit = () => {
                         </div>
 
                         <div class="grid gap-2">
-                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)">
+                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)" :multiple="false">
                                 <template #current-image>
                                     <img
                                         :src="member.image?.url"

@@ -6,11 +6,14 @@ import { ref } from 'vue';
 
 interface Props {
     error: string | undefined;
+    multiple?: boolean;
 }
 
-defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+    multiple: true,
+});
 
-const emit = defineEmits(['images-selected']);
+const emit = defineEmits(['images-selected', 'image-selected']);
 
 const imageUrls = ref<string[]>([]);
 
@@ -19,9 +22,23 @@ const handleFileChange = (event: Event) => {
     const files = target.files;
     imageUrls.value = [];
 
-    if (files) {
-        const fileArray = Array.from(files);
-        for (const file of fileArray) {
+    if (files && files.length > 0) {
+        if (props.multiple) {
+            const fileArray = Array.from(files);
+            for (const file of fileArray) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        if (e.target?.result) {
+                            imageUrls.value.push(e.target.result as string);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+            emit('images-selected', fileArray);
+        } else {
+            const file = files[0];
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -30,25 +47,25 @@ const handleFileChange = (event: Event) => {
                     }
                 };
                 reader.readAsDataURL(file);
+                emit('image-selected', file);
             }
         }
-        emit('images-selected', fileArray);
     }
 };
 </script>
 
 <template>
-    <Label>Images</Label>
-    <Input type="file" @input="handleFileChange" multiple />
+    <Label>{{ multiple ? 'Images' : 'Image' }}</Label>
+    <Input type="file" @input="handleFileChange" :multiple="multiple" />
     <InputError :message="error" />
     <div class="flex w-full items-start gap-2">
         <div v-if="$slots['current-image']" class="grid w-1/2 gap-2">
-            <Label>Current Images</Label>
+            <Label>{{ multiple ? 'Current Images' : 'Current Image' }}</Label>
             <slot name="current-image" />
         </div>
         <div v-if="imageUrls.length" class="grid w-1/2 gap-2">
-            <Label>Uploaded Images</Label>
-            <div class="grid grid-cols-2 gap-2">
+            <Label>{{ multiple ? 'Uploaded Images' : 'Uploaded Image' }}</Label>
+            <div :class="[multiple ? 'grid grid-cols-2 gap-2' : '']">
                 <img
                     v-for="(url, index) in imageUrls"
                     :key="index"
