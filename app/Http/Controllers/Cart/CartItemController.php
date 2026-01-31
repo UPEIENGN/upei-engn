@@ -18,7 +18,15 @@ class CartItemController extends Controller
 
         $this->authorize('create', [CartItem::class, $cart]);
 
-        $item = $cart->items()->create([...$request->validated()]);
+        $validated = $request->validated();
+
+        $item = $cart->items()->where('product_id', $validated['product_id'])->first();
+
+        if ($item) {
+            $item->increment('quantity', $validated['quantity']);
+        } else {
+            $cart->items()->create($validated);
+        }
 
         return back()->with('success', 'Item added to cart.');
     }
