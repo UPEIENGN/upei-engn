@@ -68,7 +68,7 @@ function generateQuantityOptions(stock: number): number[] {
             <main class="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
 
-                <form class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+                <form v-if="cart.items.length > 0" class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
                     <section aria-labelledby="cart-heading" class="lg:col-span-7">
                         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
@@ -164,7 +164,7 @@ function generateQuantityOptions(stock: number): number[] {
                                 </dt>
                                 <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>
                             </div>
-                            <div class="flex items-center justify-between border-t border-gray-200 pt-4">
+                            <div class="flex items-center justify-between border-t border-200 pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
                                 <dd class="text-base font-medium text-gray-900">${{ orderTotal.toFixed(2) }}</dd>
                             </div>
@@ -180,6 +180,11 @@ function generateQuantityOptions(stock: number): number[] {
                         </div>
                     </section>
                 </form>
+
+                <div v-else class="mt-12 text-center text-gray-500 text-lg">
+                    There are no items in your cart right now.
+                </div>
+
             </main>
         </div>
     </SocietyLayout>
