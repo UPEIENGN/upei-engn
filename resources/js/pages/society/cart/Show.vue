@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
+import { Cart, CartItem, Society } from '@/types';
 import { Head, InertiaForm, router, useForm } from '@inertiajs/vue3';
 import { ChevronDown, X } from 'lucide-vue-next';
-import { Cart, CartItem, Society } from '@/types';
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
 interface Props {
     society: Society;
@@ -164,7 +164,7 @@ function generateQuantityOptions(stock: number): number[] {
                                 </dt>
                                 <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>
                             </div>
-                            <div class="flex items-center justify-between border-t border-200 pt-4">
+                            <div class="flex items-center justify-between border-200 border-t pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
                                 <dd class="text-base font-medium text-gray-900">${{ orderTotal.toFixed(2) }}</dd>
                             </div>
@@ -181,10 +181,7 @@ function generateQuantityOptions(stock: number): number[] {
                     </section>
                 </form>
 
-                <div v-else class="mt-12 text-center text-gray-500 text-lg">
-                    There are no items in your cart right now.
-                </div>
-
+                <div v-else class="mt-12 text-center text-lg text-gray-500">There are no items in your cart right now.</div>
             </main>
         </div>
     </SocietyLayout>

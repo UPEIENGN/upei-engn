@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ImageInput from '@/components/ImageInput.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -7,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
-import ImageInput from '@/components/ImageInput.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';

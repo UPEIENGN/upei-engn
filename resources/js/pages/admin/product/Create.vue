@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ImageInput from '@/components/ImageInput.vue';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/AppLayout.vue';
-import ImageInput from '@/components/ImageInput.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
