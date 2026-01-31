@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Cart, CartItem, Society } from '@/types';
-import { Head, InertiaForm, router, useForm } from '@inertiajs/vue3';
+import { Head, InertiaForm, Link, router, useForm } from '@inertiajs/vue3';
 import { ChevronDown, X } from 'lucide-vue-next';
 import { computed, onBeforeMount, ref } from 'vue';
 
@@ -87,10 +87,10 @@ function generateQuantityOptions(stock: number): number[] {
                                         <div>
                                             <div class="flex justify-between">
                                                 <h3 class="text-sm">
-                                                    <a
+                                                    <Link
                                                         :href="route('products.show', { product: cartItem.product.id })"
                                                         class="font-medium text-gray-700 hover:text-gray-800"
-                                                        >{{ cartItem.product.name }}</a
+                                                        >{{ cartItem.product.name }}</Link
                                                     >
                                                 </h3>
                                             </div>
@@ -116,7 +116,7 @@ function generateQuantityOptions(stock: number): number[] {
                                                     v-model="quantityForms[cartItem.id].quantity"
                                                     @change="updateQuantity(cartItem)"
                                                     :disabled="quantityForms[cartItem.id].processing"
-                                                    class="col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
+                                                    class="cursor-pointer col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
                                                 >
                                                     <option
                                                         v-for="option in generateQuantityOptions(cartItem.product.stock)"
@@ -127,7 +127,7 @@ function generateQuantityOptions(stock: number): number[] {
                                                     </option>
                                                 </select>
                                                 <ChevronDown
-                                                    class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                                    class="col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
                                                     aria-hidden="true"
                                                 />
                                             </div>
@@ -136,7 +136,7 @@ function generateQuantityOptions(stock: number): number[] {
                                                 <button
                                                     type="button"
                                                     @click="removeItem(cartItem)"
-                                                    class="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"
+                                                    class="-m-2 inline-flex cursor-pointer p-2 text-gray-400 hover:text-gray-500"
                                                 >
                                                     <span class="sr-only">Remove</span>
                                                     <X class="size-5" aria-hidden="true" />
@@ -171,7 +171,10 @@ function generateQuantityOptions(stock: number): number[] {
                         </dl>
 
                         <div class="mt-6">
-                            <button type="submit" class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden">
+                            <button
+                                type="submit"
+                                class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden"
+                            >
                                 Checkout
                             </button>
                         </div>
