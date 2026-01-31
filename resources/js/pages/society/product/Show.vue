@@ -66,7 +66,7 @@ defineProps<Props>();
                                                 type="radio"
                                                 name="color"
                                                 :value="color"
-                                                class="cursor-pointer absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
+                                                class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
                                             <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ color }}</span>
                                         </label>
@@ -90,7 +90,7 @@ defineProps<Props>();
                                                 type="radio"
                                                 name="size"
                                                 :value="size"
-                                                class="cursor-pointer absolute inset-0 appearance-none focus:outline-none disabled:cursor-not-allowed"
+                                                class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
                                             <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ size }}</span>
                                         </label>
@@ -100,7 +100,7 @@ defineProps<Props>();
 
                             <button
                                 type="submit"
-                                class="cursor-pointer mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-hidden"
+                                class="mt-8 flex w-full cursor-pointer items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-hidden"
                             >
                                 Add to cart
                             </button>

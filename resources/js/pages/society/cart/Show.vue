@@ -8,9 +8,9 @@ interface Props {
 
 defineProps<Props>();
 
-import { Check, ChevronDown, Clock, X } from 'lucide-vue-next'
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { Check, ChevronDown, Clock, X } from 'lucide-vue-next';
 
 const products = [
     {
@@ -24,7 +24,7 @@ const products = [
         imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-01-product-01.jpg',
         imageAlt: "Front of men's Basic Tee in sienna.",
     },
-]
+];
 </script>
 
 <template>
@@ -50,7 +50,9 @@ const products = [
                                         <div>
                                             <div class="flex justify-between">
                                                 <h3 class="text-sm">
-                                                    <a :href="product.href" class="font-medium text-gray-700 hover:text-gray-800">{{ product.name }}</a>
+                                                    <a :href="product.href" class="font-medium text-gray-700 hover:text-gray-800">{{
+                                                        product.name
+                                                    }}</a>
                                                 </h3>
                                             </div>
                                             <div class="mt-1 flex text-sm">
@@ -62,7 +64,12 @@ const products = [
 
                                         <div class="mt-4 sm:mt-0 sm:pr-9">
                                             <div class="inline-grid w-full max-w-16 grid-cols-1">
-                                                <select :id="`quantity-${productIdx}`" :name="`quantity-${productIdx}`" :aria-label="`Quantity, ${product.name}`" class="col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6">
+                                                <select
+                                                    :id="`quantity-${productIdx}`"
+                                                    :name="`quantity-${productIdx}`"
+                                                    :aria-label="`Quantity, ${product.name}`"
+                                                    class="col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
+                                                >
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -72,7 +79,10 @@ const products = [
                                                     <option value="7">7</option>
                                                     <option value="8">8</option>
                                                 </select>
-                                                <ChevronDown class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4" aria-hidden="true" />
+                                                <ChevronDown
+                                                    class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                                    aria-hidden="true"
+                                                />
                                             </div>
 
                                             <div class="absolute top-0 right-0">
@@ -122,7 +132,12 @@ const products = [
                         </dl>
 
                         <div class="mt-6">
-                            <button type="submit" class="cursor-pointer w-full rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden">Checkout</button>
+                            <button
+                                type="submit"
+                                class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden"
+                            >
+                                Checkout
+                            </button>
                         </div>
                     </section>
                 </form>

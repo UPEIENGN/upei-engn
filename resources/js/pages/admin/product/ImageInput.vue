@@ -49,7 +49,13 @@ const handleFileChange = (event: Event) => {
         <div v-if="imageUrls.length" class="grid w-1/2 gap-2">
             <Label>Uploaded Images</Label>
             <div class="grid grid-cols-2 gap-2">
-                <img v-for="(url, index) in imageUrls" :key="index" :src="url" alt="Preview Image" class="aspect-square rounded-lg bg-gray-200 object-cover" />
+                <img
+                    v-for="(url, index) in imageUrls"
+                    :key="index"
+                    :src="url"
+                    alt="Preview Image"
+                    class="aspect-square rounded-lg bg-gray-200 object-cover"
+                />
             </div>
         </div>
     </div>
