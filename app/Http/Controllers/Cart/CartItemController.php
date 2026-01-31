@@ -20,7 +20,11 @@ class CartItemController extends Controller
 
         $validated = $request->validated();
 
-        $item = $cart->items()->where('product_id', $validated['product_id'])->first();
+        $item = $cart->items()
+            ->where('product_id', $validated['product_id'])
+            ->where('color', $validated['color'] ?? null)
+            ->where('size', $validated['size'] ?? null)
+            ->first();
 
         if ($item) {
             $item->increment('quantity', $validated['quantity']);
@@ -28,7 +32,8 @@ class CartItemController extends Controller
             $cart->items()->create($validated);
         }
 
-        return back()->with('success', 'Item added to cart.');
+        return redirect()->route('cart.show')
+            ->with('success', 'Item added to cart.');
     }
 
     /**

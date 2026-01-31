@@ -1,14 +1,40 @@
 <script setup lang="ts">
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Product, Society } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
+import { Minus, Plus } from 'lucide-vue-next';
 
 interface Props {
     society: Society;
     product: Product;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const form = useForm({
+    product_id: props.product.id,
+    quantity: 1,
+    color: props.product.colors?.[0] ?? null,
+    size: props.product.sizes?.[0] ?? null,
+});
+
+const submit = () => {
+    form.post(route('cart-items.store'), {
+        preserveScroll: true,
+    });
+};
+
+const incrementQuantity = () => {
+    if (form.quantity < props.product.stock) {
+        form.quantity++;
+    }
+};
+
+const decrementQuantity = () => {
+    if (form.quantity > 1) {
+        form.quantity--;
+    }
+};
 </script>
 
 <template>
@@ -49,12 +75,12 @@ defineProps<Props>();
                     </div>
 
                     <div class="mt-8 lg:col-span-5">
-                        <form>
+                        <form @submit.prevent="submit">
                             <!-- Color picker -->
-                            <div>
+                            <div v-if="product.colors?.length">
                                 <h2 class="text-sm font-medium text-gray-900">Color</h2>
 
-                                <fieldset aria-label="Choose a size" class="mt-2">
+                                <fieldset aria-label="Choose a color" class="mt-2">
                                     <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
                                         <label
                                             v-for="color in product.colors"
@@ -64,18 +90,20 @@ defineProps<Props>();
                                         >
                                             <input
                                                 type="radio"
-                                                name="color"
                                                 :value="color"
+                                                v-model="form.color"
                                                 class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
-                                            <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ color }}</span>
+                                            <span class="text-sm font-medium uppercase text-gray-900 group-has-checked:text-white">{{
+                                                color
+                                            }}</span>
                                         </label>
                                     </div>
                                 </fieldset>
                             </div>
 
                             <!-- Size picker -->
-                            <div class="mt-8">
+                            <div class="mt-8" v-if="product.sizes?.length">
                                 <h2 class="text-sm font-medium text-gray-900">Size</h2>
 
                                 <fieldset aria-label="Choose a size" class="mt-2">
@@ -88,19 +116,46 @@ defineProps<Props>();
                                         >
                                             <input
                                                 type="radio"
-                                                name="size"
                                                 :value="size"
+                                                v-model="form.size"
                                                 class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
-                                            <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ size }}</span>
+                                            <span class="text-sm font-medium uppercase text-gray-900 group-has-checked:text-white">{{
+                                                size
+                                            }}</span>
                                         </label>
                                     </div>
                                 </fieldset>
                             </div>
 
+                            <!-- Quantity -->
+                            <div class="mt-8">
+                                <h2 class="text-sm font-medium text-gray-900">Quantity</h2>
+                                <div class="mt-2 flex items-center">
+                                    <button
+                                        type="button"
+                                        @click="decrementQuantity"
+                                        class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                                        :disabled="form.quantity <= 1"
+                                    >
+                                        <Minus class="size-5" />
+                                    </button>
+                                    <span class="w-16 text-center text-gray-900">{{ form.quantity }}</span>
+                                    <button
+                                        type="button"
+                                        @click="incrementQuantity"
+                                        class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                                        :disabled="form.quantity >= product.stock"
+                                    >
+                                        <Plus class="size-5" />
+                                    </button>
+                                </div>
+                            </div>
+
                             <button
                                 type="submit"
-                                class="mt-8 flex w-full cursor-pointer items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-hidden"
+                                :disabled="form.processing"
+                                class="mt-8 flex w-full cursor-pointer items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-hidden disabled:opacity-50"
                             >
                                 Add to cart
                             </button>

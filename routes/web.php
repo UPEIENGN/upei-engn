@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Cart\CartController;
+use App\Http\Controllers\Cart\CartItemController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SocietyController;
@@ -10,12 +11,26 @@ use App\Http\Controllers\SocietyMember\SocietyMemberController;
 use App\Http\Controllers\SocietyMember\SocietyMemberRenewController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [SocietyController::class, 'home'])->name('home');
-Route::get('/about', [SocietyController::class, 'about'])->name('about');
-Route::get('/events', [SocietyController::class, 'events'])->name('events');
-Route::get('/store', [SocietyController::class, 'store'])->name('store');
-Route::get('/store/products/{product}', [SocietyController::class, 'showProduct'])->name('products.show');
-Route::get('/cart', [CartController::class, 'show'])->name('cart.show');
+Route::get('/', [SocietyController::class, 'home'])
+    ->name('home');
+
+Route::get('/about', [SocietyController::class, 'about'])
+    ->name('about');
+
+Route::get('/events', [SocietyController::class, 'events'])
+    ->name('events');
+
+Route::get('/store', [SocietyController::class, 'store'])
+    ->name('store');
+
+Route::get('/store/products/{product}', [SocietyController::class, 'showProduct'])
+    ->name('products.show');
+
+Route::get('/cart', [CartController::class, 'show'])
+    ->name('cart.show');
+
+Route::resource('cart-items', CartItemController::class)
+    ->only(['store', 'update', 'destroy']);
 
 Route::permanentRedirect('/admin', '/admin/dashboard');
 
