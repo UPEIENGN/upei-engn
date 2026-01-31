@@ -127,7 +127,7 @@ function generateQuantityOptions(stock: number): number[] {
                                                     </option>
                                                 </select>
                                                 <ChevronDown
-                                                    class="col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                                    class="cursor-pointer col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
                                                     aria-hidden="true"
                                                 />
                                             </div>
