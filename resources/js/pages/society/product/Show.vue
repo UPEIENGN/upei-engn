@@ -94,9 +94,7 @@ const decrementQuantity = () => {
                                                 v-model="form.color"
                                                 class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
-                                            <span class="text-sm font-medium uppercase text-gray-900 group-has-checked:text-white">{{
-                                                color
-                                            }}</span>
+                                            <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ color }}</span>
                                         </label>
                                     </div>
                                 </fieldset>
@@ -120,9 +118,7 @@ const decrementQuantity = () => {
                                                 v-model="form.size"
                                                 class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
-                                            <span class="text-sm font-medium uppercase text-gray-900 group-has-checked:text-white">{{
-                                                size
-                                            }}</span>
+                                            <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ size }}</span>
                                         </label>
                                     </div>
                                 </fieldset>
@@ -135,7 +131,7 @@ const decrementQuantity = () => {
                                     <button
                                         type="button"
                                         @click="decrementQuantity"
-                                        class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                                        class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
                                         :disabled="form.quantity <= 1"
                                     >
                                         <Minus class="size-5" />
@@ -144,7 +140,7 @@ const decrementQuantity = () => {
                                     <button
                                         type="button"
                                         @click="incrementQuantity"
-                                        class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                                        class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 hover:bg-gray-50 disabled:opacity-50"
                                         :disabled="form.quantity >= product.stock"
                                     >
                                         <Plus class="size-5" />
