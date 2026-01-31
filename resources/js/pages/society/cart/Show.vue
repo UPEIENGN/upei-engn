@@ -164,17 +164,14 @@ function generateQuantityOptions(stock: number): number[] {
                                 </dt>
                                 <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>
                             </div>
-                            <div class="flex items-center justify-between border-200 border-t pt-4">
+                            <div class="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
                                 <dd class="text-base font-medium text-gray-900">${{ orderTotal.toFixed(2) }}</dd>
                             </div>
                         </dl>
 
                         <div class="mt-6">
-                            <button
-                                type="submit"
-                                class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden"
-                            >
+                            <button type="submit" class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden">
                                 Checkout
                             </button>
                         </div>
