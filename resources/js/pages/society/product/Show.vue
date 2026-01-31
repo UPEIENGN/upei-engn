@@ -29,12 +29,12 @@ defineProps<Props>();
                     <div class="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
                         <h2 class="sr-only">Images</h2>
 
-                        <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 lg:gap-8">
                             <img
                                 v-if="!product.images?.length"
                                 alt="placeholder"
-                                src="https://placehold.co/5000"
-                                class="rounded-lg lg:col-span-2 lg:row-span-2"
+                                src="https://placehold.co/4000"
+                                class="rounded-lg lg:col-span-3 lg:row-span-1"
                             />
 
                             <img
@@ -43,7 +43,7 @@ defineProps<Props>();
                                 :key="image.id"
                                 :alt="image.original_name"
                                 :src="image.url"
-                                :class="[index === 0 ? 'w-full lg:col-span-2 lg:row-span-2' : 'hidden lg:block', 'rounded-lg']"
+                                :class="[index === 0 ? 'w-full lg:col-span-3 lg:row-span-1' : 'hidden lg:block', 'rounded-lg']"
                             />
                         </div>
                     </div>
