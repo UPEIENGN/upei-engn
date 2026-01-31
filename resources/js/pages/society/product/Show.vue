@@ -31,7 +31,7 @@ defineProps<Props>();
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
                             <img
-                                v-if="!product.image"
+                                v-if="!product.images?.length"
                                 alt="placeholder"
                                 src="https://placehold.co/5000"
                                 class="rounded-lg lg:col-span-2 lg:row-span-2"
@@ -39,11 +39,11 @@ defineProps<Props>();
 
                             <img
                                 v-else
-                                v-for="(image, index) in [product.image]"
+                                v-for="(image, index) in product.images"
                                 :key="image.id"
                                 :alt="image.original_name"
                                 :src="image.url"
-                                :class="[index == 0 ? 'w-full lg:col-span-2 lg:row-span-2' : 'hidden lg:block', 'rounded-lg']"
+                                :class="[index === 0 ? 'w-full lg:col-span-2 lg:row-span-2' : 'hidden lg:block', 'rounded-lg']"
                             />
                         </div>
                     </div>

@@ -6,7 +6,7 @@ use App\Casts\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -40,8 +40,8 @@ class Product extends Model
         return $this->belongsTo(Society::class);
     }
 
-    public function image(): MorphOne
+    public function images(): MorphMany
     {
-        return $this->morphOne(File::class, 'fileable');
+        return $this->morphMany(File::class, 'fileable');
     }
 }

@@ -30,7 +30,8 @@ class StoreProductRequest extends FormRequest
             'colors' => ['nullable', 'array'],
             'sizes' => ['nullable', 'array'],
 
-            'image' => ['required', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
+            'images' => ['required', 'array'],
+            'images.*' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
         ];
     }
 }

@@ -22,7 +22,7 @@ defineProps<Props>();
                 <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                     <Link v-for="product in products" :key="product.id" :href="route('products.show', { product: product })" class="group">
                         <img
-                            :src="product.image?.url ?? 'https://placehold.co/500'"
+                            :src="product.images[0]?.url ?? 'https://placehold.co/500'"
                             alt=""
                             class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-square"
                         />

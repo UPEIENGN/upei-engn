@@ -53,21 +53,21 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request, Society $society)
     {
         $product = $society->products()->create(
-            $request->safe()->except('image')
+            $request->safe()->except('images')
         );
 
-        if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image');
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $uploadedFile) {
+                $path = $uploadedFile->store('products', 'public');
 
-            $path = $uploadedFile->store('products', 'public');
-
-            $product->image()->create([
-                'name' => $uploadedFile->hashName(),
-                'original_name' => $uploadedFile->getClientOriginalName(),
-                'path' => $path,
-                'disk' => 'public',
-                'size' => $uploadedFile->getSize(),
-            ]);
+                $product->images()->create([
+                    'name' => $uploadedFile->hashName(),
+                    'original_name' => $uploadedFile->getClientOriginalName(),
+                    'path' => $path,
+                    'disk' => 'public',
+                    'size' => $uploadedFile->getSize(),
+                ]);
+            }
         }
 
         return redirect()->route('admin.societies.products.index', $society)
@@ -83,7 +83,7 @@ class ProductController extends Controller
 
         return Inertia::render('admin/product/Edit', [
             'society' => $society,
-            'product' => $product->load(['image']),
+            'product' => $product->load(['images']),
         ]);
     }
 
@@ -93,26 +93,27 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Society $society, Product $product)
     {
         $product->update(
-            $request->safe()->except('image')
+            $request->safe()->except('images')
         );
 
-        if ($request->hasFile('image')) {
-            // Remove old image
-            if ($product->image) {
-                Storage::disk($product->image->disk)->delete($product->image->path);
-                $product->image->delete();
+        if ($request->hasFile('images')) {
+            // Remove old images
+            $product->images->each(function ($image) {
+                Storage::disk($image->disk)->delete($image->path);
+            });
+            $product->images()->delete();
+
+            foreach ($request->file('images') as $uploadedFile) {
+                $path = $uploadedFile->store('products', 'public');
+
+                $product->images()->create([
+                    'name' => $uploadedFile->hashName(),
+                    'original_name' => $uploadedFile->getClientOriginalName(),
+                    'path' => $path,
+                    'disk' => 'public',
+                    'size' => $uploadedFile->getSize(),
+                ]);
             }
-
-            $uploadedFile = $request->file('image');
-            $path = $uploadedFile->store('products', 'public');
-
-            $product->image()->create([
-                'name' => $uploadedFile->hashName(),
-                'original_name' => $uploadedFile->getClientOriginalName(),
-                'path' => $path,
-                'disk' => 'public',
-                'size' => $uploadedFile->getSize(),
-            ]);
         }
 
         return redirect()->route('admin.societies.products.index', $society)

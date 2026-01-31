@@ -35,7 +35,7 @@ const form = useForm({
     stock: undefined,
     colors: [],
     sizes: [],
-    image: undefined,
+    images: [],
 });
 
 const submit = () => {
@@ -102,7 +102,7 @@ const submit = () => {
                         </div>
 
                         <div class="grid gap-2">
-                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)" />
+                            <ImageInput :error="form.errors.images" @images-selected="(images) => (form.images = images)" />
                         </div>
 
                         <Button type="submit" class="mt-4" :disabled="form.processing">

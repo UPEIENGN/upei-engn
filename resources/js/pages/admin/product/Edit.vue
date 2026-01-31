@@ -37,7 +37,7 @@ const form = useForm({
     stock: props.product.stock,
     colors: props.product.colors,
     sizes: props.product.sizes,
-    image: undefined,
+    images: [],
 });
 
 const submit = () => {
@@ -104,13 +104,17 @@ const submit = () => {
                         </div>
 
                         <div class="grid gap-2">
-                            <ImageInput :error="form.errors.image" @image-selected="(image) => (form.image = image)">
+                            <ImageInput :error="form.errors.images" @images-selected="(images) => (form.images = images)">
                                 <template #current-image>
-                                    <img
-                                        :src="product.image.url"
-                                        alt="Preview Image"
-                                        class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8"
-                                    />
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <img
+                                            v-for="(image, index) in product.images"
+                                            :key="index"
+                                            :src="image.url"
+                                            alt="Current Image"
+                                            class="aspect-square rounded-lg bg-gray-200 object-cover"
+                                        />
+                                    </div>
                                 </template>
                             </ImageInput>
                         </div>

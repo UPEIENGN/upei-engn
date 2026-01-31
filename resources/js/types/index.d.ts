@@ -99,7 +99,7 @@ export interface Product {
     stock: number;
     colors: string[];
     sizes: string[];
-    image: File;
+    images: File[];
     created_at: string;
     updated_at: string;
     deleted_at: string;

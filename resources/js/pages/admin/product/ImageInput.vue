@@ -10,41 +10,47 @@ interface Props {
 
 defineProps<Props>();
 
-const emit = defineEmits(['image-selected']);
+const emit = defineEmits(['images-selected']);
 
-const imageUrl = ref('');
+const imageUrls = ref<string[]>([]);
 
-const handleFileChange = (event) => {
-    const file = event.target.files[0];
+const handleFileChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+    imageUrls.value = [];
 
-    if (file && file.type.startsWith('image/')) {
-        // Use FileReader to generate a data URL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            imageUrl.value = e.target.result;
-        };
-        reader.readAsDataURL(file); // Read the file as a data URL
-
-        emit('image-selected', file);
-    } else {
-        // Reset if the file is not an image or no file selected
-        imageUrl.value = '';
+    if (files) {
+        const fileArray = Array.from(files);
+        for (const file of fileArray) {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    if (e.target?.result) {
+                        imageUrls.value.push(e.target.result as string);
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        emit('images-selected', fileArray);
     }
 };
 </script>
 
 <template>
-    <Label>Image</Label>
-    <Input type="file" @input="handleFileChange" />
+    <Label>Images</Label>
+    <Input type="file" @input="handleFileChange" multiple />
     <InputError :message="error" />
     <div class="flex w-full items-start gap-2">
         <div v-if="$slots['current-image']" class="grid w-1/2 gap-2">
-            <Label>Current Image</Label>
+            <Label>Current Images</Label>
             <slot name="current-image" />
         </div>
-        <div v-if="imageUrl" class="grid w-1/2 gap-2">
-            <Label>Uploaded Image</Label>
-            <img :src="imageUrl" alt="Preview Image" class="aspect-square rounded-lg bg-gray-200 object-cover xl:aspect-7/8" />
+        <div v-if="imageUrls.length" class="grid w-1/2 gap-2">
+            <Label>Uploaded Images</Label>
+            <div class="grid grid-cols-2 gap-2">
+                <img v-for="(url, index) in imageUrls" :key="index" :src="url" alt="Preview Image" class="aspect-square rounded-lg bg-gray-200 object-cover" />
+            </div>
         </div>
     </div>
 </template>

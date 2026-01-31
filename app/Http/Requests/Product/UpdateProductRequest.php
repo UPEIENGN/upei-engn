@@ -30,7 +30,8 @@ class UpdateProductRequest extends FormRequest
             'colors' => ['nullable', 'array'],
             'sizes' => ['nullable', 'array'],
 
-            'image' => ['sometimes', 'file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
+            'images' => ['sometimes', 'array'],
+            'images.*' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
         ];
     }
 }
