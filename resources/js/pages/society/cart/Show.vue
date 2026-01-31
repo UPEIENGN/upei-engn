@@ -1,30 +1,63 @@
 <script setup lang="ts">
-import { Cart, Society } from '@/types';
+import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
+import { Head, InertiaForm, router, useForm } from '@inertiajs/vue3';
+import { ChevronDown, X } from 'lucide-vue-next';
+import { Cart, CartItem, Society } from '@/types';
+import { computed, onBeforeMount, onMounted, ref } from 'vue';
 
 interface Props {
     society: Society;
     cart: Cart;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { Check, ChevronDown, Clock, X } from 'lucide-vue-next';
+interface QuantityForm {
+    quantity: number;
+}
 
-const products = [
-    {
-        id: 1,
-        name: 'Basic Tee',
-        href: '#',
-        price: '$32.00',
-        color: 'Sienna',
-        inStock: true,
-        size: 'Large',
-        imageSrc: 'https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-01-product-01.jpg',
-        imageAlt: "Front of men's Basic Tee in sienna.",
-    },
-];
+const quantityForms = ref<Record<number, InertiaForm<QuantityForm>>>({});
+
+onBeforeMount(() => {
+    props.cart.items.forEach((item) => {
+        quantityForms.value[item.id] = useForm<QuantityForm>({
+            quantity: item.quantity,
+        });
+    });
+});
+
+const updateQuantity = (item: CartItem) => {
+    quantityForms.value[item.id].put(route('cart-items.update', { cart_item: item.id }), {
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+const removeItem = (item: CartItem) => {
+    router.delete(route('cart-items.destroy', { cart_item: item.id }), {
+        preserveScroll: true,
+        preserveState: true,
+    });
+};
+
+const subtotal = computed(() => {
+    return props.cart.items.reduce((sum, item) => {
+        return sum + item.product.price * item.quantity;
+    }, 0);
+});
+
+// This should ideally come from config or backend
+const taxRate = 0.15;
+const taxEstimate = computed(() => subtotal.value * taxRate);
+const orderTotal = computed(() => subtotal.value + taxEstimate.value);
+
+function generateQuantityOptions(stock: number): number[] {
+    const options = [];
+    for (let i = 1; i <= stock; i++) {
+        options.push(i);
+    }
+    return options;
+}
 </script>
 
 <template>
@@ -40,9 +73,13 @@ const products = [
                         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
                         <ul role="list" class="divide-y divide-gray-200 border-t border-b border-gray-200">
-                            <li v-for="(product, productIdx) in products" :key="product.id" class="flex py-6 sm:py-10">
+                            <li v-for="cartItem in cart.items" :key="cartItem.id" class="flex py-6 sm:py-10">
                                 <div class="shrink-0">
-                                    <img :src="product.imageSrc" :alt="product.imageAlt" class="size-24 rounded-md object-cover sm:size-48" />
+                                    <img
+                                        :src="cartItem.product.images?.[0]?.url ?? 'https://placehold.co/100'"
+                                        :alt="cartItem.product.name"
+                                        class="size-24 rounded-md object-cover sm:size-48"
+                                    />
                                 </div>
 
                                 <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
@@ -50,34 +87,44 @@ const products = [
                                         <div>
                                             <div class="flex justify-between">
                                                 <h3 class="text-sm">
-                                                    <a :href="product.href" class="font-medium text-gray-700 hover:text-gray-800">{{
-                                                        product.name
-                                                    }}</a>
+                                                    <a
+                                                        :href="route('products.show', { product: cartItem.product.id })"
+                                                        class="font-medium text-gray-700 hover:text-gray-800"
+                                                        >{{ cartItem.product.name }}</a
+                                                    >
                                                 </h3>
                                             </div>
                                             <div class="mt-1 flex text-sm">
-                                                <p class="text-gray-500">{{ product.color }}</p>
-                                                <p v-if="product.size" class="ml-4 border-l border-gray-200 pl-4 text-gray-500">{{ product.size }}</p>
+                                                <p v-if="cartItem.color" class="text-gray-500 uppercase">{{ cartItem.color }}</p>
+                                                <p
+                                                    v-if="cartItem.size"
+                                                    :class="cartItem.color ? 'ml-4 border-l border-gray-200 pl-4' : ''"
+                                                    class="text-gray-500 uppercase"
+                                                >
+                                                    {{ cartItem.size }}
+                                                </p>
                                             </div>
-                                            <p class="mt-1 text-sm font-medium text-gray-900">{{ product.price }}</p>
+                                            <p class="mt-1 text-sm font-medium text-gray-900">${{ cartItem.product.price }}</p>
                                         </div>
 
                                         <div class="mt-4 sm:mt-0 sm:pr-9">
                                             <div class="inline-grid w-full max-w-16 grid-cols-1">
                                                 <select
-                                                    :id="`quantity-${productIdx}`"
-                                                    :name="`quantity-${productIdx}`"
-                                                    :aria-label="`Quantity, ${product.name}`"
+                                                    :id="`quantity-${cartItem.id}`"
+                                                    :name="`quantity-${cartItem.id}`"
+                                                    :aria-label="`Quantity, ${cartItem.product.name}`"
+                                                    v-model="quantityForms[cartItem.id].quantity"
+                                                    @change="updateQuantity(cartItem)"
+                                                    :disabled="quantityForms[cartItem.id].processing"
                                                     class="col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
                                                 >
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
+                                                    <option
+                                                        v-for="option in generateQuantityOptions(cartItem.product.stock)"
+                                                        :key="option"
+                                                        :value="option"
+                                                    >
+                                                        {{ option }}
+                                                    </option>
                                                 </select>
                                                 <ChevronDown
                                                     class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
@@ -86,19 +133,17 @@ const products = [
                                             </div>
 
                                             <div class="absolute top-0 right-0">
-                                                <button type="button" class="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500">
+                                                <button
+                                                    type="button"
+                                                    @click="removeItem(cartItem)"
+                                                    class="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"
+                                                >
                                                     <span class="sr-only">Remove</span>
                                                     <X class="size-5" aria-hidden="true" />
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <p class="mt-4 flex space-x-2 text-sm text-gray-700">
-                                        <Check v-if="product.inStock" class="size-5 shrink-0 text-green-500" aria-hidden="true" />
-                                        <Clock v-else class="size-5 shrink-0 text-gray-300" aria-hidden="true" />
-                                        <span>{{ product.inStock ? 'In stock' : `Ships in ${product.leadTime}` }}</span>
-                                    </p>
                                 </div>
                             </li>
                         </ul>
@@ -111,23 +156,17 @@ const products = [
                         <dl class="mt-6 space-y-4">
                             <div class="flex items-center justify-between">
                                 <dt class="text-sm text-gray-600">Subtotal</dt>
-                                <dd class="text-sm font-medium text-gray-900">$32.00</dd>
+                                <dd class="text-sm font-medium text-gray-900">${{ subtotal.toFixed(2) }}</dd>
                             </div>
-                            <!--                        <div class="flex items-center justify-between border-t border-gray-200 pt-4">-->
-                            <!--                            <dt class="flex items-center text-sm text-gray-600">-->
-                            <!--                                <span>Shipping estimate</span>-->
-                            <!--                            </dt>-->
-                            <!--                            <dd class="text-sm font-medium text-gray-900">$5.00</dd>-->
-                            <!--                        </div>-->
                             <div class="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt class="flex text-sm text-gray-600">
-                                    <span>Tax estimate</span>
+                                    <span>Tax estimate ({{ taxRate * 100 }}%)</span>
                                 </dt>
-                                <dd class="text-sm font-medium text-gray-900">$8.00</dd>
+                                <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>
                             </div>
                             <div class="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
-                                <dd class="text-base font-medium text-gray-900">$40.00</dd>
+                                <dd class="text-base font-medium text-gray-900">${{ orderTotal.toFixed(2) }}</dd>
                             </div>
                         </dl>
 

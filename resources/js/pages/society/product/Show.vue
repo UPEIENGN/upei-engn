@@ -81,7 +81,7 @@ const decrementQuantity = () => {
                                 <h2 class="text-sm font-medium text-gray-900">Color</h2>
 
                                 <fieldset aria-label="Choose a color" class="mt-2">
-                                    <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
+                                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                                         <label
                                             v-for="color in product.colors"
                                             :key="color"

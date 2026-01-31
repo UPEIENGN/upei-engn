@@ -144,6 +144,7 @@ export interface CartItem {
     id: number;
     cart_id: number;
     product_id: number;
+    product: Product;
     quantity: number;
     color: string;
     size: string;
