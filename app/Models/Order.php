@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -16,10 +17,9 @@ class Order extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'cart_id',
         'name',
         'email',
-        'address',
+        'phone',
     ];
 
     public function society(): BelongsTo
@@ -27,8 +27,8 @@ class Order extends Model
         return $this->belongsTo(Society::class);
     }
 
-    public function cart(): BelongsTo
+    public function items(): HasMany
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasMany(OrderItem::class);
     }
 }

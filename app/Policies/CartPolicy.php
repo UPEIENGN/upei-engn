@@ -14,4 +14,9 @@ class CartPolicy
     {
         return $cart->session_id == session()->id();
     }
+
+    public function checkout(?User $user, Cart $cart): bool
+    {
+        return $cart->session_id == session()->id();
+    }
 }

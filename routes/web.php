@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\CartItemController;
+use App\Http\Controllers\Cart\OrderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SocietyController;
@@ -31,6 +32,9 @@ Route::get('/cart', [CartController::class, 'show'])
 
 Route::resource('cart-items', CartItemController::class)
     ->only(['store', 'update', 'destroy']);
+
+Route::resource('orders', OrderController::class)
+    ->only(['store']);
 
 Route::permanentRedirect('/admin', '/admin/dashboard');
 
@@ -61,6 +65,9 @@ Route::middleware('verified')
             ->name('societies.executive-members.reorder');
 
     });
+
+Route::get('/checkout/success', [App\Http\Controllers\Cart\CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/cancel', [App\Http\Controllers\Cart\CheckoutController::class, 'cancel'])->name('checkout.cancel');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

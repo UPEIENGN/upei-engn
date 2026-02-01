@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Order\StoreOrderRequest;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Society;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Laravel\Cashier\Checkout;
 
 class OrderController extends Controller
 {
@@ -35,19 +37,42 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store()
     {
-        //
+        $cart = $this->getCart();
+
+        $this->authorize('checkout', [Cart::class, $cart]);
+
+        if ($cart->items->isEmpty()) {
+            return redirect()->back()->with('error', 'Your cart is empty.');
+        }
+
+        $lineItems = $cart->items->map(function ($item) {
+            return [
+                'price_data' => [
+                    'currency' => 'cad',
+                    'unit_amount' => $item->product->price * 100,
+                    'product_data' => [
+                        'name' => $item->product->name,
+                    ],
+                ],
+                'quantity' => $item->quantity,
+            ];
+        })->all();
+
+        return Inertia::location(Checkout::guest()->create($lineItems, [
+            'success_url' => route('checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('checkout.cancel'),
+            'metadata' => [
+                'cart_id' => $cart->id,
+            ],
+            'phone_number_collection' => ['enabled' => true],
+            'name_collection' => [
+                'individual' => ['enabled' => true],
+            ],
+        ])->url);
     }
 
     /**
@@ -63,6 +88,6 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        // Should also refund.
     }
 }

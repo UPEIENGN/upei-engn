@@ -171,12 +171,15 @@ function generateQuantityOptions(stock: number): number[] {
                         </dl>
 
                         <div class="mt-6">
-                            <button
-                                type="submit"
+                            <Link
+                                :href="route('orders.store')"
+                                method="post"
+                                as="button"
+                                type="button"
                                 class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden"
                             >
                                 Checkout
-                            </button>
+                            </Link>
                         </div>
                     </section>
                 </form>
