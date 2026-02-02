@@ -5,9 +5,10 @@ import SocietyFooter from '@/layouts/society/components/SocietyFooter.vue';
 import { Can, type NavItem, Society } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ShoppingCart } from 'lucide-vue-next';
-import { computed, ComputedRef } from 'vue';
-import 'vue-sonner/style.css'
-import { Toaster } from '@/components/ui/sonner'
+import { computed, ComputedRef, onMounted } from 'vue';
+import 'vue-sonner/style.css';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'vue-sonner';
 
 const page = usePage();
 
@@ -44,6 +45,18 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
         can: true,
     },
 ]);
+
+onMounted(() => {
+    const flash = page.props.flash;
+
+    if (flash.success) {
+        toast.success(flash.success);
+    }
+
+    if (flash.error) {
+        toast.error(flash.error);
+    }
+});
 </script>
 
 <template>
@@ -108,7 +121,7 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
         <SocietyFooter :society="society" />
     </div>
 
-    <Toaster/>
+    <Toaster position="top-center" richColors />
 </template>
 
 <style scoped></style>

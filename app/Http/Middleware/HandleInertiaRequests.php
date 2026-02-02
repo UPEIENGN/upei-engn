@@ -50,6 +50,10 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'cart_item_count' => $this->getCart()->loadCount(['items'])->items_count,
+            'flash' => [
+                'success' => $request->session()->get('success'),
+                'error' => $request->session()->get('error'),
+            ],
         ];
     }
 }
