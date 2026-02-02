@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Society;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Laravel\Cashier\Cashier;
 use Laravel\Cashier\Checkout;
 
 class OrderController extends Controller
@@ -43,7 +44,7 @@ class OrderController extends Controller
     {
         $cart = $this->getCart();
 
-        $this->authorize('checkout', [Cart::class, $cart]);
+        $this->authorize('create', [Order::class, $cart]);
 
         if ($cart->items->isEmpty()) {
             return redirect()->back()->with('error', 'Your cart is empty.');
@@ -78,7 +79,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(Society $society, Order $order)
     {
         //
     }
@@ -86,8 +87,18 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy(Society $society, Order $order)
     {
-        // Should also refund.
+        $this->authorize('delete', [Order::class, $society, $order]);
+
+        $stripe = Cashier::stripe();
+
+        $refund = $stripe->refunds->create([
+            'payment_intent' => $order->payment_intent,
+        ]);
+
+        $order->delete();
+
+        return back()->with('success', 'Order refunded and deleted successfully.');
     }
 }

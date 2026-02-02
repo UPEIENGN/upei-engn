@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { CalendarDaysIcon, LayoutGrid, SettingsIcon, StoreIcon, UsersIcon } from 'lucide-vue-next';
+import { CalendarDaysIcon, LayoutGrid, SettingsIcon, ShoppingBagIcon, StoreIcon, UsersIcon } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const page = usePage();
@@ -30,6 +30,13 @@ const mainNavItems: NavItem[] = [
         href: route('admin.societies.products.index', { society: page.props.society }),
         icon: StoreIcon,
         isActive: route().current('admin.societies.products.*'),
+        can: true,
+    },
+    {
+        title: 'Orders',
+        href: route('admin.societies.orders.index', { society: page.props.society }),
+        icon: ShoppingBagIcon,
+        isActive: route().current('admin.societies.orders.*'),
         can: true,
     },
     {

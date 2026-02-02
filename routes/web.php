@@ -55,6 +55,9 @@ Route::middleware('verified')
         Route::resource('societies.products', ProductController::class)
             ->except(['show']);
 
+        Route::resource('societies.orders', OrderController::class)
+            ->only(['index', 'show', 'destroy']);
+
         Route::resource('societies.society-members', SocietyMemberController::class)
             ->except(['show']);
 

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Society;
 use App\Models\User;
@@ -31,9 +32,9 @@ class OrderPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(?User $user, Cart $cart): bool
     {
-        return false;
+        return $cart->session_id == session()->id();
     }
 
     /**
@@ -41,6 +42,9 @@ class OrderPolicy
      */
     public function delete(User $user, Society $society, Order $order): bool
     {
-        return false;
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
     }
 }

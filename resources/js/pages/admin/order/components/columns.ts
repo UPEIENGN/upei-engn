@@ -42,11 +42,11 @@ export const columns: ColumnDef<Order>[] = [
             }),
     },
     {
-        accessorKey: 'address',
+        accessorKey: 'phone',
         header: ({ column }) =>
             h(DataTableColumnHeader, {
                 column: column,
-                title: 'Address',
+                title: 'Phone',
             }),
     },
     {
