@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { Toaster } from '@/components/ui/sonner';
 import AppLayout from '@/layouts/app/AppSidebarLayout.vue';
 import type { BreadcrumbItemType } from '@/types';
-import 'vue-sonner/style.css';
-import { Toaster } from '@/components/ui/sonner';
-import { toast } from 'vue-sonner';
 import { usePage } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+import { toast } from 'vue-sonner';
+import 'vue-sonner/style.css';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];

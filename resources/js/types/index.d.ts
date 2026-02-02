@@ -22,7 +22,7 @@ export type AppPageProps<T extends Record<string, unknown> = Record<string, unkn
     name: string;
     auth: Auth;
     ziggy: Config & { location: string };
-    flash: { success: string; error: string; };
+    flash: { success: string; error: string };
 };
 
 export interface User {

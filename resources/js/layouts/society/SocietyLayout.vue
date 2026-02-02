@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
+import { Toaster } from '@/components/ui/sonner';
 import SocietyFooter from '@/layouts/society/components/SocietyFooter.vue';
 import { Can, type NavItem, Society } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ShoppingCart } from 'lucide-vue-next';
 import { computed, ComputedRef, onMounted } from 'vue';
-import 'vue-sonner/style.css';
-import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
+import 'vue-sonner/style.css';
 
 const page = usePage();
 
