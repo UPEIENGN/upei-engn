@@ -158,15 +158,15 @@ function generateQuantityOptions(stock: number): number[] {
                                 <dt class="text-sm text-gray-600">Subtotal</dt>
                                 <dd class="text-sm font-medium text-gray-900">${{ subtotal.toFixed(2) }}</dd>
                             </div>
-                            <div class="flex items-center justify-between border-t border-gray-200 pt-4">
-                                <dt class="flex text-sm text-gray-600">
-                                    <span>Tax estimate ({{ taxRate * 100 }}%)</span>
-                                </dt>
-                                <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>
-                            </div>
+<!--                            <div class="flex items-center justify-between border-t border-gray-200 pt-4">-->
+<!--                                <dt class="flex text-sm text-gray-600">-->
+<!--                                    <span>Tax estimate ({{ taxRate * 100 }}%)</span>-->
+<!--                                </dt>-->
+<!--                                <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>-->
+<!--                            </div>-->
                             <div class="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
-                                <dd class="text-base font-medium text-gray-900">${{ orderTotal.toFixed(2) }}</dd>
+                                <dd class="text-base font-medium text-gray-900">${{ subtotal.toFixed(2) }}</dd>
                             </div>
                         </dl>
 
