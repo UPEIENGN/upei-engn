@@ -47,9 +47,9 @@ const subtotal = computed(() => {
 });
 
 // This should ideally come from config or backend
-const taxRate = 0.15;
-const taxEstimate = computed(() => subtotal.value * taxRate);
-const orderTotal = computed(() => subtotal.value + taxEstimate.value);
+// const taxRate = 0.15;
+// const taxEstimate = computed(() => subtotal.value * taxRate);
+// const orderTotal = computed(() => subtotal.value + taxEstimate.value);
 
 function generateQuantityOptions(stock: number): number[] {
     const options = [];
@@ -116,7 +116,7 @@ function generateQuantityOptions(stock: number): number[] {
                                                     v-model="quantityForms[cartItem.id].quantity"
                                                     @change="updateQuantity(cartItem)"
                                                     :disabled="quantityForms[cartItem.id].processing"
-                                                    class="cursor-pointer col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
+                                                    class="col-start-1 row-start-1 cursor-pointer appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
                                                 >
                                                     <option
                                                         v-for="option in generateQuantityOptions(cartItem.product.stock)"
@@ -127,7 +127,7 @@ function generateQuantityOptions(stock: number): number[] {
                                                     </option>
                                                 </select>
                                                 <ChevronDown
-                                                    class="cursor-pointer col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                                                    class="col-start-1 row-start-1 mr-2 size-5 cursor-pointer self-center justify-self-end text-gray-500 sm:size-4"
                                                     aria-hidden="true"
                                                 />
                                             </div>
@@ -158,12 +158,12 @@ function generateQuantityOptions(stock: number): number[] {
                                 <dt class="text-sm text-gray-600">Subtotal</dt>
                                 <dd class="text-sm font-medium text-gray-900">${{ subtotal.toFixed(2) }}</dd>
                             </div>
-<!--                            <div class="flex items-center justify-between border-t border-gray-200 pt-4">-->
-<!--                                <dt class="flex text-sm text-gray-600">-->
-<!--                                    <span>Tax estimate ({{ taxRate * 100 }}%)</span>-->
-<!--                                </dt>-->
-<!--                                <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>-->
-<!--                            </div>-->
+                            <!--                            <div class="flex items-center justify-between border-t border-gray-200 pt-4">-->
+                            <!--                                <dt class="flex text-sm text-gray-600">-->
+                            <!--                                    <span>Tax estimate ({{ taxRate * 100 }}%)</span>-->
+                            <!--                                </dt>-->
+                            <!--                                <dd class="text-sm font-medium text-gray-900">${{ taxEstimate.toFixed(2) }}</dd>-->
+                            <!--                            </div>-->
                             <div class="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt class="text-base font-medium text-gray-900">Order total</dt>
                                 <dd class="text-base font-medium text-gray-900">${{ subtotal.toFixed(2) }}</dd>
