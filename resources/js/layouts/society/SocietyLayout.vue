@@ -6,6 +6,8 @@ import { Can, type NavItem, Society } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ShoppingCart } from 'lucide-vue-next';
 import { computed, ComputedRef } from 'vue';
+import 'vue-sonner/style.css'
+import { Toaster } from '@/components/ui/sonner'
 
 const page = usePage();
 
@@ -105,6 +107,8 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
         </div>
         <SocietyFooter :society="society" />
     </div>
+
+    <Toaster/>
 </template>
 
 <style scoped></style>
