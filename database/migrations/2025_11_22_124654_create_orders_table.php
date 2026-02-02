@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
 
+            $table->string('payment_intent');
+
             $table->timestamps();
             $table->softDeletes();
         });

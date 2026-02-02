@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Society;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Laravel\Cashier\Checkout;
 
@@ -49,16 +49,16 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
 
-        $lineItems = $cart->items->map(function ($item) {
+        $lineItems = $cart->items->map(function (CartItem $cartItem) {
             return [
                 'price_data' => [
                     'currency' => 'cad',
-                    'unit_amount' => $item->product->price * 100,
+                    'unit_amount' => $cartItem->product->price * 100,
                     'product_data' => [
-                        'name' => $item->product->name,
+                        'name' => "{$cartItem->product->name}, {$cartItem->color}, {$cartItem->size}",
                     ],
                 ],
-                'quantity' => $item->quantity,
+                'quantity' => $cartItem->quantity,
             ];
         })->all();
 

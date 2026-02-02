@@ -3,9 +3,11 @@ import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import SocietyFooter from '@/layouts/society/components/SocietyFooter.vue';
 import { Can, type NavItem, Society } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ShoppingCart } from 'lucide-vue-next';
 import { computed, ComputedRef } from 'vue';
+
+const page = usePage();
 
 interface Props {
     society: Society;
@@ -52,7 +54,7 @@ const navItems: ComputedRef<NavItem[]> = computed(() => [
                         <div class="flow-root">
                             <Link :href="route('cart.show')" class="group relative flex items-center p-2">
                                 <ShoppingCart class="size-6 shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ page.props.cart_item_count }}</span>
                                 <div
                                     v-if="route().current('cart.show')"
                                     class="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"

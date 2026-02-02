@@ -20,6 +20,7 @@ class Order extends Model
         'name',
         'email',
         'phone',
+        'payment_intent',
     ];
 
     public function society(): BelongsTo

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Society;
 use Illuminate\Http\Request;
@@ -36,11 +37,20 @@ class CheckoutController extends Controller
             'name' => $session->customer_details['name'],
             'email' => $session->customer_details['email'],
             'phone' => $session->customer_details['phone'],
+            'payment_intent' => $session->payment_intent,
         ]);
 
-        $order->items()->createMany($cart->items);
+        $order->items()->createMany($cart->items->map(function (CartItem $cartItem) {
+            $cartItem->product->decrement('stock', $cartItem->quantity);
 
-        $cart = $this->getCart();
+            return [
+                'product_id' => $cartItem->product_id,
+                'quantity' => $cartItem->quantity,
+                'color' => $cartItem->color,
+                'size' => $cartItem->size,
+            ];
+        }));
+
         $cart->items()->delete();
 
         return Inertia::render('store/checkout/Success', [
