@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Society;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -97,6 +98,11 @@ class OrderController extends Controller
             'payment_intent' => $order->payment_intent,
         ]);
 
+        $order->items()->each(function (OrderItem $orderItem) {
+            $orderItem->product->increment('stock', $orderItem->quantity);
+        });
+
+        $order->items()->delete();
         $order->delete();
 
         return back()->with('success', 'Order refunded and deleted successfully.');
