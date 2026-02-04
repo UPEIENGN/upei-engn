@@ -46,7 +46,7 @@ class Product extends Model
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function scopeInStock(Builder $query)
+    protected function scopeInStock(Builder $query): void
     {
         $query->where('stock', '>', 0);
     }
