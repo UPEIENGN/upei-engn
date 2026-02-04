@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Order, Society } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
 
 interface Props {
