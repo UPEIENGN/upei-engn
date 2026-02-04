@@ -94,7 +94,7 @@ const decrementQuantity = () => {
                                                 v-model="form.color"
                                                 class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
-                                            <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ color }}</span>
+                                            <span class="text-sm font-medium text-gray-900 group-has-checked:text-white">{{ color }}</span>
                                         </label>
                                     </div>
                                 </fieldset>
@@ -118,7 +118,7 @@ const decrementQuantity = () => {
                                                 v-model="form.size"
                                                 class="absolute inset-0 cursor-pointer appearance-none focus:outline-none disabled:cursor-not-allowed"
                                             />
-                                            <span class="text-sm font-medium text-gray-900 uppercase group-has-checked:text-white">{{ size }}</span>
+                                            <span class="text-sm font-medium text-gray-900 group-has-checked:text-white">{{ size }}</span>
                                         </label>
                                     </div>
                                 </fieldset>
