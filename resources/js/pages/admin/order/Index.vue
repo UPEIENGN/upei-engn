@@ -4,7 +4,7 @@ import DataTable from '@/components/ui/data-table/DataTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { columns } from '@/pages/admin/order/components/columns';
 import { type BreadcrumbItem, Order, Pagination, Society } from '@/types';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import { Download } from 'lucide-vue-next';
 
 interface Props {
