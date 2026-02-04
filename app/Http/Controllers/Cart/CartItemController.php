@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CartItem\StoreCartItemRequest;
 use App\Http\Requests\CartItem\UpdateCartItemRequest;
 use App\Models\CartItem;
+use App\Rules\HasEnoughStock;
 
 class CartItemController extends Controller
 {
@@ -27,8 +28,10 @@ class CartItemController extends Controller
             ->first();
 
         if ($item) {
+            $request->validate(['quantity' => [new HasEnoughStock($validated['product_id'], $item->quantity)]]);
             $item->increment('quantity', $validated['quantity']);
         } else {
+            $request->validate(['quantity' => [new HasEnoughStock($validated['product_id'])]]);
             $cart->items()->create($validated);
         }
 
@@ -44,6 +47,8 @@ class CartItemController extends Controller
         $cart = $this->getCart();
 
         $this->authorize('update', [CartItem::class, $cart, $cartItem]);
+
+        $request->validate(['quantity' => [new HasEnoughStock($cartItem->product_id)]]);
 
         $cartItem->update($request->validated());
 
