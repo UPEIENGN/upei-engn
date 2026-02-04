@@ -57,7 +57,7 @@ class SocietyController extends Controller
     {
         $society = Society::first();
 
-        return Inertia::render('society/product/Show', [
+        return Inertia::render('product/Show', [
             'society' => $society,
             'product' => $product->load(['images']),
         ]);

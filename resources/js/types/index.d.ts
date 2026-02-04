@@ -107,10 +107,24 @@ export interface Product {
 export interface Order {
     id: number;
     society_id: number;
-    cart_id: number;
     name: string;
     email: string;
-    address: string;
+    phone: string;
+    payment_intent: string;
+    items: OrderItem[];
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
+}
+
+export interface OrderItem {
+    id: number;
+    order_id: number;
+    product_id: number;
+    quantity: number;
+    color: string;
+    size: string;
+    product: Product;
     created_at: string;
     updated_at: string;
     deleted_at: string;

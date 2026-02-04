@@ -81,7 +81,12 @@ class OrderController extends Controller
      */
     public function show(Society $society, Order $order)
     {
-        //
+        $this->authorize('view', [Order::class, $society, $order]);
+
+        return Inertia::render('admin/order/Show', [
+            'society' => $society,
+            'order' => $order->load(['items', 'items.product']),
+        ]);
     }
 
     /**

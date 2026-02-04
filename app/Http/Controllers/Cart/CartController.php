@@ -20,7 +20,7 @@ class CartController extends Controller
 
         $this->authorize('view', [Cart::class, $cart]);
 
-        return Inertia::render('society/cart/Show', [
+        return Inertia::render('cart/Show', [
             'cart' => $cart->load(['items.product']),
             'society' => $society,
         ]);

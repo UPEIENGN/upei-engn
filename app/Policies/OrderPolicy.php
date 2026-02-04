@@ -24,9 +24,12 @@ class OrderPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Order $order): bool
+    public function view(User $user, Society $society, Order $order): bool
     {
-        return false;
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
     }
 
     /**
