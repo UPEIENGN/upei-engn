@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Cart;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cart;
+use App\Exports\OrdersExport;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -106,5 +105,12 @@ class OrderController extends Controller
         $order->delete();
 
         return back()->with('success', 'Order refunded and deleted successfully.');
+    }
+
+    public function export(Society $society)
+    {
+        $this->authorize('export', [Order::class, $society]);
+
+        return new OrdersExport;
     }
 }

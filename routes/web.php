@@ -3,8 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Cart\CartItemController;
-use App\Http\Controllers\Cart\OrderController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SocietyController;
 use App\Http\Controllers\SocietyMember\ExecutiveMemberController;
@@ -55,6 +56,9 @@ Route::middleware('verified')
         Route::resource('societies.products', ProductController::class)
             ->except(['show']);
 
+        Route::get('/societies/{society}/orders/export', [OrderController::class, 'export'])
+            ->name('societies.orders.export');
+
         Route::resource('societies.orders', OrderController::class)
             ->only(['index', 'show', 'destroy']);
 
@@ -69,8 +73,8 @@ Route::middleware('verified')
 
     });
 
-Route::get('/checkout/success', [App\Http\Controllers\Cart\CheckoutController::class, 'success'])->name('checkout.success');
-Route::get('/checkout/cancel', [App\Http\Controllers\Cart\CheckoutController::class, 'cancel'])->name('checkout.cancel');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

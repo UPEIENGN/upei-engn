@@ -4,7 +4,8 @@ import DataTable from '@/components/ui/data-table/DataTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { columns } from '@/pages/admin/order/components/columns';
 import { type BreadcrumbItem, Order, Pagination, Society } from '@/types';
-import { Head, router } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { Download } from 'lucide-vue-next';
 
 interface Props {
     society: Society;
@@ -75,9 +76,13 @@ function onSortChange(sort: { id: string; desc: boolean }[]) {
                     <PlaceholderPattern />
                 </div>
 
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
-                </div>
+                <a
+                    :href="route('admin.societies.orders.export', { society: society })"
+                    class="relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-sidebar-border/70 p-4 font-bold hover:bg-gray-100 dark:border-sidebar-border dark:hover:bg-neutral-900"
+                >
+                    <Download class="mr-2 size-5" />
+                    Export Orders
+                </a>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl md:min-h-min">
                 <DataTable

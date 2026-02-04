@@ -47,4 +47,12 @@ class OrderPolicy
             SocietyMemberRole::Owner,
         ]);
     }
+
+    public function export(User $user, Society $society): bool
+    {
+        return $society->userHasRole($user, [
+            SocietyMemberRole::Admin,
+            SocietyMemberRole::Owner,
+        ]);
+    }
 }
