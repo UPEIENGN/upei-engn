@@ -49,7 +49,7 @@ class SocietyController extends Controller
 
         return Inertia::render('society/Store', [
             'society' => $society,
-            'products' => $society->products->load(['images']),
+            'products' => $society->products()->inStock()->with(['images'])->get(),
         ]);
     }
 

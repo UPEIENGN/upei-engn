@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Money;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,5 +44,10 @@ class Product extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function scopeInStock(Builder $query)
+    {
+        $query->where('stock', '>', 0);
     }
 }
