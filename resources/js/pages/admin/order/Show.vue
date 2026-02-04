@@ -4,8 +4,9 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Order, Society } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'vue-sonner';
 
 interface Props {
     society: Society;
@@ -24,6 +25,11 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('admin.societies.orders.show', { society: props.society, order: props.order }),
     },
 ];
+
+const copyPaymentIntent = () => {
+    navigator.clipboard.writeText(props.order.payment_intent);
+    toast.info('Payment Intent copied to clipboard!');
+};
 </script>
 
 <template>
@@ -36,19 +42,19 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <div class="grid gap-6 p-6">
                         <div class="grid grid-cols-2 items-center gap-4">
                             <Label for="order-status">Payment Intent</Label>
-                            <Input id="order-status" :model-value="props.order.payment_intent" readonly />
+                            <Input id="order-status" class="cursor-pointer" :model-value="order.payment_intent" @click="copyPaymentIntent" readonly />
                         </div>
                         <div class="grid grid-cols-2 items-center gap-4">
                             <Label for="order-user">Name</Label>
-                            <Input id="order-user" :model-value="props.order.name" readonly />
+                            <Input id="order-user" :model-value="order.name" readonly />
                         </div>
                         <div class="grid grid-cols-2 items-center gap-4">
                             <Label for="order-user-email">Email</Label>
-                            <Input id="order-user-email" :model-value="props.order.email" readonly />
+                            <Input id="order-user-email" :model-value="order.email" readonly />
                         </div>
                         <div class="grid grid-cols-2 items-center gap-4">
                             <Label for="order-user-email">Phone</Label>
-                            <Input id="order-user-email" :model-value="props.order.phone" readonly />
+                            <Input id="order-user-email" :model-value="order.phone" readonly />
                         </div>
 
                         <div class="grid gap-2">
@@ -62,7 +68,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    <TableRow v-for="item in props.order.items" :key="item.id">
+                                    <TableRow v-for="item in order.items" :key="item.id">
                                         <TableCell class="font-medium">{{ item.product.name }}</TableCell>
                                         <TableCell class="text-right">{{ item.size }}</TableCell>
                                         <TableCell class="text-right">{{ item.color }}</TableCell>
