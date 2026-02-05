@@ -98,6 +98,7 @@ export interface Product {
     stock: number;
     colors: string[];
     sizes: string[];
+    promo_codes: PromoCode[];
     images: File[];
     created_at: string;
     updated_at: string;
@@ -163,6 +164,12 @@ export interface CartItem {
     size: string;
     created_at: string;
     updated_at: string;
+}
+
+export interface PromoCode {
+    code: string;
+    type: 'amount' | 'percentage';
+    value: number;
 }
 
 export interface Pagination<T> {

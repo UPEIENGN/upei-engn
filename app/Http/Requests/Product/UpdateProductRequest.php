@@ -31,9 +31,9 @@ class UpdateProductRequest extends FormRequest
             'sizes' => ['nullable', 'array'],
 
             'promo_codes' => ['nullable', 'array'],
-            'promo_codes.*.0' => ['string'],
-            'promo_codes.*.1' => ['string', 'in:amount,percentage'],
-            'promo_codes.*.2' => ['integer', 'min:0'],
+            'promo_codes.*.code' => ['string'],
+            'promo_codes.*.type' => ['string', 'in:amount,percentage'],
+            'promo_codes.*.value' => ['integer', 'min:0'],
 
             'images' => ['sometimes', 'array'],
             'images.*' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],

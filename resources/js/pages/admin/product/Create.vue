@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
 import { Textarea } from '@/components/ui/textarea';
+import PromoCodeInput from '@/components/PromoCodeInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
@@ -101,6 +102,8 @@ const submit = () => {
                             </TagsInput>
                             <InputError :message="form.errors.sizes" />
                         </div>
+
+                        <PromoCodeInput v-model="form.promo_codes" :error="form.errors.promo_codes" />
 
                         <div class="grid gap-2">
                             <ImageInput :error="form.errors.images" @images-selected="(images) => (form.images = images)" />
