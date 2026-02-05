@@ -9,15 +9,13 @@ const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
         href: '/settings/profile',
+        can: true
     },
     {
         title: 'Password',
         href: '/settings/password',
-    },
-    {
-        title: 'Appearance',
-        href: '/settings/appearance',
-    },
+        can: true
+    }
 ];
 
 const page = usePage();
