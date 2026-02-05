@@ -55,11 +55,36 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
 
-        $lineItems = $cart->items->map(function (CartItem $cartItem) {
+        $requestPromoCodes = collect($request->input('promo_codes', []));
+
+        $lineItems = $cart->items->map(function (CartItem $cartItem) use ($requestPromoCodes) {
+            $unitAmount = $cartItem->product->price * 100; // Convert to cents
+
+            // Collect all promo codes from the product that match codes sent by the user
+            $applicableProductPromoCodes = collect();
+            if (! empty($cartItem->product->promo_codes) && $requestPromoCodes->isNotEmpty()) {
+                foreach ($cartItem->product->promo_codes as $productPromo) {
+                    // Check if the product's promo code is among the codes sent by the user
+                    if (isset($productPromo['code']) && $requestPromoCodes->contains($productPromo['code'])) {
+                        $applicableProductPromoCodes->push($productPromo);
+                    }
+                }
+            }
+
+            // Apply all applicable promo codes sequentially
+            foreach ($applicableProductPromoCodes as $appliedPromoCode) {
+                if ($appliedPromoCode['type'] === 'percentage') {
+                    $unitAmount -= $unitAmount * ($appliedPromoCode['value'] / 100);
+                } elseif ($appliedPromoCode['type'] === 'amount') {
+                    $unitAmount -= $appliedPromoCode['value'] * 100; // Convert to cents
+                }
+                $unitAmount = max(0, $unitAmount); // Ensure unitAmount doesn't go below zero
+            }
+
             return [
                 'price_data' => [
                     'currency' => 'cad',
-                    'unit_amount' => $cartItem->product->price * 100,
+                    'unit_amount' => round($unitAmount), // Stripe expects integer in cents
                     'product_data' => [
                         'name' => "{$cartItem->product->name}, {$cartItem->color}, {$cartItem->size}",
                     ],

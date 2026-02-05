@@ -73,7 +73,7 @@ const removePromoCode = (index: number) => {
                 <div class="flex-1">
                     <p class="font-medium">{{ promo.code }}</p>
                     <p class="text-sm text-gray-500">
-                        {{ promo.type == 'percentage' ? promo.value + '%' : '$' + promo.value.toFixed(2) }} off
+                        {{ promo.type == 'percentage' ? promo.value + '%' : '$' + Number(promo.value).toFixed(2) }} off
                     </p>
                 </div>
                 <Button variant="ghost" size="icon" @click="removePromoCode(index)">
