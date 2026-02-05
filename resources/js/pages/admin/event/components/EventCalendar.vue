@@ -49,6 +49,10 @@ function nextMonth() {
     currentMonth.value = date.toISOString().slice(0, 7);
     emit('change-month', currentMonth.value);
 }
+
+const numWeeks = computed(() => {
+    return props.calendar.length / 7;
+});
 </script>
 
 <template>
@@ -116,7 +120,7 @@ function nextMonth() {
             </div>
             <div class="flex bg-neutral-200 text-xs/6 text-neutral-700 lg:flex-auto dark:bg-neutral-900 dark:text-neutral-300">
                 <Dialog>
-                    <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
+                    <div class="hidden w-full lg:grid lg:grid-cols-7 lg:gap-px" :class="['lg:grid-rows-' + numWeeks]">
                         <DialogTrigger
                             as="div"
                             v-for="day in calendar"
@@ -131,25 +135,27 @@ function nextMonth() {
                             >
                                 {{ day.date.split('-').pop()!.replace(/^0/, '') }}
                             </div>
-                            <ol v-if="day.events.length > 0" class="mt-2">
-                                <li v-for="event in day.events.slice(0, 2)" :key="event.id">
-                                    <div class="group flex">
-                                        <p
-                                            class="flex-auto truncate font-medium text-neutral-900 group-hover:text-neutral-600 dark:text-white dark:group-hover:text-neutral-400"
-                                        >
-                                            {{ event.title }}
-                                        </p>
-                                        <time
-                                            :datetime="event.start"
-                                            class="ml-3 hidden flex-none text-neutral-500 group-hover:text-neutral-600 xl:block dark:text-neutral-400 dark:group-hover:text-neutral-400"
-                                        >
-                                            {{ formatTime(event.start) }}
-                                        </time>
-                                    </div>
-                                </li>
-                                <li v-if="day.events.length > 2" class="text-neutral-500 dark:text-neutral-400">
-                                    + {{ day.events.length - 2 }} more
-                                </li>
+                            <ol class="mt-2 min-h-16">
+                                <template v-if="day.events.length > 0">
+                                    <li v-for="event in day.events.slice(0, 2)" :key="event.id">
+                                        <div class="group flex">
+                                            <p
+                                                class="flex-auto truncate font-medium text-neutral-900 group-hover:text-neutral-600 dark:text-white dark:group-hover:text-neutral-400"
+                                            >
+                                                {{ event.title }}
+                                            </p>
+                                            <time
+                                                :datetime="event.start"
+                                                class="ml-3 hidden flex-none text-neutral-500 group-hover:text-neutral-600 xl:block dark:text-neutral-400 dark:group-hover:text-neutral-400"
+                                            >
+                                                {{ formatTime(event.start) }}
+                                            </time>
+                                        </div>
+                                    </li>
+                                    <li v-if="day.events.length > 2" class="text-neutral-500 dark:text-neutral-400">
+                                        + {{ day.events.length - 2 }} more
+                                    </li>
+                                </template>
                             </ol>
                         </DialogTrigger>
                     </div>
