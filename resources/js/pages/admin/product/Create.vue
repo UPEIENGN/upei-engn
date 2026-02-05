@@ -36,6 +36,7 @@ const form = useForm({
     colors: [],
     sizes: [],
     images: [],
+    promo_codes: []
 });
 
 const submit = () => {

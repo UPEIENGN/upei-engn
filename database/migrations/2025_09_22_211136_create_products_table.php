@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->json('colors')->nullable();
             $table->json('sizes')->nullable();
+            $table->json('promo_codes')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -25,6 +25,7 @@ class Product extends Model
         'stock',
         'colors',
         'sizes',
+        'promo_codes',
     ];
 
     protected function casts(): array
@@ -33,6 +34,7 @@ class Product extends Model
             'price' => Money::class,
             'colors' => 'array',
             'sizes' => 'array',
+            'promo_codes' => 'array',
         ];
     }
 
