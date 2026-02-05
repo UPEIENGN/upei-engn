@@ -27,8 +27,12 @@ class UpdateProductRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'price' => ['sometimes', 'numeric', 'min:0'],
             'stock' => ['sometimes', 'integer', 'min:0'],
+
             'colors' => ['nullable', 'array'],
+            'colors.*' => ['string'],
+
             'sizes' => ['nullable', 'array'],
+            'sizes.*' => ['string'],
 
             'promo_codes' => ['nullable', 'array'],
             'promo_codes.*.code' => ['string'],

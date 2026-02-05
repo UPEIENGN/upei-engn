@@ -40,8 +40,13 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(Request $request)
     {
+        $request->validate([
+            'promo_codes' => ['nullable', 'array'],
+            'promo_codes.*' => ['string'],
+        ]);
+
         $cart = $this->getCart();
 
         $this->authorize('create', [Order::class, $cart]);
