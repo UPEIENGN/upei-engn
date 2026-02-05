@@ -2,8 +2,9 @@
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Cart, CartItem, Society } from '@/types';
 import { Head, InertiaForm, Link, router, useForm } from '@inertiajs/vue3';
-import { ChevronDown, X } from 'lucide-vue-next';
+import { X } from 'lucide-vue-next';
 import { computed, onBeforeMount, ref } from 'vue';
+import { useDebounceFn } from '@vueuse/core';
 
 interface Props {
     society: Society;
@@ -33,6 +34,8 @@ const updateQuantity = (item: CartItem) => {
     });
 };
 
+const debouncedUpdateQuantity = useDebounceFn((item: CartItem) => updateQuantity(item), 500);
+
 const removeItem = (item: CartItem) => {
     router.delete(route('cart-items.destroy', { cart_item: item.id }), {
         preserveScroll: true,
@@ -50,14 +53,6 @@ const subtotal = computed(() => {
 // const taxRate = 0.15;
 // const taxEstimate = computed(() => subtotal.value * taxRate);
 // const orderTotal = computed(() => subtotal.value + taxEstimate.value);
-
-function generateQuantityOptions(stock: number): number[] {
-    const options = [];
-    for (let i = 1; i <= stock; i++) {
-        options.push(i);
-    }
-    return options;
-}
 </script>
 
 <template>
@@ -109,26 +104,16 @@ function generateQuantityOptions(stock: number): number[] {
 
                                         <div class="mt-4 sm:mt-0 sm:pr-9">
                                             <div class="inline-grid w-full max-w-16 grid-cols-1">
-                                                <select
+                                                <input
+                                                    type="number"
                                                     :id="`quantity-${cartItem.id}`"
                                                     :name="`quantity-${cartItem.id}`"
                                                     :aria-label="`Quantity, ${cartItem.product.name}`"
-                                                    v-model="quantityForms[cartItem.id].quantity"
-                                                    @change="updateQuantity(cartItem)"
+                                                    v-model.number="quantityForms[cartItem.id].quantity"
+                                                    @input="debouncedUpdateQuantity(cartItem)"
                                                     :disabled="quantityForms[cartItem.id].processing"
-                                                    class="col-start-1 row-start-1 cursor-pointer appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-gray-600 sm:text-sm/6"
-                                                >
-                                                    <option
-                                                        v-for="option in generateQuantityOptions(cartItem.product.stock)"
-                                                        :key="option"
-                                                        :value="option"
-                                                    >
-                                                        {{ option }}
-                                                    </option>
-                                                </select>
-                                                <ChevronDown
-                                                    class="col-start-1 row-start-1 mr-2 size-5 cursor-pointer self-center justify-self-end text-gray-500 sm:size-4"
-                                                    aria-hidden="true"
+                                                    class="col-start-1 row-start-1 appearance-none rounded-md border border-gray-300 py-1.5 pl-3 pr-3 text-base text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                                    min="1"
                                                 />
                                             </div>
 
