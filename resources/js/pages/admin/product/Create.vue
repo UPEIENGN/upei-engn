@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import ImageInput from '@/components/ImageInput.vue';
 import InputError from '@/components/InputError.vue';
+import PromoCodeInput from '@/components/PromoCodeInput.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
 import { Textarea } from '@/components/ui/textarea';
-import PromoCodeInput from '@/components/PromoCodeInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
@@ -37,7 +37,7 @@ const form = useForm({
     colors: [],
     sizes: [],
     images: [],
-    promo_codes: []
+    promo_codes: [],
 });
 
 const submit = () => {

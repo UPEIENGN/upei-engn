@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Cart, CartItem, Society } from '@/types';
 import { Head, InertiaForm, Link, router, useForm } from '@inertiajs/vue3';
+import { useDebounceFn } from '@vueuse/core';
 import { LoaderCircle, X } from 'lucide-vue-next';
 import { computed, onBeforeMount, ref } from 'vue';
-import { useDebounceFn } from '@vueuse/core';
-import InputError from '@/components/InputError.vue';
-import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 
 interface Props {
     society: Society;
@@ -75,7 +75,11 @@ function checkout() {
             <main class="mx-auto max-w-2xl px-4 pt-16 pb-24 sm:px-6 lg:max-w-7xl lg:px-8">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
 
-                <form @submit.prevent="checkout" v-if="cart.items.length > 0" class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+                <form
+                    @submit.prevent="checkout"
+                    v-if="cart.items.length > 0"
+                    class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16"
+                >
                     <section aria-labelledby="cart-heading" class="lg:col-span-7">
                         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
@@ -181,7 +185,11 @@ function checkout() {
                         </div>
 
                         <div class="mt-6">
-                            <Button type="submit"  :disabled="form.processing" class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden">
+                            <Button
+                                type="submit"
+                                :disabled="form.processing"
+                                class="w-full cursor-pointer rounded-md border border-transparent bg-gray-600 px-4 py-3 text-base font-medium text-white shadow-xs hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50 focus:outline-hidden"
+                            >
                                 <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                                 Checkout
                             </Button>

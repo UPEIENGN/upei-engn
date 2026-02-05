@@ -65,11 +65,7 @@ const removePromoCode = (index: number) => {
     <div class="grid gap-2">
         <Label>Promo Codes</Label>
         <div class="space-y-4">
-            <div
-                v-for="(promo, index) in modelValue"
-                :key="index"
-                class="flex items-center space-x-2 rounded-md border p-2"
-            >
+            <div v-for="(promo, index) in modelValue" :key="index" class="flex items-center space-x-2 rounded-md border p-2">
                 <div class="flex-1">
                     <p class="font-medium">{{ promo.code }}</p>
                     <p class="text-sm text-gray-500">
@@ -82,23 +78,16 @@ const removePromoCode = (index: number) => {
             </div>
             <div class="flex items-end gap-4">
                 <div class="grid flex-1 gap-2">
-                    <Label>New  Code</Label>
+                    <Label>New Code</Label>
                     <Input v-model="newCode" placeholder="Promo Code" @keyup.enter="addPromoCode" />
                 </div>
                 <div class="grid gap-2">
                     <Label>Value</Label>
-                    <Input
-                        v-model.number="newValue"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        placeholder="0.00"
-                        @keyup.enter="addPromoCode"
-                    />
+                    <Input v-model.number="newValue" type="number" step="0.01" min="0" placeholder="0.00" @keyup.enter="addPromoCode" />
                 </div>
                 <div class="grid gap-2">
                     <Label>Type</Label>
-                    <RadioGroup v-model="newType" default-value="amount" class="flex gap-4 h-9">
+                    <RadioGroup v-model="newType" default-value="amount" class="flex h-9 gap-4">
                         <div class="flex items-center space-x-2">
                             <RadioGroupItem id="type-amount" value="amount" />
                             <Label for="type-amount">Amount</Label>
@@ -118,5 +107,3 @@ const removePromoCode = (index: number) => {
         <InputError :message="error" />
     </div>
 </template>
-
-

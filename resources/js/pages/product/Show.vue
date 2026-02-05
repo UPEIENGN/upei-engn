@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import InputError from '@/components/InputError.vue';
 import SocietyLayout from '@/layouts/society/SocietyLayout.vue';
 import { Product, Society } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { Minus, Plus } from 'lucide-vue-next';
-import InputError from '@/components/InputError.vue';
 
 interface Props {
     society: Society;
