@@ -73,7 +73,7 @@ export function useAppearance() {
         }
     });
 
-    function updateAppearance(value: Appearance) {
+    function updateAppearance() {
         appearance.value = 'light';
 
         // Store in localStorage for client-side persistence...
