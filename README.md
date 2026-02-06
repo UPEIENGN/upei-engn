@@ -69,7 +69,7 @@ This is a Laravel application for the UPEI Engineering Society, built with a mod
       composer run dev
     ```
 
-    Access the application at `http://localhost:8000` (or the URL specified by `php artisan serve`).
+    Access the application at `http://localhost:8000` (or the URL specified by `composer run dev`).
 
 8.  **Run Migrations:**
 
