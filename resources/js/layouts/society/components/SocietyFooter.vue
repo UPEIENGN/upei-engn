@@ -80,7 +80,7 @@ const socials = [
                     </a>
                 </template>
             </div>
-            <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">&copy; 2025 UPEI Engineering Society. All rights reserved.</p>
+            <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">&copy; 2026 UPEI Engineering Society. All rights reserved.</p>
         </div>
     </footer>
 </template>
